@@ -9,7 +9,8 @@ const config = {
   entry: ['react-hot-loader/patch', './src/index.js'],
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js'
+    filename: 'bundle.js',
+    publicPath: '/'
   },
   module: {
     rules: [
@@ -81,7 +82,8 @@ const config = {
   ],
   devServer: {
     contentBase: './dist',
-    port: process.env.APP_ROOT_PORT
+    port: process.env.APP_ROOT_PORT,
+    historyApiFallback: true
   }
 };
 

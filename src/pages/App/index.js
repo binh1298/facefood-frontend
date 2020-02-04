@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Login from '../Login';
 import Home from '../Home';
 import Register from '../Register';
@@ -9,7 +9,7 @@ import { hot } from 'react-hot-loader/root';
 class App extends React.Component {
   render() {
     return (
-      <Router>
+      <BrowserRouter>
         <Navigation />
         <div>
           {/* A <Switch> looks through its children <Route>s and
@@ -26,7 +26,7 @@ class App extends React.Component {
             </Route>
           </Switch>
         </div>
-      </Router>
+      </BrowserRouter>
     );
   }
 }
