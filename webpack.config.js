@@ -1,12 +1,12 @@
 const webpack = require('webpack');
 const path = require('path');
+const dotenv = require('dotenv');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+dotenv.config();
+
 const config = {
-  entry: [
-    'react-hot-loader/patch',
-    './src/index.js'
-  ],
+  entry: ['react-hot-loader/patch', './src/index.js'],
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js'
@@ -20,19 +20,12 @@ const config = {
       },
       {
         test: /\.css$/,
-        use: [
-          'style-loader',
-          'css-loader'
-        ],
+        use: ['style-loader', 'css-loader'],
         exclude: /\.module\.css$/
       },
       {
         test: /\.scss$/,
-        use: [
-          'style-loader',
-          'css-loader',
-          'sass-loader'
-        ]
+        use: ['style-loader', 'css-loader', 'sass-loader']
       },
       {
         test: /\.svg$/,
@@ -66,25 +59,30 @@ const config = {
     ]
   },
   resolve: {
-    extensions: [
-      '.js',
-      '.jsx'
-    ],
+    extensions: ['.js', '.jsx'],
     alias: {
       'react-dom': '@hot-loader/react-dom'
     }
   },
-  devServer: {
-    contentBase: './dist'
-  },
   plugins: [
     new HtmlWebpackPlugin({
-        template: require('html-webpack-template'),
-        inject: false,
-        appMountId: 'app',
-        filename: 'index.html'
-      })
-  ]
+      template: require('html-webpack-template'),
+      inject: false,
+      appMountId: 'app',
+      filename: 'index.html'
+    }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+        APP_ROOT_PORT: JSON.stringify(process.env.APP_ROOT_PORT),
+        APP_ROOT_URL: JSON.stringify(process.env.APP_ROOT_URL)
+      }
+    })
+  ],
+  devServer: {
+    contentBase: './dist',
+    port: process.env.APP_ROOT_PORT
+  }
 };
 
 module.exports = config;
