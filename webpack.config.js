@@ -76,7 +76,8 @@ const config = {
       'process.env': {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV),
         APP_ROOT_PORT: JSON.stringify(process.env.APP_ROOT_PORT),
-        APP_ROOT_URL: JSON.stringify(process.env.APP_ROOT_URL)
+        APP_ROOT_URL: JSON.stringify(process.env.APP_ROOT_URL),
+        API_ROOT_URL: JSON.stringify(process.env.API_ROOT_URL)
       }
     })
   ],
