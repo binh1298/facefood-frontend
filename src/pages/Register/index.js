@@ -20,16 +20,20 @@ export default function Register() {
     setPassword(e.target.value);
   }
 
-  function submitForm(e) {
+  async function submitForm(e) {
     e.preventDefault();
-    post('/login', { email, password }, {}, { 'Content-Type': 'application/x-www-form-urlencoded' })
-      .then(res => {
-        // cb(res.headers.authorization.replace('Bearer  ', ''));
-        console.error('hahaha');
-      })
-      .catch(() => {
-        console.error('Invalid Username or Password');
-      });
+    const res = await post(
+      '/register',
+      { email, password },
+      {},
+      { 'Content-Type': 'application/x-www-form-urlencoded' }
+    );
+    if (res) {
+      // cb(res.headers.authorization.replace('Bearer  ', ''));
+      console.error('hahaha');
+    } else {
+      console.error('Invalid Username or Password');
+    }
   }
   return (
     <React.Fragment>
