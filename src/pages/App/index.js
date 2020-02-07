@@ -1,10 +1,10 @@
+import { hot } from 'react-hot-loader/root';
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Login from '../Login';
 import Home from '../Home';
 import Register from '../Register';
 import Navigation from '../../components/navigation';
-import { hot } from 'react-hot-loader/root';
 
 class App extends React.Component {
   render() {

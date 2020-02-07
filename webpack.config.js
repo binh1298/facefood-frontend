@@ -8,7 +8,7 @@ dotenv.config();
 const config = {
   entry: ['react-hot-loader/patch', './src/index.js'],
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, '/dist'),
     filename: 'bundle.js',
     publicPath: '/'
   },
@@ -67,10 +67,7 @@ const config = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: require('html-webpack-template'),
-      inject: false,
-      appMountId: 'app',
-      filename: 'index.html'
+      template: './src/index.html'
     }),
     new webpack.DefinePlugin({
       'process.env': {
@@ -84,6 +81,7 @@ const config = {
   devServer: {
     contentBase: './dist',
     port: process.env.APP_ROOT_PORT,
+    hot: true,
     historyApiFallback: true
   }
 };
