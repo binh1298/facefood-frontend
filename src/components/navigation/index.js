@@ -15,7 +15,7 @@ export default function Navigation() {
           <Link to="/register">Register</Link>
         </li>
         <li>
-          <Link to="/posts">Posts</Link>
+          <Link to="/searchpost">Search Post</Link>
         </li>
       </ul>
     </nav>

@@ -5,7 +5,7 @@ import Login from '../Login';
 import Home from '../Home';
 import Register from '../Register';
 import Navigation from '../../components/navigation';
-
+import Posts from '../Posts'
 class App extends React.Component {
   render() {
     return (
@@ -20,6 +20,9 @@ class App extends React.Component {
             </Route>
             <Route path="/register">
               <Register />
+            </Route>
+            <Route path="/searchpost">
+              <Posts />
             </Route>
             <Route path="/">
               <Home />

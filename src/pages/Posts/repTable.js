@@ -10,14 +10,7 @@ export default class RepTable extends Component {
     }
   }
   async componentDidMount() {
-    const text = this.props.text;
-    const str = "https://www.themealdb.com/api/json/v1/1/search.php?f=";
-    fetch((str + text))
-      .then(response => response.json())
-      .then((response) => console.log(response))
-      .then((response) => this.setState(
-        { item: response }
-      ))
+    // ???
   }
   async componentDidUpdate() {
     const text = this.props.text;
@@ -27,8 +20,6 @@ export default class RepTable extends Component {
       .then((response) => this.setState(
         { item: response }
       ))
-      .then((response) => console.log(response))
-
   }
   handleChange(e) {
     this.props.onTextChange(e.target.value);
