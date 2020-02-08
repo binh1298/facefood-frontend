@@ -1,4 +1,4 @@
-import axios from 'axios';
+import Axios from 'axios';
 import objectAssign from 'object-assign';
 import { API_ROOT_URL } from '../configurations';
 export const getHeaders = () => {
@@ -9,7 +9,7 @@ export const getHeaders = () => {
 };
 
 export const request = (endpoint, method, headers = {}, params = {}, body = {}) => {
-  return axios({
+  return Axios({
     url: API_ROOT_URL + endpoint,
     method: method,
     headers: objectAssign(getHeaders(), headers),

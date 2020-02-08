@@ -1,3 +1,4 @@
+import { hot } from 'react-hot-loader/root';
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Login from '../Login';
