@@ -7,7 +7,7 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: '#000000',
   },
   item: {
-    color: '#FFFFFF',
+    color: theme.palette.primary.main,
     textDecoration: 'none'
   }
 }));
