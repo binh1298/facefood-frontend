@@ -1,4 +1,12 @@
 import React from 'react';
+import Paper from '@material-ui/core/Paper';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Button from '@material-ui/core/Button';
 
 class NavBar extends React.Component {
 
@@ -27,19 +35,25 @@ class UserTable extends React.Component {
   render() {
     return (
       <div id="listUser">
-        <table>
-          <tr>
-            <th>Name</th>
-            <th>UserName</th>
-            <th>Follower</th>
-            <th>Post</th>
-            <th>Total Likes</th>
-            <th>Total Comments</th>
-            <th>Role</th>
-            <th>Action</th>
-          </tr>
-          {this.getData()}
-        </table>
+        <TableContainer component={Paper}>
+          <Table aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell>Name</TableCell>
+                <TableCell>UserName</TableCell>
+                <TableCell>Follower</TableCell>
+                <TableCell>Post</TableCell>
+                <TableCell>Total Likes</TableCell>
+                <TableCell>Total Comments</TableCell>
+                <TableCell>Role</TableCell>
+                <TableCell>Action</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {getData()}
+            </TableBody>
+          </Table>
+        </TableContainer>
       </div>
     );
   }
@@ -48,16 +62,20 @@ class UserTable extends React.Component {
 class User extends React.Component {
   render() {
     return (
-      <tr>
-        <td>{this.props.Name}</td>
-        <td>{this.props.UserName}</td>
-        <td>{this.props.Follower}</td>
-        <td>{this.props.Post}</td>
-        <td>{this.props.TotalLikes}</td>
-        <td>{this.props.TotalComments}</td>
-        <td>{this.props.Role}</td>
-        <td>BAN</td>
-      </tr>
+      <TableRow>
+        <TableCell><a href="#">{this.props.Name}</a></TableCell>
+        <TableCell>{this.props.UserName}</TableCell>
+        <TableCell>{this.props.Follower}</TableCell>
+        <TableCell>{this.props.Post}</TableCell>
+        <TableCell>{this.props.TotalLikes}</TableCell>
+        <TableCell>{this.props.TotalComments}</TableCell>
+        <TableCell>{this.props.Role}</TableCell>
+        <TableCell>
+          <Button variant="contained" color="secondary" disableElevation>
+            BAN
+          </Button>
+        </TableCell>
+      </TableRow>
     );
   }
 }
@@ -67,7 +85,7 @@ export default function ListUser() {
     <div>
       <NavBar />
       <SearchBar />
-      <UserTable/>
+      <UserTable />
     </div>
   );
 }
@@ -76,8 +94,8 @@ export default function ListUser() {
 function Data() {
   var user1 = { Name: "duc", UserName: "duc123", Follower: "20", Post: "1", TotalLikes: "1", TotalComments: "1", Role: "member" }
   var user2 = { Name: "binh", UserName: "binh6969", Follower: "50000", Post: "50", TotalLikes: "2000", TotalComments: "2501", Role: "member" }
-  var user3 = { Name: "tuan anh", UserName: "tuananhphicong15", Follower: "4500", Post: "700", TotalLikes: "105", TotalComments: "", Role: "member" }
-  var user4 = { Name: "loc", UserName: "loku542", Follower: "", Post: "600", TotalLikes: "90", TotalComments: "12", Role: "member" }
+  var user3 = { Name: "tuan anh", UserName: "tuananhphicong15", Follower: "4500", Post: "700", TotalLikes: "105", TotalComments: "900", Role: "member" }
+  var user4 = { Name: "loc", UserName: "loku542", Follower: "50", Post: "600", TotalLikes: "90", TotalComments: "12", Role: "member" }
   let listUser = [user1, user2, user3, user4];
   return listUser;
 }

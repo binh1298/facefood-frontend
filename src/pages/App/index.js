@@ -6,8 +6,6 @@ import Home from '../Home';
 import Register from '../Register';
 import Navigation from '../../components/navigation';
 import ListUser from '../ListUser';
-import { hot } from 'react-hot-loader/root';
-
 class App extends React.Component {
   render() {
     return (
