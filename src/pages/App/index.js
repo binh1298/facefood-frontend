@@ -4,6 +4,7 @@ import Login from '../Login';
 import Home from '../Home';
 import Register from '../Register';
 import Navigation from '../../components/navigation';
+import ListUser from '../ListUser';
 import { hot } from 'react-hot-loader/root';
 
 class App extends React.Component {
@@ -23,6 +24,9 @@ class App extends React.Component {
             </Route>
             <Route path="/">
               <Home />
+            </Route>
+            <Route path="/listUser">
+              <ListUser />
             </Route>
           </Switch>
         </div>
