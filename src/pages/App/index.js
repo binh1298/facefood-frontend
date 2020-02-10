@@ -4,7 +4,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Login from '../Login';
 import Home from '../Home';
 import Register from '../Register';
-import Navigation from '../../components/navigation';
+import Navigation from '../../components/Navigation';
 import { ThemeProvider } from '@material-ui/core/styles';
 import theme from '../../utils/theme';
 
