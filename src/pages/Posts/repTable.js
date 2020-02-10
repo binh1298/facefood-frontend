@@ -4,7 +4,6 @@ import { TextField, Typography, FormControl, InputLabel, Grid, Button, Table, Ta
 export default class RepTable extends Component {
   constructor(props) {
     super(props),
-      this.handleChange = this.handleChange.bind(this);
     this.state = {
       'item': '',
     }
@@ -20,10 +19,6 @@ export default class RepTable extends Component {
       .then((response) => this.setState(
         { item: response }
       ))
-  }
-  handleChange(e) {
-    this.props.onTextChange(e.target.value);
-
   }
   render() {
     return (
