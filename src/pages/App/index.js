@@ -7,11 +7,13 @@ import Register from '../Register';
 import Navigation from '../../components/navigation';
 import { ThemeProvider } from '@material-ui/core/styles';
 import theme from '../../utils/theme';
+import { Toolbar } from '@material-ui/core';
 
 class App extends React.Component {
   render() {
     return (
       <ThemeProvider theme={theme}>
+        <Toolbar></Toolbar>
         <BrowserRouter>
           <Navigation />
           <div>
