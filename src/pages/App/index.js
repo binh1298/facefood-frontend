@@ -4,6 +4,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Login from '../Login';
 import Home from '../Home';
 import Register from '../Register';
+import SearchPost from '../SearchPost'
 import Navigation from '../../components/navigation';
 import { ThemeProvider } from '@material-ui/core/styles';
 import theme from '../../utils/theme';
@@ -25,6 +26,9 @@ class App extends React.Component {
               </Route>
               <Route path="/register">
                 <Register />
+              </Route>
+              <Route path="/searchpost">
+                <SearchPost/>
               </Route>
               <Route path="/">
                 <Home />
