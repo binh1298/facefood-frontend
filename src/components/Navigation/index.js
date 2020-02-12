@@ -24,9 +24,6 @@ export default function Navigation() {
   return (
     <AppBar className={classes.root} position="static">
       <Toolbar>
-        <Tabs>
-      
-        </Tabs>
         <Link className={classes.item} to="/">Home</Link>
         <Link className={classes.item} to="/login">Login</Link>
         <Link className={classes.item} to="/register">Register</Link>
