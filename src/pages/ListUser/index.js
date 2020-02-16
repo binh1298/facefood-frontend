@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, Fragment } from 'react';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -9,20 +9,35 @@ import TableRow from '@material-ui/core/TableRow';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import theme from '../../utils/theme.js'
-
+import TextField from '@material-ui/core/TextField';
+import { Grid } from '@material-ui/core';
 const useStyles = makeStyles(theme => ({
   root: {
     '& > *': {
-      margin: theme.spacing(1),
+      margin: theme.spacing(0),
+
     },
   },
 }));
+// function handleSearch(txtSearch) {
+
+// }
 
 function searchBar() {
+  const classes = useStyles;
+  const [txtSearch, setTxtSearch] = useState('');
+
+  async function handleChangeTxtSearch(e) {
+    await setTxtSearch(e.target.value);
+    // await handleSearch(txtSearch)
+  }
+
   return (
-    <div id="searchbar">
-      <h1>SEARCH BAR</h1>
-    </div>
+    <Fragment>
+      <Grid item xs={12}>
+        <TextField label="Search..." value={txtSearch} onChange={handleChangeTxtSearch} />
+      </Grid>
+    </Fragment>
   );
 }
 
@@ -57,7 +72,7 @@ function userRow(user) {
   const classes = useStyles();
   let actionButton;
   if (user.Status == 'Banned') {
-    actionButton =<Button  variant="contained"  color="primary">UNBAN</Button>;
+    actionButton = <Button variant="contained" color="primary">UNBAN</Button>;
   } else {
     actionButton = <Button variant="contained" color="secondary" >BAN</Button>;
   }
@@ -96,9 +111,13 @@ function Data() {
   return listUser;
 }
 
-function getData() {
+function getData(txtSearch) {
   let userList = Data();
 
+  // userList.filter((user) => {
+  //   user.toLowerCase().search(
+  //     txtSearch.toLowerCase()) !== -1;
+  // });
 
   const userComponents = userList.map((user) => userRow(user));
   return userComponents;
