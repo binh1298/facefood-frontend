@@ -19,7 +19,7 @@ export default function SearchBar(props) {
         <Grid item xs={1}>
           <Typography variant="h6">Category</Typography>
         </Grid>
-        <Grid  item xs={3} >
+        <Grid item xs={3} >
           <TextField color="primary" size="small" variant="outlined" placeholder="fish, breakfast, ect."></TextField>
         </Grid>
       </Grid>

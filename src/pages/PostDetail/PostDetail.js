@@ -1,6 +1,6 @@
-import React, { Fragment } from 'react';
+import { Box, Button, Container, Grid, Link, makeStyles, Typography } from '@material-ui/core';
+import React from 'react';
 import { StepCard } from './StepCard';
-import { makeStyles, useTheme, Container, Grid, Card, CardContent, CardHeader, Typography, Link, Button, Divider, Box } from '@material-ui/core';
 
 const useStyle = makeStyles(theme => ({
   root: {
@@ -75,7 +75,6 @@ const cmt = [
 
 
 export default function PostDetail(props) {
-  const theme = useTheme();
   const classes = useStyle();
 
   const listCmt = cmt.map((x) => {
