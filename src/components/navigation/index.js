@@ -13,9 +13,6 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-
-
-
 export default function Navigation() {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
@@ -51,6 +48,12 @@ export default function Navigation() {
             className={classes.item}
             component={RouterLink}
             to="/searchpost"
+          ></Tab>
+          <Tab
+            label="Post Detail (Test)"
+            className={classes.item}
+            component={RouterLink}
+            to="/postdetail"
           ></Tab>
         </Tabs>
       </Toolbar>

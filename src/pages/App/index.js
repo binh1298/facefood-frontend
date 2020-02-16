@@ -9,6 +9,7 @@ import Navigation from '../../components/navigation';
 import { ThemeProvider } from '@material-ui/core/styles';
 import theme from '../../utils/theme';
 import { Toolbar } from '@material-ui/core';
+import PostDetail from '../PostDetail'
 
 class App extends React.Component {
   render() {
@@ -29,6 +30,9 @@ class App extends React.Component {
               </Route>
               <Route path="/searchpost">
                 <SearchPost/>
+              </Route>
+              <Route path="/postdetail">
+                <PostDetail/>
               </Route>
               <Route path="/">
                 <Home />
