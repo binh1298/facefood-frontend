@@ -1,9 +1,14 @@
 import React, { useState, Fragment } from 'react';
-import { Card, CardMedia, Typography, CardContent, makeStyles, MobileStepper, Button } from "@material-ui/core";
+import { Card, CardMedia, Typography, CardContent, makeStyles, MobileStepper, Button, Container } from "@material-ui/core";
 
 const useStyle = makeStyles(theme => ({
   root: {
-    maxWidth: "100%"
+    maxHeight: "70%",
+  },
+  card: {
+    maxWidth: "100%",
+    innerHeight: "100%",
+    display: "inline-block",
   },
   media: {
     height: 0,
@@ -11,8 +16,13 @@ const useStyle = makeStyles(theme => ({
     display: "flex",
   },
   content: {
-    display: "flex",
+    marginBottom: "10%",
+    display: "inline-block",
     maxWidth: "100%",
+    height: "40%",
+  },
+  stepper:{
+    
   }
 }));
 
@@ -20,7 +30,7 @@ export function StepCard(props) {
 
   const classes = useStyle();
 
-  const step = props.step;
+  const  step = props.step;
   const [activeStep, setActiveStep] = useState(0);
   const maxStep = step.length;
 
@@ -36,8 +46,8 @@ export function StepCard(props) {
 
 
   return (
-    <Fragment>
-      <Card className={classes.root}>
+    <Container className={classes.root}>
+      <Card className={classes.card}>
         <CardMedia className={classes.media}
           image={step[activeStep].img}
           title={step[activeStep].title}
@@ -48,7 +58,8 @@ export function StepCard(props) {
           </Typography>
         </CardContent>
       </Card>
-      <MobileStepper
+      <MobileStepper className={classes.stepper}
+        
         steps={maxStep}
         position="static"
         variant="text"
@@ -64,6 +75,6 @@ export function StepCard(props) {
           </Button>
         }
       />
-    </Fragment>
+    </Container>
   )
 }

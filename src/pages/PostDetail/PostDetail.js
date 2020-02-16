@@ -1,24 +1,33 @@
 import React, { Fragment } from 'react';
 import { StepCard } from './StepCard';
-import { makeStyles, useTheme, Container, Grid, Card, CardContent, CardHeader, Typography, Link, Button } from '@material-ui/core';
+import { makeStyles, useTheme, Container, Grid, Card, CardContent, CardHeader, Typography, Link, Button, Divider, Box } from '@material-ui/core';
 
 const useStyle = makeStyles(theme => ({
   root: {
     marginLeft: "10%",
-    maxWidth: "80%",
+    maxWidth: "75%",
+    maxHeight: "75%",
+    height: "500px",
   },
-  comment: {
+  right: {
     marginTop: "15%",
+    height: "50px",
   },
-  card: {
+  left: {
     marginTop: "8%",
   },
   username: {
     color: "primary",
   },
-  removeButton:{
+  removeButton: {
     marginTop: "1%",
     float: "right",
+  },
+  summary: {
+    right: "0px",
+  },
+  comment: {
+    paddingTop: "10%",
   }
 }));
 
@@ -31,11 +40,11 @@ const detail = {
 
 const step = [
   {
-    img: "https://food.fnr.sndimg.com/content/dam/images/food/fullset/2007/1/2/0/valentines_steak.jpg.rend.hgtvcom.826.620.suffix/1557859049553.jpeg",
+    img: "https://www.thespruceeats.com/thmb/Yie_jVHJlEVu5hack-nZz6wXjeM=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/Steak2-5ac2c5f504d1cf0037cb2f0e.jpg",
     content: "Once you have your steak, lightly coat it with oil. Choose an oil with a high smoke point, as oil breaks down at high temperatures. Oils like avocado oil can take a much higher temperature than most.",
   },
   {
-    img: "https://food.fnr.sndimg.com/content/dam/images/food/fullset/2007/1/2/0/valentines_steak.jpg.rend.hgtvcom.826.620.suffix/1557859049553.jpeg",
+    img: "https://www.thespruceeats.com/thmb/sWtv6bBm5seBrOnnPOVjCiC_A3A=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/Steak7-5ac2c668c673350037bf955b.jpg",
     content: "Now it's time to season the steak. Typically, this includes coarsely ground black pepper and a coarse sea or Kosher salt. The oil is going to hold the seasonings in place and if you choose to make a sauce in the pan later, this will provide the extra flavor.",
   },
   {
@@ -46,21 +55,22 @@ const step = [
 
 const cmt = [
   {
-    name: "Person a",
-    text: "2Lorem ipsum dolor sit amet, nullam posuere nec",
+    name: "Selina",
+    text: "Now principles discovered off increasing how reasonably middletons men. Add seems out man met plate court sense. His joy she worth truth given. All year feet led view went sake",
   },
   {
-    name: "Person b",
-    text: "2Lorem ipsum dolor sit amet, nullam posuere nec. Neque mauris",
+    name: "Joseph B",
+    text: "Why end might ask civil again spoil.",
   },
   {
-    name: "Person c",
-    text: "2Lorem amet, nullam posuere nec. Neque mauris mauris, ac turpis nec",
+    name: "Liesje Noach",
+    text: "Omgeving er op afgetapt in plantage kapitaal baksteen bordeaux",
   },
   {
-    name: "Person d",
-    text: "2Lorem ipsum dolor sit amet, nullam posuere nec",
-  }
+    name: "Rino Saveria",
+    text: "Semplici volgersi hai sua indietro lei.",
+  },
+
 ]
 
 
@@ -70,7 +80,7 @@ export default function PostDetail(props) {
 
   const listCmt = cmt.map((x) => {
     return (
-      <Typography style={{paddingBottom: 4}}>
+      <Typography style={{ paddingBottom: 4 }}>
         <Link className={classes.username}>
           {x.name}:{' '}
         </Link>
@@ -81,17 +91,25 @@ export default function PostDetail(props) {
   });
   return (
     <Grid container className={classes.root} spacing={3}>
-      <Grid item xs={7} className={classes.card}>
+      <Grid item xs={7} className={classes.left}>
         <Typography variant="h3">
           {detail.title} <Button color="primary" variant="outlined" className={classes.removeButton}>Remove</Button>
         </Typography>
         <Typography variant="subtitle1">
           {detail.category}
         </Typography>
-          <StepCard detail={detail} step={step} />
+        <StepCard detail={detail} step={step} />
       </Grid>
-      <Grid item xs={5} className={classes.comment}>
-        {listCmt}
+      <Grid item xs={5} className={classes.right}>
+        <Container>
+          <Typography variant="h6" className={classes.summary}>
+            Likes: {detail.Likes}    Comments: 4
+        </Typography>
+        </Container>
+        <Box className={classes.comment}>
+          {listCmt}
+        </Box>
+
       </Grid>
     </Grid>
 
