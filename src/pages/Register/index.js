@@ -15,6 +15,7 @@ export default function Register() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+
   function handleEmailChange(e) {
     setEmail(e.target.value);
   }
@@ -37,16 +38,14 @@ export default function Register() {
 
   async function submitForm(e) {
     e.preventDefault();
-    const res = await post(
-      '/register',
-      { email, username, password, confirmPassword },
-      {},
-    )
-    if (res.success) {
-      console.error('Login successfully');
-    } else {
-      console.error(res.message);
-      console.error('Invalid Username or Password');
+    try {
+      const res = await post(
+        '/register',
+        { email, username, password, confirmPassword },
+        {},
+      )
+    } catch (error) {
+      console.error(error);
     }
   }
   return (

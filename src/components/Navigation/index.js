@@ -18,13 +18,16 @@ export default function Navigation() {
     <nav className={classes.root}>
       <ul >
         <li >
-          <Link className={classes.item} to="/">Home</Link>
+          <Link className={classes.item} to='/'>Home</Link>
         </li>
         <li>
-          <Link className={classes.item} to="/login">Login</Link>
+          <Link className={classes.item} to='/login'>Login</Link>
         </li>
         <li>
-          <Link className={classes.item} to="/register">Register</Link>
+          <Link className={classes.item} to='/register'>Register</Link>
+        </li>
+        <li>
+          <Link className={classes.item} to='/logout'>Logout</Link>
         </li>
       </ul>
     </nav>

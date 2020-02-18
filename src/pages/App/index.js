@@ -1,12 +1,10 @@
 import { hot } from 'react-hot-loader/root';
 import React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import Login from '../Login';
-import Home from '../Home';
-import Register from '../Register';
+import { BrowserRouter } from 'react-router-dom';
 import Navigation from '../../components/Navigation';
 import { ThemeProvider } from '@material-ui/core/styles';
 import theme from '../../utils/theme';
+import { Routes } from '../../routes';
 
 class App extends React.Component {
   render() {
@@ -14,21 +12,7 @@ class App extends React.Component {
       <ThemeProvider theme={theme}>
         <BrowserRouter>
           <Navigation />
-          <div>
-            {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
-            <Switch>
-              <Route path="/loginawdawdawd">
-                <Login />
-              </Route>
-              <Route path="/register">
-                <Register />
-              </Route>
-              <Route path="/">
-                <Home />
-              </Route>
-            </Switch>
-          </div>
+          {Routes}
         </BrowserRouter>
       </ThemeProvider>
     );
