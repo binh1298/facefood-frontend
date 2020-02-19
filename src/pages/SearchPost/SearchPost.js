@@ -3,35 +3,6 @@ import SearchBar from './SearchBar';
 import PostTable from './PostTable';
 import { Container } from '@material-ui/core';
 
-const list = [
-    {
-        title: "name a",
-        category: "title a",
-        step: "step a",
-        like: "10",
-        comment: "comment a",
-        creator: "post a",
-        isBanned: true,
-    },
-    {
-        title: "name b",
-        category: "title b",
-        step: "step b",
-        like: "10",
-        comment: "comment b",
-        creator: "post b",
-        isBanned: true,
-    },
-    {
-        title: "name c",
-        category: "title c",
-        step: "step c",
-        like: "10",
-        comment: "comment c",
-        creator: "post c",
-        isBanned: false,
-    }
-]
 
 
 export function SearchPost(props) {
@@ -48,7 +19,7 @@ export function SearchPost(props) {
     return (
         <Container>
             <SearchBar></SearchBar>
-            <PostTable str="" posts={list}></PostTable>
+            <PostTable></PostTable>
         </Container>
     );
 }

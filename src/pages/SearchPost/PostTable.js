@@ -1,41 +1,84 @@
-import { Button, Table, TableBody, TableCell, TableHead, TableRow, Link } from '@material-ui/core';
-import React from 'react';
+import { Button, Link, makeStyles, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@material-ui/core';
+import React, { useEffect, useState } from 'react';
+import { get } from '../../utils/ApiCaller';
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    marginLeft: '5px'
+  },
+  tableHead: {
+    backgroundColor: '#212121',
+
+    "& Typography": {
+      fontWeight: 'bold',
+      color: '#ffffff',
+
+    }
+  },
+  Link: {
+    fontWeight: "bold",
+  },
+  tableRow: {
+    "& span": {
+      fontWeight: "bold",
+      fontStyle: 'italic',
+    },
+  },
+  headerCell: {
+    color: 'fffdf9',
+  }
+}));
 
 const header = ["title", "category", "Step", "Like", "Comment", "Creator", "Action"]
 
 export default function PostTable(props) {
 
+  const classes = useStyles();
+  const [postData, setPostData] = useState([]);
+
   const listTitle = header.map((x) =>
-    <TableCell key={x}>{x}</TableCell>
+    <TableCell key={x} style={{ color: '#FAFAFA', }}  ><Typography>{x}</Typography></TableCell>
   );
 
-  const listPost = props.posts.map((x) => {
+  useEffect(() => {
+    get("/post/", {}, {})
+      .then(postList => {
+        const postComponent = postList.data.message.map(post => BodyContent(post)); // contain rendered table body with data
+        setPostData(postComponent);
+      })
+      .catch(e => {
+        console.log(e);
+      })
+  });
+
+  function BodyContent(post) {
     return (
-      <TableRow key={x.title}>
-        <TableCell><Link>{x.title}</Link></TableCell>
-        <TableCell>{x.category}</TableCell>
-        <TableCell>{x.step}</TableCell>
-        <TableCell>{x.like}</TableCell>
-        <TableCell>{x.comment}</TableCell>
-        <TableCell>{x.creator}</TableCell>
+      <TableRow key={post.post_id} hover className={classes.tableRow}>
+        <TableCell><Link to={'post/' + post.post_name}>{post.post_name}</Link></TableCell>
+        <TableCell>{post.post_name}</TableCell>
+        <TableCell>{post.post_name}</TableCell>
+        <TableCell>{post.post_name}</TableCell>
+        <TableCell>{post.post_name}</TableCell>
+        <TableCell>{post.post_name}</TableCell>
         <TableCell>
-          <Button variant="contained" color="primary">Remove</Button>
+          <Button variant="contained">Remove</Button>
         </TableCell>
       </TableRow>
     )
-  });
+  }
 
   return (
-    <Table>
-      <TableHead color="primary">
-        <TableRow>
-          {listTitle}
-        </TableRow>
-      </TableHead>
-      <TableBody>
-        {listPost}
-      </TableBody>
-    </Table>
-
+    <TableContainer component={Paper}>
+      <Table>
+        <TableHead className={classes.tableHead}>
+          <TableRow >
+            {listTitle}
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {postData}
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
 }

@@ -59,7 +59,7 @@ export default function Navigation() {
             label="Post Detail (Test)"
             className={classes.item}
             component={RouterLink}
-            to="/postdetail"
+            to="/post/:id"
           ></Tab>
         </Tabs>
       </Toolbar>

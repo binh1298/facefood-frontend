@@ -34,7 +34,7 @@ export const privateRoutes = [
     component: Posts,
   },
   {
-    path: '/posts/:id',
+    path: '/post/:id',
     name: 'postDetail',
     component: PostDetail,
   },
