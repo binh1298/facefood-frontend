@@ -53,7 +53,7 @@ export default function Navigation() {
             label="Search post"
             className={classes.item}
             component={RouterLink}
-            to="/searchpost"
+            to="/posts"
           ></Tab>
           <Tab
             label="Post Detail (Test)"
