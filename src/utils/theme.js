@@ -17,6 +17,22 @@ const theme = createMuiTheme({
       default: '#fff',
     },
   },
+  table:{
+    background:{
+      main:'#2A272A',
+    },
+  },
+  button:{
+    primary: {
+      main: '#F59C88',
+    },
+    secondary: {
+      main: '#FF525A',
+    },
+    error: {
+      main: red.A400,
+    },
+  }
 
 });
 

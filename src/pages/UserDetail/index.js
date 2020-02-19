@@ -9,7 +9,7 @@ const useStyles = makeStyles(theme => ({
   paper: {
     padding: theme.spacing(2),
     textAlign: 'center',
-    color: theme.palette.text.primary,
+    color: theme.palette.primary,
 
   },
   button: {
@@ -74,9 +74,6 @@ export default function UserDetail() {
       </div>
     </Fragment>
   );
-
-
-
 }
 
 async function getUserData() {
