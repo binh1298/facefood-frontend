@@ -10,6 +10,7 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import theme from '../../utils/theme';
 import { Toolbar } from '@material-ui/core';
 import PostDetail from '../PostDetail'
+import { Routes } from '../../routes';
 
 class App extends React.Component {
   render() {
@@ -18,27 +19,7 @@ class App extends React.Component {
         <Toolbar></Toolbar>
         <BrowserRouter>
           <Navigation />
-          <div>
-            {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
-            <Switch>
-              <Route path="/login">
-                <Login />
-              </Route>
-              <Route path="/register">
-                <Register />
-              </Route>
-              <Route path="/searchpost">
-                <SearchPost/>
-              </Route>
-              <Route path="/postdetail">
-                <PostDetail/>
-              </Route>
-              <Route path="/">
-                <Home />
-              </Route>
-            </Switch>
-          </div>
+          {Routes}
         </BrowserRouter>
       </ThemeProvider>
     );

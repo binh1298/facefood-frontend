@@ -3,7 +3,10 @@ const publicRuntimeConfig = {
 
   APP_ROOT_PORT: process.env.APP_ROOT_PORT,
   APP_ROOT_URL: process.env.APP_ROOT_URL,
-  API_ROOT_URL: process.env.API_ROOT_URL
+  API_ROOT_URL: process.env.API_ROOT_URL,
+  JWT_SECRET: process.env.JWT_SECRET,
+
+  LOCALSTORAGE_TOKEN_NAME: 'token',
 };
 
 export const {
@@ -11,7 +14,10 @@ export const {
 
   APP_ROOT_PORT,
   APP_ROOT_URL,
-  API_ROOT_URL
+  API_ROOT_URL,
+  JWT_SECRET,
+
+  LOCALSTORAGE_TOKEN_NAME
 } = publicRuntimeConfig;
 
 export default publicRuntimeConfig.NODE_ENV === 'production';

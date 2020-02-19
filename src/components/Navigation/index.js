@@ -9,7 +9,7 @@ const useStyles = makeStyles(theme => ({
   },
   item: {
     color: theme.palette.primary.main,
-    textDecoration: "none"
+    textDecoration: 'none',
   }
 }));
 
@@ -42,6 +42,12 @@ export default function Navigation() {
             className={classes.item}
             component={RouterLink}
             to="/login"
+          ></Tab>
+          <Tab
+            label="Logout"
+            className={classes.item}
+            component={RouterLink}
+            to="/logout"
           ></Tab>
           <Tab
             label="Search post"
