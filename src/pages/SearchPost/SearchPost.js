@@ -37,7 +37,7 @@ const list = [
 export function SearchPost(props) {
     const [searchName, setSearchName] = useState("");
     const [searchCategory, setSearchCategory] = useState("");
-
+    
     function handleSearchNameChange(e) {
         setSearchName(e.target.value);
     }
@@ -48,7 +48,7 @@ export function SearchPost(props) {
     return (
         <Container>
             <SearchBar></SearchBar>
-            <PostTable posts={list}></PostTable>
+            <PostTable str="" posts={list}></PostTable>
         </Container>
     );
 }

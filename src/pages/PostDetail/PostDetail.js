@@ -1,6 +1,7 @@
 import { Box, Button, Container, Grid, Link, makeStyles, Typography } from '@material-ui/core';
-import React from 'react';
+import React, { useState } from 'react';
 import { StepCard } from './StepCard';
+import { post, get } from '../../utils/ApiCaller';
 
 const useStyle = makeStyles(theme => ({
   root: {
@@ -86,8 +87,8 @@ export default function PostDetail(props) {
         {x.text}
       </Typography>
     );
-
   });
+
   return (
     <Grid container className={classes.root} spacing={3}>
       <Grid item xs={7} className={classes.left}>

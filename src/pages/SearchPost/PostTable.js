@@ -1,4 +1,4 @@
-import { Button, Table, TableBody, TableCell, TableHead, TableRow } from '@material-ui/core';
+import { Button, Table, TableBody, TableCell, TableHead, TableRow, Link } from '@material-ui/core';
 import React from 'react';
 
 const header = ["title", "category", "Step", "Like", "Comment", "Creator", "Action"]
@@ -12,7 +12,7 @@ export default function PostTable(props) {
   const listPost = props.posts.map((x) => {
     return (
       <TableRow key={x.title}>
-        <TableCell>{x.title}</TableCell>
+        <TableCell><Link>{x.title}</Link></TableCell>
         <TableCell>{x.category}</TableCell>
         <TableCell>{x.step}</TableCell>
         <TableCell>{x.like}</TableCell>

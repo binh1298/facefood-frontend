@@ -41,10 +41,7 @@ export function StepCard(props) {
   const handleBack = () => {
     setActiveStep(prevActiveStep => prevActiveStep - 1);
   };
-
-
-
-
+  
   return (
     <Container className={classes.root}>
       <Card className={classes.card}>
