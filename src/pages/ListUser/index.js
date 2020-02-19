@@ -3,6 +3,7 @@ import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
+import TableFooter from '@material-ui/core/TableFooter';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
@@ -10,57 +11,155 @@ import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import theme from '../../utils/theme.js'
 import TextField from '@material-ui/core/TextField';
-import { Grid } from '@material-ui/core';
+import { Grid, FormControl, InputLabel, NativeSelect, TablePagination } from '@material-ui/core';
+import { Link } from 'react-router-dom';
+import { get } from '../../utils/ApiCaller';
+import '../../pages/ListUser/ListUser.css';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+
 const useStyles = makeStyles(theme => ({
   root: {
-    '& > *': {
-      margin: theme.spacing(0),
-
+    marginLeft: '5px'
+  },
+  tableHead: {
+    backgroundColor: '#2A272A',
+    "& span": {
+      fontWeight: "bold",
+      color: "#C6C6C6",
+    }
+  },
+  Link: {
+    fontWeight: "bold",
+  },
+  tableRow: {
+    "& span": {
+      fontWeight: "bold",
+      fontStyle: 'italic',
     },
   },
-}));
-// function handleSearch(txtSearch) {
 
-// }
+}));
 
 function searchBar() {
-  const classes = useStyles;
+  const classes = useStyles();
   const [txtSearch, setTxtSearch] = useState('');
-
-  async function handleChangeTxtSearch(e) {
-    await setTxtSearch(e.target.value);
-    // await handleSearch(txtSearch)
+  const [isDelete, setIsDelete] = useState("");
+  const [role, setRole] = useState("");
+  function handleChangeTxtSearch(e) {
+    setTxtSearch(e.target.value);
+  }
+  function handleStatusChange(e) {
+    e.preventDefault();
+    setIsDelete(e.target.value);
+  }
+  function handleRoleChange(e) {
+    e.preventDefault();
+    setRole(e.target.value);
   }
 
   return (
     <Fragment>
-      <Grid item xs={12}>
-        <TextField label="Search..." value={txtSearch} onChange={handleChangeTxtSearch} />
+      <Grid container spacing={2} alignItems="flex-end" className={classes.root} >
+        <Grid item > <AccountCircle /></Grid><Grid item xs={4}><TextField
+          label="Search..."
+          fullWidth
+          value={txtSearch}
+          onChange={handleChangeTxtSearch} /></Grid>
+        <Grid item xs={1}>
+          <FormControl >
+            <InputLabel>Status</InputLabel>
+            <NativeSelect
+              value={isDelete}
+              onChange={handleStatusChange}
+            >
+              <option value=""></option>
+              <option value={false}>Active</option>
+              <option value={true}>Banned</option>
+            </NativeSelect>
+          </FormControl>
+        </Grid>
+        <Grid item xs={1}>
+          <FormControl >
+            <InputLabel>Role</InputLabel>
+            <NativeSelect
+              value={role}
+              onChange={handleRoleChange}
+            >
+              <option value=""></option>
+              <option value="Member">Member</option>
+              <option value="Admin">Admin</option>
+            </NativeSelect>
+          </FormControl>
+        </Grid>
+        <Grid item xs={2}>
+          <Button variant="contained" disableElevation>Search</Button>
+        </Grid>
+
       </Grid>
+
     </Fragment>
   );
 }
 
+function stableSort(array, comparator) {
+  const stabilizedThis = array.map((el, index) => [el, index]);
+  stabilizedThis.sort((a, b) => {
+    const order = comparator(a[0], b[0]);
+    if (order !== 0) return order;
+    return a[1] - b[1];
+  });
+  return stabilizedThis.map(el => el[0]);
+}
+
 function userTable() {
+  const classes = useStyles();
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = event => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
   return (
     <div id="listUser">
       <TableContainer component={Paper}>
         <Table aria-label="simple table">
-          <TableHead>
+          <TableHead className={classes.tableHead}>
             <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell>UserName</TableCell>
-              <TableCell>Follower</TableCell>
-              <TableCell>Post</TableCell>
-              <TableCell>Total Likes</TableCell>
-              <TableCell>Total Comments</TableCell>
-              <TableCell>Role</TableCell>
-              <TableCell>Action</TableCell>
+              <TableCell><span>Username</span></TableCell>
+              <TableCell><span>Fullname</span></TableCell>
+              <TableCell><span>Follower</span></TableCell>
+              <TableCell><span>Following</span></TableCell>
+              <TableCell><span>Post</span></TableCell>
+              <TableCell><span>Total Likes</span></TableCell>
+              <TableCell><span>Total Comments</span></TableCell>
+              <TableCell><span>Role</span></TableCell>
+              <TableCell><span>Action</span></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {getData()}
+            <TableRow><TableCell><Button onClick={getData}>get Data</Button></TableCell></TableRow>
+            {/*stableSort(rows, getComparator(order, orderBy)).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, index) =>{getData()}*/}
           </TableBody>
+          <TableFooter>
+            <TableRow>
+              <TablePagination
+                rowsPerPageOptions={[5, 10, 25]}
+                count={5}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                onChangePage={handleChangePage}
+                onChangeRowsPerPage={handleChangeRowsPerPage}
+              >
+
+              </TablePagination>
+            </TableRow>
+          </TableFooter>
         </Table>
       </TableContainer>
     </div>
@@ -71,20 +170,21 @@ function userTable() {
 function userRow(user) {
   const classes = useStyles();
   let actionButton;
-  if (user.Status == 'Banned') {
+  if (user.isDeleted == true) {
     actionButton = <Button variant="contained" color="primary">UNBAN</Button>;
   } else {
     actionButton = <Button variant="contained" color="secondary" >BAN</Button>;
   }
+  let url = "/users/" + user.username;
   return (
-    <TableRow>
-      <TableCell><a href="#">{user.Name}</a></TableCell>
-      <TableCell>{user.UserName}</TableCell>
-      <TableCell>{user.Follower}</TableCell>
-      <TableCell>{user.Post}</TableCell>
-      <TableCell>{user.TotalLikes}</TableCell>
-      <TableCell>{user.TotalComments}</TableCell>
-      <TableCell>{user.Role}</TableCell>
+    <TableRow hover className={classes.tableRow}>
+      <TableCell><Link to={url}>{user.fullname}</Link></TableCell>
+      <TableCell><span>{user.username}</span></TableCell>
+      <TableCell><span>{user.Follower}</span></TableCell>
+      <TableCell><span>{user.Post}</span></TableCell>
+      <TableCell><span>{user.TotalLikes}</span></TableCell>
+      <TableCell><span>{user.TotalComments}</span></TableCell>
+      <TableCell><span>{user.roleId}</span></TableCell>
       <TableCell>
         {actionButton}
       </TableCell>
@@ -95,30 +195,18 @@ function userRow(user) {
 export default function ListUser() {
   return (
     <section>
+      <br />
       {searchBar()}
+      <br />
       {userTable()}
     </section>
-  );
+  ); n
 }
 
-
-function Data() {
-  var user1 = { Name: "duc", UserName: "duc123", Follower: "20", Post: "1", TotalLikes: "1", TotalComments: "1", Role: "member", Status: "Banned" }
-  var user2 = { Name: "binh", UserName: "binh6969", Follower: "50000", Post: "50", TotalLikes: "2000", TotalComments: "2501", Role: "member", Status: "Active" }
-  var user3 = { Name: "tuan anh", UserName: "tuananhphicong15", Follower: "4500", Post: "700", TotalLikes: "105", TotalComments: "900", Role: "member", Status: "Active" }
-  var user4 = { Name: "loc", UserName: "loku542", Follower: "50", Post: "600", TotalLikes: "90", TotalComments: "12", Role: "member", Status: "Active" }
-  let listUser = [user1, user2, user3, user4];
-  return listUser;
-}
-
-function getData(txtSearch) {
-  let userList = Data();
-
-  // userList.filter((user) => {
-  //   user.toLowerCase().search(
-  //     txtSearch.toLowerCase()) !== -1;
-  // });
-
-  const userComponents = userList.map((user) => userRow(user));
-  return userComponents;
+async function getData(e) {
+  e.preventDefault();
+  const userlist = await get('/user/', {}, {});
+  const userComponent = userlist.data.message.map((user) => userRow(user));
+  console.log(userComponent);
+  //return userComponent;
 }

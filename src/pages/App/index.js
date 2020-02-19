@@ -8,6 +8,7 @@ import ListUser from '../ListUser';
 import Navigation from '../../components/Navigation';
 import { ThemeProvider } from '@material-ui/core/styles';
 import theme from '../../utils/theme';
+import UserDetail from '../UserDetail';
 
 class App extends React.Component {
   render() {
@@ -25,6 +26,9 @@ class App extends React.Component {
               </Route>
               <Route path="/listUser">
                 <ListUser />
+              </Route>
+              <Route path="/user">
+               <UserDetail/>
               </Route>
               <Route path="/">
                 <Home />

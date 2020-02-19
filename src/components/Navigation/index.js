@@ -30,21 +30,5 @@ export default function Navigation() {
         <Link className={classes.item} to="/listUser">List User</Link>
       </Toolbar>
     </AppBar>
-    // <nav className={classes.root}>
-    //   <ul >
-    //     <li >
-    //       <Link className={classes.item} to="/">Home</Link>
-    //     </li>
-    //     <li>
-    //       <Link className={classes.item} to="/login">Login</Link>
-    //     </li>
-    //     <li>
-    //       <Link className={classes.item} to="/register">Register</Link>
-    //     </li>
-    //     <li>0
-    //       <Link to="/listUser">List User</Link>
-    //     </li>
-    //   </ul>
-    // </nav>
   );
 }
