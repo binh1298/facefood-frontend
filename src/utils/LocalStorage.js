@@ -1,10 +1,9 @@
 class LocalStorageUtils {
-  getItem(key, defaultValue) {
+  getItem(key, defaultValue = '\"\"') {
     if (typeof localStorage !== 'undefined') {
       const item = localStorage.getItem(key) || defaultValue;
       return JSON.parse(item);
     }
-
     return 'undefined';
   }
 

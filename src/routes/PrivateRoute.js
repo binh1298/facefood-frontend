@@ -4,7 +4,7 @@ import LocalStorageUtils from '../utils/LocalStorage';
 import { LOCALSTORAGE_TOKEN_NAME } from '../configurations';
 export const PrivateRoute = ({ component, ...rest }) => {
   const token = LocalStorageUtils.getItem(LOCALSTORAGE_TOKEN_NAME);
-  if (token.length > 0) {
+  if (token && token.length > 0) {
     // TODO should check authorization here
     return <Route {...rest} component={component} />;
   }
