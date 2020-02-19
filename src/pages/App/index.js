@@ -9,6 +9,7 @@ import Navigation from '../../components/Navigation';
 import { ThemeProvider } from '@material-ui/core/styles';
 import theme from '../../utils/theme';
 import UserDetail from '../UserDetail';
+import { Routes } from '../../routes';
 
 class App extends React.Component {
   render() {
