@@ -29,12 +29,7 @@ export const privateRoutes = [
     component: Logout
   },
   {
-    path: '/',
-    name: 'home',
-    component: Home
-  },
-  {
-    path: '/listUser',
+    path: '/users',
     name: 'listUser',
     component: ListUser
   },
@@ -42,7 +37,12 @@ export const privateRoutes = [
     path: '/users/:id',
     name: 'userDetail',
     component: UserDetail
-  }
+  },
+  {
+    path: '/',
+    name: 'home',
+    component: Home
+  },
 ]
 
 export const Routes = (

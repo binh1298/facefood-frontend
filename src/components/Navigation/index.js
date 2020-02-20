@@ -1,33 +1,61 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import { Tabs,Tab } from '@material-ui/core';
+import React from "react";
+import { Link as RouterLink } from "react-router-dom";
+import { makeStyles } from "@material-ui/core/styles";
+import { Toolbar, Tabs, Tab, AppBar } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    backgroundColor: '#000000',
+    backgroundColor: "#000000"
   },
   item: {
     color: theme.palette.primary.main,
     textDecoration: 'none',
-    marginRight: theme.spacing(5),
   }
 }));
 
 export default function Navigation() {
   const classes = useStyles();
+  const [value, setValue] = React.useState(0);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  }
+
   return (
-    <AppBar className={classes.root} position="static">
-      <Toolbar>
-        <Link className={classes.item} to="/">Home</Link>
-        <Link className={classes.item} to="/login">Login</Link>
-        <Link className={classes.item} to="/register">Register</Link>
-        <Link className={classes.item} to="/listUser">List User</Link>
+    <AppBar className={classes.root}>
+      <Toolbar className={classes.root}>
+        <Tabs value={value} onChange={handleChange}>
+          <Tab
+            label="Home"
+            className={classes.item}
+            component={RouterLink}
+            to="/"
+          ></Tab>
+          <Tab
+            label="Register"
+            className={classes.item}
+            component={RouterLink}
+            to="/register"
+          ></Tab>
+          <Tab
+            label="Login"
+            className={classes.item}
+            component={RouterLink}
+            to="/login"
+          ></Tab>
+          <Tab
+            label="Logout"
+            className={classes.item}
+            component={RouterLink}
+            to="/logout"
+          ></Tab>
+          <Tab
+            label="List Users"
+            className={classes.item}
+            component={RouterLink}
+            to="/users"
+          ></Tab>
+        </Tabs>
       </Toolbar>
     </AppBar>
   );
