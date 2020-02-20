@@ -4,7 +4,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import theme from '../../utils/theme.js'
 import TextField from '@material-ui/core/TextField';
 import { Grid, FormControl, InputLabel, NativeSelect, TablePagination } from '@material-ui/core';
-import '../../pages/ListUser/ListUser.css';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 
 const useStyles = makeStyles(theme => ({

@@ -12,7 +12,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Grid, FormControl, InputLabel, NativeSelect, TablePagination } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { get } from '../../utils/ApiCaller';
-import '../../pages/ListUser/ListUser.css';
 import searchBar from '../../components/UserSearchBar/index.js';
 
 const useStyles = makeStyles(theme => ({

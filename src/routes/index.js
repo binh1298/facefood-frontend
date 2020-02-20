@@ -6,6 +6,8 @@ import Logout from '../pages/Logout'
 import { Switch } from 'react-router-dom';
 import { PublicRoute } from './PublicRoute';
 import { PrivateRoute } from './PrivateRoute';
+import ListUser from '../pages/ListUser';
+import UserDetail from '../pages/UserDetail';
 
 export const publicRoutes = [
   {
@@ -30,6 +32,16 @@ export const privateRoutes = [
     path: '/',
     name: 'home',
     component: Home
+  },
+  {
+    path: '/listUser',
+    name: 'listUser',
+    component: ListUser
+  },
+  {
+    path: '/users/:id',
+    name: 'userDetail',
+    component: UserDetail
   }
 ]
 
