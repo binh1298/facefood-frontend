@@ -14,9 +14,16 @@ import { Link } from 'react-router-dom';
 import { get } from '../../utils/ApiCaller';
 import searchBar from '../../components/UserSearchBar/index.js';
 
+
 const useStyles = makeStyles(theme => ({
   root: {
-    marginLeft: '5px'
+    "& > *":{
+      width:'95%',
+    },
+    width:'100%',
+   justifyContent:'center',
+   backgroundColor:theme.palette.primary.main,
+
   },
   tableHeadRow: {
     backgroundColor: theme.table.background.main,
@@ -69,7 +76,7 @@ function userTable() {
   });
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, userData.length - page * rowsPerPage);
   return (
-    <div id="listUser">
+    <div className={classes.root}>
       <TableContainer component={Paper}>
         <Table aria-label="simple table">
           <TableHead>
