@@ -1,10 +1,10 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState, Fragment, useEffect } from 'react';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
-import TableFooter from '@material-ui/core/TableFooter';
 import TableContainer from '@material-ui/core/TableContainer';
+import TableFooter from '@material-ui/core/TableFooter';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Button from '@material-ui/core/Button';
@@ -13,46 +13,41 @@ import { Grid, FormControl, InputLabel, NativeSelect, TablePagination } from '@m
 import { Link } from 'react-router-dom';
 import { get } from '../../utils/ApiCaller';
 import '../../pages/ListUser/ListUser.css';
-import searchBar from '../../components/SearchBar/index.js';
+import searchBar from '../../components/UserSearchBar/index.js';
 
 const useStyles = makeStyles(theme => ({
   root: {
     marginLeft: '5px'
   },
-  tableHead: {
-    backgroundColor: theme.palette.primary,
-    "& span": {
-      fontWeight: "bold",
-      color: "#C6C6C6",
+  tableHeadRow: {
+    backgroundColor: theme.table.background.main,
+    "& > *": {
+      fontWeight: 'bold',
+      color: theme.table.row.head,
     }
   },
   Link: {
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
-  tableRow: {
-    "& span": {
-      fontWeight: "bold",
+  tableBody: {
+    "& td": {
+      fontWeight: 'bold',
       fontStyle: 'italic',
-    },
-  },
-
+    }
+  }
 }));
 
 
-function stableSort(array, comparator) {
+function stableSort(array) {
   const stabilizedThis = array.map((el, index) => [el, index]);
-  stabilizedThis.sort((a, b) => {
-    const order = comparator(a[0], b[0]);
-    if (order !== 0) return order;
-    return a[1] - b[1];
-  });
   return stabilizedThis.map(el => el[0]);
 }
 
 function userTable() {
   const classes = useStyles();
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [userData, setUserData] = useState([]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -63,26 +58,61 @@ function userTable() {
     setPage(0);
   };
 
+  useEffect(() => {
+    get("/user/", {}, {})
+      .then(userlist => {
+        const userComponent = userlist.data.message;
+        setUserData(userComponent);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  });
+  const emptyRows = rowsPerPage - Math.min(rowsPerPage, userData.length - page * rowsPerPage);
   return (
     <div id="listUser">
       <TableContainer component={Paper}>
         <Table aria-label="simple table">
-          <TableHead className={classes.tableHead}>
-            <TableRow>
-              <TableCell><span>Username</span></TableCell>
-              <TableCell><span>Fullname</span></TableCell>
-              <TableCell><span>Follower</span></TableCell>
-              <TableCell><span>Following</span></TableCell>
-              <TableCell><span>Post</span></TableCell>
-              <TableCell><span>Total Likes</span></TableCell>
-              <TableCell><span>Total Comments</span></TableCell>
-              <TableCell><span>Role</span></TableCell>
-              <TableCell><span>Action</span></TableCell>
+          <TableHead>
+            <TableRow className={classes.tableHeadRow} >
+              <TableCell>
+                Fullname
+              </TableCell>
+              <TableCell>
+                Username
+              </TableCell>
+              <TableCell>
+                Follower
+              </TableCell>
+              <TableCell>
+                Following
+              </TableCell>
+              <TableCell>
+                Post
+              </TableCell>
+              <TableCell>
+                Total Likes
+              </TableCell>
+              <TableCell>
+                Total Comments
+              </TableCell>
+              <TableCell>
+                Role
+              </TableCell>
+              <TableCell>
+                Action
+              </TableCell>
             </TableRow>
           </TableHead>
-          <TableBody>
-     
-            {/*stableSort(rows, getComparator(order, orderBy)).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, index) =>{}*/}
+          <TableBody  className={classes.tableBody}>
+
+            {/*userData*/}
+            {stableSort(userData).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((user) => userRow(user))}
+            {emptyRows > 0 && (
+              <TableRow style={{ height: 53 * emptyRows }}>
+                <TableCell colSpan={6} />
+              </TableRow>
+            )}
           </TableBody>
           <TableFooter>
             <TableRow>
@@ -103,6 +133,59 @@ function userTable() {
   );
 }
 
+function userRow(user) {
+  let actionButton;
+  if (user.isDeleted == true) {
+    actionButton = (
+      <Button variant="contained" color="primary">
+        UNBAN
+      </Button>
+    );
+  } else {
+    actionButton = (
+      <Button variant="contained" color="secondary">
+        BAN
+      </Button>
+    );
+  }
+  let roleIdSpan  = <span>Admin</span> ;
+  if (user.role_id == 1) {
+    roleIdSpan = (
+     <span>Member</span>
+    );}
+ 
+  let url = "/users/" + user.username;
+  return (
+    <TableRow hover key={user.username}>
+      <TableCell>
+        <Link to={url}>{user.fullname}</Link>
+      </TableCell>
+      <TableCell> 
+       {user.username}
+      </TableCell>
+      <TableCell>
+       {user.follower}
+      </TableCell>
+      <TableCell>
+       {user.following}
+      </TableCell>
+      <TableCell>
+       {user.Post}
+      </TableCell>
+      <TableCell>
+      {user.TotalLikes}
+      </TableCell>
+      <TableCell>
+       {user.TotalComments}
+      </TableCell>
+      <TableCell>
+        {roleIdSpan}
+      </TableCell>
+      <TableCell>{actionButton}</TableCell>
+    </TableRow>
+  );
+}
+
 export default function ListUser() {
   return (
     <section>
@@ -112,11 +195,4 @@ export default function ListUser() {
       {userTable()}
     </section>
   );
-}
-
-
-async function getListOfUser() {
-  const userlist = await get('/user/', {}, {});
-  const userComponent = userlist.data.message;
-  return userComponent;
 }

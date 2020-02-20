@@ -21,6 +21,9 @@ const theme = createMuiTheme({
     background:{
       main:'#2A272A',
     },
+    row:{
+      head:'#C6C6C6',
+    }
   },
   button:{
     primary: {
