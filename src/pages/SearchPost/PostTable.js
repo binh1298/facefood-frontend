@@ -57,7 +57,7 @@ export default function PostTable(props) {
       .catch(e => {
         console.log(e);
       })
-  },[]);
+  }, []);
 
   function BodyContent(post) {
     return (
