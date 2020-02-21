@@ -6,6 +6,8 @@ import Logout from '../pages/Logout'
 import { Switch } from 'react-router-dom';
 import { PublicRoute } from './PublicRoute';
 import { PrivateRoute } from './PrivateRoute';
+import { SearchPost as Posts } from '../pages/SearchPost/SearchPost';
+import PostDetail from '../pages/PostDetail/PostDetail';
 
 export const publicRoutes = [
   {
@@ -27,10 +29,21 @@ export const privateRoutes = [
     component: Logout
   },
   {
+    path: '/posts',
+    name: 'posts',
+    component: Posts,
+  },
+  {
+    path: '/post/:id',
+    name: 'postDetail',
+    component: PostDetail,
+  },
+  {
     path: '/',
     name: 'home',
     component: Home
-  }
+  },
+  
 ]
 
 export const Routes = (
