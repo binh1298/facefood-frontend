@@ -1,41 +1,21 @@
 import React, { useState, Fragment } from 'react';
-import Paper from '@material-ui/core/Paper';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableFooter from '@material-ui/core/TableFooter';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import theme from '../../utils/theme.js'
 import TextField from '@material-ui/core/TextField';
 import { Grid, FormControl, InputLabel, NativeSelect, TablePagination } from '@material-ui/core';
-import { Link } from 'react-router-dom';
 import { get } from '../../utils/ApiCaller';
-import AccountCircle from '@material-ui/icons/AccountCircle';
+import SearchRoundedIcon from '@material-ui/icons/SearchRounded';
 
 const useStyles = makeStyles(theme => ({
     root: {
-        marginLeft: '5px'
+        marginBottom: '15px',
+        marginTop:'10px',
     },
-    tableHead: {
-        backgroundColor: '#2A272A',
-        "& span": {
-            fontWeight: "bold",
-            color: "#C6C6C6",
-        }
-    },
-    Link: {
-        fontWeight: "bold",
-    },
-    tableRow: {
-        "& span": {
-            fontWeight: "bold",
-            fontStyle: 'italic',
-        },
-    },
+    buttonSearch:{ 
+        color:theme.button.background.text,
+        backgroundColor:theme.button.background.main,
+      },
 
 }));
 
@@ -56,7 +36,7 @@ export default function SearchBar(props) {
   return (
       <Fragment>
           <Grid container spacing={2} alignItems="flex-end" className={classes.root} >
-              <Grid item > <AccountCircle /></Grid><Grid item xs={4}><TextField
+              <Grid item > <SearchRoundedIcon /></Grid><Grid item xs={4}><TextField
                   label="Search..."
                   fullWidth
                   value={txtName}
@@ -70,7 +50,7 @@ export default function SearchBar(props) {
                   />
               </Grid>
               <Grid item xs={2}>
-                  <Button variant="contained" disableElevation>Search</Button>
+                  <Button variant="contained" disableElevation className={classes.buttonSearch}>Search</Button>
               </Grid>
 
           </Grid>

@@ -1,4 +1,4 @@
-import { Button, Link, makeStyles, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@material-ui/core';
+import { Button, Link, makeStyles, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, TableFooter, TablePagination } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { get } from '../../utils/ApiCaller';
 
@@ -7,12 +7,11 @@ const useStyles = makeStyles(theme => ({
     marginLeft: '5px'
   },
   tableHead: {
-    backgroundColor: '#212121',
+    backgroundColor:theme.table.background.main,
 
-    "& Typography": {
+    "&  > *": {
       fontWeight: 'bold',
-      color: '#ffffff',
-
+      color:  theme.table.row.head,
     }
   },
   Link: {
@@ -24,12 +23,10 @@ const useStyles = makeStyles(theme => ({
       fontStyle: 'italic',
     },
   },
-  headerCell: {
-    color: 'fffdf9',
-  }
 }));
 
 const header = ["title", "category", "Step", "Like", "Comment", "Creator", "Action"]
+
 
 export default function PostTable(props) {
 
@@ -37,13 +34,24 @@ export default function PostTable(props) {
   const [postData, setPostData] = useState([]);
 
   const listTitle = header.map((x) =>
-    <TableCell key={x} style={{ color: '#FAFAFA', }}  ><Typography>{x}</Typography></TableCell>
+    <TableCell key={x}><Typography>{x}</Typography></TableCell>
   );
-
+  /// duc change
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const emptyRows = rowsPerPage - Math.min(rowsPerPage, postData.length - page * rowsPerPage);
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+  const handleChangeRowsPerPage = event => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+////
   useEffect(() => {
     get("/post/", {}, {})
       .then(postList => {
-        const postComponent = postList.data.message.map(post => BodyContent(post)); // contain rendered table body with data
+        const postComponent = postList.data.message;// contain rendered table body with data
         setPostData(postComponent);
       })
       .catch(e => {
@@ -61,7 +69,7 @@ export default function PostTable(props) {
         <TableCell>{post.post_name}</TableCell>
         <TableCell>{post.post_name}</TableCell>
         <TableCell>
-          <Button variant="contained">Remove</Button>
+          <Button variant="contained" color="secondary">Remove</Button>
         </TableCell>
       </TableRow>
     )
@@ -69,15 +77,32 @@ export default function PostTable(props) {
 
   return (
     <TableContainer component={Paper}>
-      <Table>
-        <TableHead className={classes.tableHead}>
-          <TableRow >
+      <Table >
+        <TableHead >
+          <TableRow className={classes.tableHead}>
             {listTitle}
           </TableRow>
         </TableHead>
         <TableBody>
-          {postData}
+        {postData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((post) => BodyContent(post))}
+        {emptyRows > 0 && (
+              <TableRow style={{ height: 68.89 * emptyRows }}>
+                <TableCell colSpan={7} />
+              </TableRow>
+            )}
         </TableBody>
+        <TableFooter>
+            <TableRow>
+              <TablePagination
+                rowsPerPageOptions={[5, 10, ,20]}
+                count={postData.length}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                onChangePage={handleChangePage}
+                onChangeRowsPerPage={handleChangeRowsPerPage}
+              />
+            </TableRow>
+          </TableFooter>
       </Table>
     </TableContainer>
   );

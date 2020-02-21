@@ -5,7 +5,7 @@ import { Toolbar, Tabs, Tab, AppBar } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    backgroundColor: "#000000"
+    backgroundColor: "#000000",
   },
   item: {
     color: theme.palette.primary.main,
@@ -17,7 +17,7 @@ export default function Navigation() {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
-  const handleChange = (event, newValue) =>{
+  const handleChange = (event, newValue) => {
     setValue(newValue);
   }
 
@@ -50,11 +50,24 @@ export default function Navigation() {
             to="/logout"
           ></Tab>
           <Tab
+            label="List Users"
+            className={classes.item}
+            component={RouterLink}
+            to="/users" >  </Tab>
+          <Tab
             label="Search post"
             className={classes.item}
             component={RouterLink}
             to="/posts"
-          ></Tab>
+          >
+          </Tab>
+          <Tab
+            label="User Detail"
+            className={classes.item}
+            component={RouterLink}
+            to="/users/:id"
+            />
+
           <Tab
             label="Post Detail (Test)"
             className={classes.item}
