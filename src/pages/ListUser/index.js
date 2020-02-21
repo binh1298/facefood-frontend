@@ -37,12 +37,6 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-
-function stableSort(array) {
-  const stabilizedThis = array.map((el, index) => [el, index]);
-  return stabilizedThis.map(el => el[0]);
-}
-
 function userTable() {
   const classes = useStyles();
   const [page, setPage] = useState(0);
@@ -67,21 +61,21 @@ function userTable() {
       .catch(e => {
         console.log(e);
       });
-  });
+  },[]);
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, userData.length - page * rowsPerPage);
   const headerData=['Fullname','Username','Follower','Following','Post','Total Likes','Total Comments','Role','Action']
 const header=headerData.map((item) => {return(<TableCell><Typography>{item}</Typography></TableCell>);});
   return (
     <div className={classes.root}>
       <TableContainer component={Paper}>
-        <Table aria-label="simple table">
+        <Table >
           <TableHead>
             <TableRow className={classes.tableHeadRow} >
              {header}
             </TableRow>
           </TableHead>
           <TableBody className={classes.tableBody}>
-            {stableSort(userData).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((user) => userRow(user))}
+            {userData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((user) => userRow(user))}
             {emptyRows > 0 && (
               <TableRow style={{ height: 68.89 * emptyRows }}>
                 <TableCell colSpan={7} />

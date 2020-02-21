@@ -27,10 +27,6 @@ const useStyles = makeStyles(theme => ({
 
 const header = ["title", "category", "Step", "Like", "Comment", "Creator", "Action"]
 
-function stableSort(array) {
-  const stabilizedThis = array.map((el, index) => [el, index]);
-  return stabilizedThis.map(el => el[0]);
-}
 
 export default function PostTable(props) {
 
@@ -61,7 +57,7 @@ export default function PostTable(props) {
       .catch(e => {
         console.log(e);
       })
-  });
+  },[]);
 
   function BodyContent(post) {
     return (
@@ -81,14 +77,14 @@ export default function PostTable(props) {
 
   return (
     <TableContainer component={Paper}>
-      <Table>
+      <Table >
         <TableHead >
           <TableRow className={classes.tableHead}>
             {listTitle}
           </TableRow>
         </TableHead>
         <TableBody>
-        {stableSort(postData).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((post) => BodyContent(post))}
+        {postData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((post) => BodyContent(post))}
         {emptyRows > 0 && (
               <TableRow style={{ height: 68.89 * emptyRows }}>
                 <TableCell colSpan={7} />
