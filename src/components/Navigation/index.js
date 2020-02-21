@@ -53,7 +53,20 @@ export default function Navigation() {
             label="List Users"
             className={classes.item}
             component={RouterLink}
-            to="/users"
+            to="/users" >
+            <Tab
+              label="Search post"
+              className={classes.item}
+              component={RouterLink}
+              to="/posts"
+            >
+            </Tab>
+          </Tab>
+          <Tab
+            label="Post Detail (Test)"
+            className={classes.item}
+            component={RouterLink}
+            to="/post/:id"
           ></Tab>
         </Tabs>
       </Toolbar>
