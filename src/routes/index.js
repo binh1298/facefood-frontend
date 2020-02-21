@@ -30,16 +30,18 @@ export const privateRoutes = [
     name: 'logout',
     component: Logout
   },
+
+  {
+    path: '/users/:id',
+    name: 'userDetail',
+    component: UserDetail
+  },
   {
     path: '/users',
     name: 'listUser',
     component: ListUser
   },
   {
-    path: '/users/:id',
-    name: 'userDetail',
-    component: UserDetail},
-    { 
     path: '/posts',
     name: 'posts',
     component: Posts,
@@ -54,7 +56,7 @@ export const privateRoutes = [
     name: 'home',
     component: Home
   },
-  
+
 ]
 
 export const Routes = (
