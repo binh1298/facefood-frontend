@@ -93,7 +93,7 @@ export default function PostDetail(props) {
     <Grid container className={classes.root} spacing={3}>
       <Grid item xs={7} className={classes.left}>
         <Typography variant="h3">
-          {detail.title} <Button color="primary" variant="outlined" className={classes.removeButton}>Remove</Button>
+          {detail.title} <Button color="primary" variant="outlined" className={classes.removeButton} color="secondary">Remove</Button>
         </Typography>
         <Typography variant="subtitle1">
           {detail.category}

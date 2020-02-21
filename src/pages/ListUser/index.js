@@ -83,8 +83,8 @@ const header=headerData.map((item) => {return(<TableCell><Typography>{item}</Typ
           <TableBody className={classes.tableBody}>
             {stableSort(userData).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((user) => userRow(user))}
             {emptyRows > 0 && (
-              <TableRow style={{ height: 53 * emptyRows }}>
-                <TableCell colSpan={6} />
+              <TableRow style={{ height: 68.89 * emptyRows }}>
+                <TableCell colSpan={7} />
               </TableRow>
             )}
           </TableBody>
@@ -163,9 +163,9 @@ function userRow(user) {
 export default function ListUser() {
   return (
     <Container>
-      <br />
+    
       {searchBar()}
-      <br />
+   
       {userTable()}
    </Container >
 

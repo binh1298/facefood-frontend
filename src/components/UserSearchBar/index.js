@@ -3,11 +3,12 @@ import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import { Grid, FormControl, InputLabel, NativeSelect, TablePagination } from '@material-ui/core';
-import AccountCircle from '@material-ui/icons/AccountCircle';
+import SearchRoundedIcon from '@material-ui/icons/SearchRounded';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    marginLeft: '5px'
+    marginBottom: '15px',
+    marginTop:'10px',
   },
   buttonSearch:{
     color:theme.button.background.text,
@@ -34,7 +35,7 @@ export default function searchBar() {
   return (
     <Fragment>
       <Grid container spacing={2} alignItems="flex-end" className={classes.root} >
-        <Grid item > <AccountCircle /></Grid><Grid item xs={4}><TextField
+        <Grid item ><SearchRoundedIcon/></Grid><Grid item xs={4}><TextField
           label="Search..."
           fullWidth
           value={txtSearch}
