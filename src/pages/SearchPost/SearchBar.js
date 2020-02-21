@@ -12,7 +12,7 @@ const useStyles = makeStyles(theme => ({
         marginBottom: '15px',
         marginTop:'10px',
     },
-    buttonSearch:{
+    buttonSearch:{ 
         color:theme.button.background.text,
         backgroundColor:theme.button.background.main,
       },
