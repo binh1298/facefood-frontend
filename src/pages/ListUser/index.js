@@ -9,7 +9,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, FormControl, InputLabel, NativeSelect, TablePagination, Container } from '@material-ui/core';
+import { Grid, FormControl, InputLabel, NativeSelect, TablePagination, Container, Typography } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { get } from '../../utils/ApiCaller';
 import searchBar from '../../components/UserSearchBar/index.js';
@@ -69,44 +69,18 @@ function userTable() {
       });
   });
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, userData.length - page * rowsPerPage);
+  const headerData=['Fullname','Username','Follower','Following','Post','Total Likes','Total Comments','Role','Action']
+const header=headerData.map((item) => {return(<TableCell><Typography>{item}</Typography></TableCell>);});
   return (
     <div className={classes.root}>
       <TableContainer component={Paper}>
         <Table aria-label="simple table">
           <TableHead>
             <TableRow className={classes.tableHeadRow} >
-              <TableCell>
-                Fullname
-              </TableCell>
-              <TableCell>
-                Username
-              </TableCell>
-              <TableCell>
-                Follower
-              </TableCell>
-              <TableCell>
-                Following
-              </TableCell>
-              <TableCell>
-                Post
-              </TableCell>
-              <TableCell>
-                Total Likes
-              </TableCell>
-              <TableCell>
-                Total Comments
-              </TableCell>
-              <TableCell>
-                Role
-              </TableCell>
-              <TableCell>
-                Action
-              </TableCell>
+             {header}
             </TableRow>
           </TableHead>
           <TableBody className={classes.tableBody}>
-
-            {/*userData*/}
             {stableSort(userData).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((user) => userRow(user))}
             {emptyRows > 0 && (
               <TableRow style={{ height: 53 * emptyRows }}>
