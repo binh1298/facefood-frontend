@@ -9,7 +9,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, FormControl, InputLabel, NativeSelect, TablePagination } from '@material-ui/core';
+import { Grid, FormControl, InputLabel, NativeSelect, TablePagination, Container } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { get } from '../../utils/ApiCaller';
 import searchBar from '../../components/UserSearchBar/index.js';
@@ -17,12 +17,6 @@ import searchBar from '../../components/UserSearchBar/index.js';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    "& > *":{
-      width:'95%',
-    },
-    width:'100%',
-   justifyContent:'center',
-   backgroundColor:theme.palette.primary.main,
 
   },
   tableHeadRow: {
@@ -110,7 +104,7 @@ function userTable() {
               </TableCell>
             </TableRow>
           </TableHead>
-          <TableBody  className={classes.tableBody}>
+          <TableBody className={classes.tableBody}>
 
             {/*userData*/}
             {stableSort(userData).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((user) => userRow(user))}
@@ -123,14 +117,13 @@ function userTable() {
           <TableFooter>
             <TableRow>
               <TablePagination
-                rowsPerPageOptions={[5, 10, 25]}
-                count={5}
+                rowsPerPageOptions={[5, 10, ,20]}
+                count={userData.length}
                 rowsPerPage={rowsPerPage}
                 page={page}
                 onChangePage={handleChangePage}
                 onChangeRowsPerPage={handleChangeRowsPerPage}
-              >
-              </TablePagination>
+              />
             </TableRow>
           </TableFooter>
         </Table>
@@ -154,35 +147,36 @@ function userRow(user) {
       </Button>
     );
   }
-  let roleIdSpan  = <span>Admin</span> ;
+  let roleIdSpan = <span>Admin</span>;
   if (user.role_id == 1) {
     roleIdSpan = (
-     <span>Member</span>
-    );}
- 
+      <span>Member</span>
+    );
+  }
+
   let url = "/users/" + user.username;
   return (
     <TableRow hover key={user.username}>
       <TableCell>
         <Link to={url}>{user.fullname}</Link>
       </TableCell>
-      <TableCell> 
-       {user.username}
+      <TableCell>
+        {user.username}
       </TableCell>
       <TableCell>
-       {user.follower}
+        {user.follower}
       </TableCell>
       <TableCell>
-       {user.following}
+        {user.following}
       </TableCell>
       <TableCell>
-       {user.Post}
+        {user.Post}
       </TableCell>
       <TableCell>
-      {user.TotalLikes}
+        {user.TotalLikes}
       </TableCell>
       <TableCell>
-       {user.TotalComments}
+        {user.TotalComments}
       </TableCell>
       <TableCell>
         {roleIdSpan}
@@ -194,11 +188,12 @@ function userRow(user) {
 
 export default function ListUser() {
   return (
-    <section>
+    <Container>
       <br />
       {searchBar()}
       <br />
       {userTable()}
-    </section>
+   </Container >
+
   );
 }

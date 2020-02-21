@@ -26,16 +26,17 @@ const theme = createMuiTheme({
     }
   },
   button:{
-    primary: {
-      main: '#F59C88',
+    primary:{
+      main: '#FF525A',
     },
     secondary: {
       main: '#FF525A',
     },
-    error: {
-      main: red.A400,
+    background:{
+      main:'#2A272A',
+      text:'#C6C6C6',
     },
-  }
+  },
 
 });
 

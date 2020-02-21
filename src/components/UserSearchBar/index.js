@@ -1,7 +1,6 @@
 import React, { useState, Fragment } from 'react';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
-import theme from '../../utils/theme.js'
 import TextField from '@material-ui/core/TextField';
 import { Grid, FormControl, InputLabel, NativeSelect, TablePagination } from '@material-ui/core';
 import AccountCircle from '@material-ui/icons/AccountCircle';
@@ -10,6 +9,10 @@ const useStyles = makeStyles(theme => ({
   root: {
     marginLeft: '5px'
   },
+  buttonSearch:{
+    color:theme.button.background.text,
+    backgroundColor:theme.button.background.main,
+  }
 }));
 export default function searchBar() {
   const classes = useStyles();
@@ -63,7 +66,7 @@ export default function searchBar() {
           </FormControl>
         </Grid>
         <Grid item xs={2}>
-          <Button variant="contained" disableElevation>Search</Button>
+          <Button variant="contained" disableElevation className={classes.buttonSearch}>Search</Button>
         </Grid>
 
       </Grid>
