@@ -1,5 +1,5 @@
-import React, { useState, Fragment } from 'react';
-import { Card, CardMedia, Typography, CardContent, makeStyles, MobileStepper, Button, Container } from "@material-ui/core";
+import { Button, Card, CardContent, CardMedia, Container, makeStyles, MobileStepper, Typography } from "@material-ui/core";
+import React, { useState } from 'react';
 
 const useStyle = makeStyles(theme => ({
   root: {

@@ -1,6 +1,6 @@
-import React, { useState, Fragment } from 'react';
-import { get } from '../../utils/ApiCaller';
 import { makeStyles } from '@material-ui/core';
+import React, { Fragment } from 'react';
+import { get } from '../../utils/ApiCaller';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -13,7 +13,6 @@ const useStyles = makeStyles(theme => ({
 
   },
   button: {
-
     color: '#FF6F91',
   },
   com: {

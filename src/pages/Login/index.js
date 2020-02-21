@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
-
+import { Button, FormHelperText, Input, InputLabel } from '@material-ui/core';
 import FormControl from '@material-ui/core/FormControl';
-import { Button, InputLabel, Input, FormHelperText } from '@material-ui/core';
+import React, { useState } from 'react';
+import { LOCALSTORAGE_TOKEN_NAME } from '../../configurations';
 import { post } from '../../utils/ApiCaller';
 import usePersistedState from '../../utils/usePersistedState';
-import { LOCALSTORAGE_TOKEN_NAME } from '../../configurations';
-import { Redirect } from 'react-router-dom';
+
 
 export default function Login(props) {
   const [username, setUsername] = useState('');
