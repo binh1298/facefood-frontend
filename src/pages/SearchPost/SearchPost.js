@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
-import SearchBar from './SearchBar';
-import PostTable from './PostTable';
 import { Container } from '@material-ui/core';
+import React, { useState } from 'react';
+import PostTable from './PostTable';
+import SearchBar from './SearchBar';
 
 
 

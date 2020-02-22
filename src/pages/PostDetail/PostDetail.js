@@ -1,7 +1,6 @@
 import { Box, Button, Container, Grid, Link, makeStyles, Typography } from '@material-ui/core';
-import React, { useState } from 'react';
+import React from 'react';
 import { StepCard } from './StepCard';
-import { post, get } from '../../utils/ApiCaller';
 
 const useStyle = makeStyles(theme => ({
   root: {
