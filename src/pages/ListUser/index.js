@@ -12,7 +12,7 @@ import { TablePagination, Container, Typography, TableSortLabel } from '@materia
 import { Link } from 'react-router-dom';
 import { get } from '../../utils/ApiCaller';
 import searchBar from '../../components/UserSearchBar/index.js';
-import EnhancedTableHead from './enhanceTableHead';
+import EnhancedTableHead from '../../components/EnhanceTableHead';
 
 
 const useStyles = makeStyles(theme => ({
