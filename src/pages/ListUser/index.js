@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import { Container, TablePagination } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
+import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableFooter from '@material-ui/core/TableFooter';
 import TableRow from '@material-ui/core/TableRow';
-import Button from '@material-ui/core/Button';
-import { makeStyles } from '@material-ui/core/styles';
-import { TablePagination, Container, Typography, TableSortLabel } from '@material-ui/core';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { get } from '../../utils/ApiCaller';
-import searchBar from '../../components/UserSearchBar/index.js';
 import EnhancedTableHead from '../../components/EnhanceTableHead';
+import searchBar from '../../components/UserSearchBar/index.js';
+import { get } from '../../utils/ApiCaller';
 
 
 const useStyles = makeStyles(theme => ({
@@ -34,10 +34,6 @@ const useStyles = makeStyles(theme => ({
       fontWeight: 'bold',
       fontStyle: 'italic',
     }
-  },
-  tableSortLabel: {
-  
-
   },
 }));
 
