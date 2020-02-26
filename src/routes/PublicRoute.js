@@ -10,5 +10,5 @@ export const PublicRoute = props => {
     return <Route {...props} />;
   }
 
-  return <Redirect to="/" />;
+  return <Redirect to="/users" />;
 }

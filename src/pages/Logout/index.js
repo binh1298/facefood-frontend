@@ -6,6 +6,6 @@ export default function Logout() {
   LocalStorageUtils.clear();
   window.location.reload(false);
   return (
-    <div>Logging Out!</div>
+    <div></div>
   );
 }

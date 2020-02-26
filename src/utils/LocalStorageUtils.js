@@ -31,7 +31,6 @@ class LocalStorageUtils {
   getUser() {
     if (typeof localStorage !== 'undefined') {
       const token = this.getItem(LOCALSTORAGE_TOKEN_NAME);
-      console.log('gegege', token);
       if (token) return jwt_decode(token);
       else return token; 
     }

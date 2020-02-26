@@ -3,7 +3,6 @@ import { Route, Redirect } from 'react-router-dom';
 import LocalStorageUtils from '../utils/LocalStorageUtils';
 export const PrivateRoute = ({ component, ...rest }) => {
   const user = LocalStorageUtils.getUser();
-  console.log('xzz', user);
   if (user && user.userId?.length > 0) {
     // TODO should check authorization here
     return <Route {...rest} component={component} />;
