@@ -67,8 +67,7 @@ export default function Login(props) {
       }
     } catch (error) {
       setIsFail(true);
-      setFailMessage("Login failed");
-      console.log(error.data);
+      setFailMessage(error.response.data.message);
     }
   }
 
