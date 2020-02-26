@@ -5,10 +5,11 @@ import { createMuiTheme } from '@material-ui/core/styles';
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: '#FF6D00',
+      main: '#00DC9E',
     },
     secondary: {
       main: '#F05066',
+      side:'#1CB24E',
     },
     error: {
       main: red.A400,
@@ -27,15 +28,21 @@ const theme = createMuiTheme({
   },
   button:{
     primary:{
-      main: '#FF525A',
+      main: '#00DC9E',
+      hover:'#00808C',
     },
     secondary: {
       main: '#FF525A',
     },
     background:{
       main:'#2A272A',
-      text:'#C6C6C6',
+      text:'#FFF5F5',
     },
+  },
+  navBar:{
+    primary:{
+      main:'#FF6D00',
+    }
   },
 
 });
