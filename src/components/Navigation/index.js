@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import { Link as RouterLink } from "react-router-dom";
+import React from "react";
+import { Link as RouterLink, withRouter } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { Toolbar, Tabs, Tab, AppBar } from "@material-ui/core";
 import usePersistedState from '../../utils/usePersistedState';
@@ -14,37 +14,37 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function Navigation() {
+function Navigation(props) {
   const classes = useStyles();
-  const [value, setValue] = React.useState(0);
   const [user, setUser] = usePersistedState(LOCALSTORAGE_TOKEN_NAME);
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
+  const handleCallToRouter = (event, newValue) => {
+    props.history.push(newValue);
   }
-  if (user) { 
+  if (user) {
     return (
       <AppBar className={classes.root}>
         <Toolbar className={classes.root}>
-          <Tabs value={value} onChange={handleChange}>
-            <Tab
+          <Tabs
+            value={props.history.location.pathname}
+            onChange={handleCallToRouter}
+            >
+            {/* <Tab
               label="Home"
               className={classes.item}
               component={RouterLink}
               to="/"
-            />
+            /> */}
             <Tab
               label="Users"
               className={classes.item}
-              component={RouterLink}
-              to="/users" 
+              value="/users"
             />
             <Tab
               label="Posts"
               className={classes.item}
-              component={RouterLink}
-              to="/posts"
+              value="/posts"
             />
-            <Tab
+            {/* <Tab
               label="User Detail"
               className={classes.item}
               component={RouterLink}
@@ -55,12 +55,11 @@ export default function Navigation() {
               className={classes.item}
               component={RouterLink}
               to="/post/:id"
-            />
+            /> */}
             <Tab
               label="Logout"
               className={classes.item}
-              component={RouterLink}
-              to="/logout"
+              value="/logout"
             />
           </Tabs>
         </Toolbar>
@@ -70,7 +69,7 @@ export default function Navigation() {
     return (
       <AppBar className={classes.root}>
         <Toolbar className={classes.root}>
-          <Tabs value={value} onChange={handleChange}>
+          {/* <Tabs value={value}>
             <Tab
               label="Register"
               className={classes.item}
@@ -83,10 +82,12 @@ export default function Navigation() {
               component={RouterLink}
               to="/login"
             ></Tab>
-          </Tabs>
+          </Tabs> */}
         </Toolbar>
       </AppBar>
     );
   }
-  
+
 }
+
+export default withRouter(Navigation);
