@@ -1,16 +1,16 @@
 import { Button, FormHelperText, Input, InputLabel } from '@material-ui/core';
 import FormControl from '@material-ui/core/FormControl';
-import React, { useState } from 'react';
-import { LOCALSTORAGE_TOKEN_NAME } from '../../configurations';
+import React, { useState, useContext } from 'react';
 import { post } from '../../utils/ApiCaller';
+import jwt_decode from 'jwt-decode';
 import usePersistedState from '../../utils/usePersistedState';
-
+import { LOCALSTORAGE_TOKEN_NAME } from '../../configurations';
+import LocalStorageUtils from '../../utils/LocalStorageUtils';
 
 export default function Login(props) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [token, setToken] = usePersistedState(LOCALSTORAGE_TOKEN_NAME, '');
-
+  const [user, setUser] = usePersistedState(LOCALSTORAGE_TOKEN_NAME);
   function handleUsernameChange(e) {
     setUsername(e.target.value);
   }
@@ -30,8 +30,8 @@ export default function Login(props) {
         {},
       )
       if (res.data.status) {
-        setToken(res.data.token);
-        props.history.push("/");
+        setUser(res.data.token);
+        window.location.reload(false);
       }
     } catch (error) {
       console.log(error);
