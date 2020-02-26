@@ -62,13 +62,6 @@ export default function Navigation() {
           >
           </Tab>
           <Tab
-            label="User Detail"
-            className={classes.item}
-            component={RouterLink}
-            to="/users/:id"
-            />
-
-          <Tab
             label="Post Detail (Test)"
             className={classes.item}
             component={RouterLink}
