@@ -1,6 +1,6 @@
 import { Box, Button, Container, Divider, makeStyles, TextField, Typography } from '@material-ui/core';
 import LockOpenOutlinedIcon from '@material-ui/icons/LockOpenOutlined';
-import { default as React, default as React, useState } from 'react';
+import { default as React, useState } from 'react';
 import { LOCALSTORAGE_TOKEN_NAME } from '../../configurations';
 import { post } from '../../utils/ApiCaller';
 import usePersistedState from '../../utils/usePersistedState';
