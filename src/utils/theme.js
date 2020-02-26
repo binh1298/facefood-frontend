@@ -19,10 +19,10 @@ const theme = createMuiTheme({
   },
   table:{
     background:{
-      main:'#2A272A',
+      main:'#AFA8BA',
     },
     row:{
-      head:'#C6C6C6',
+      head:'#2D2B31',
     }
   },
   button:{

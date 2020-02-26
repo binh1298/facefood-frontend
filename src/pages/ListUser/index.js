@@ -1,18 +1,18 @@
-import React, { useState,useEffect } from 'react';
+import { Container, TablePagination } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
+import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableFooter from '@material-ui/core/TableFooter';
-import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Button from '@material-ui/core/Button';
-import { makeStyles } from '@material-ui/core/styles';
-import {TablePagination, Container, Typography } from '@material-ui/core';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { get } from '../../utils/ApiCaller';
+import EnhancedTableHead from '../../components/EnhanceTableHead';
 import searchBar from '../../components/UserSearchBar/index.js';
+import { get } from '../../utils/ApiCaller';
 
 
 const useStyles = makeStyles(theme => ({
@@ -33,8 +33,9 @@ const useStyles = makeStyles(theme => ({
     "& td": {
       fontWeight: 'bold',
       fontStyle: 'italic',
+      width:'156px',
     }
-  }
+  },
 }));
 
 function userTable() {
@@ -42,6 +43,8 @@ function userTable() {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [userData, setUserData] = useState([]);
+  const [order, setOrder] = React.useState('asc');
+  const [orderBy, setOrderBy] = React.useState('fullname');
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -52,6 +55,16 @@ function userTable() {
     setPage(0);
   };
 
+  const handleRequestSort = (event, property) => {
+    /*
+     chen code  vao day nay :v
+    */
+    const isAsc = orderBy === property && order === 'asc';
+    setOrder(isAsc ? 'desc' : 'asc');
+    setOrderBy(property);
+  };
+
+
   useEffect(() => {
     get("/user/", {}, {})
       .then(userlist => {
@@ -61,19 +74,31 @@ function userTable() {
       .catch(e => {
         console.log(e);
       });
-  },[]);
+  }, []);
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, userData.length - page * rowsPerPage);
-  const headerData=['Fullname','Username','Follower','Following','Post','Total Likes','Total Comments','Role','Action']
-const header=headerData.map((item) => {return(<TableCell><Typography>{item}</Typography></TableCell>);});
+  const headCells = [
+    { id: 'fullname', numeric: false, disablePadding: true, label: 'Fullname' },
+    { id: 'username', numeric: true, disablePadding: false, label: 'Username' },
+    { id: 'follower', numeric: true, disablePadding: false, label: 'Follower' },
+    { id: 'following', numeric: true, disablePadding: false, label: 'Following' },
+    { id: 'totalPost', numeric: true, disablePadding: false, label: 'Total Post' },
+    { id: 'totalLikes', numeric: true, disablePadding: false, label: 'Total Likes' },
+    { id: 'totalComments', numeric: true, disablePadding: false, label: 'Total Comments' },
+    { id: 'role', numeric: true, disablePadding: false, label: 'Role' },
+    { id: 'action', numeric: true, disablePadding: false, label: 'Action' },
+  ];
+
   return (
     <div className={classes.root}>
       <TableContainer component={Paper}>
         <Table >
-          <TableHead>
-            <TableRow className={classes.tableHeadRow} >
-             {header}
-            </TableRow>
-          </TableHead>
+         <EnhancedTableHead
+         classes={classes}
+         headCells={headCells}
+         onRequestSort={handleRequestSort}
+         order={order}
+         orderBy={orderBy}
+         />
           <TableBody className={classes.tableBody}>
             {userData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((user) => userRow(user))}
             {emptyRows > 0 && (
@@ -85,7 +110,7 @@ const header=headerData.map((item) => {return(<TableCell><Typography>{item}</Typ
           <TableFooter>
             <TableRow>
               <TablePagination
-                rowsPerPageOptions={[5, 10, ,20]}
+                rowsPerPageOptions={[5, 10, , 20]}
                 count={userData.length}
                 rowsPerPage={rowsPerPage}
                 page={page}
@@ -157,11 +182,11 @@ function userRow(user) {
 export default function ListUser() {
   return (
     <Container>
-    
+
       {searchBar()}
-   
+
       {userTable()}
-   </Container >
+    </Container >
 
   );
 }
