@@ -98,7 +98,7 @@ const [filterRole,setFilterRole] =  useState();
 
 
   useEffect(() => {
-    get("/user/", {}, {})
+    get("/users/", {}, {})
       .then(userlist => {
         const userComponent = userlist.data.message;
         setUserData(userComponent);

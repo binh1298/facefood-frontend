@@ -63,7 +63,7 @@ export default function PostTable(props) {
 
   ////
   useEffect(() => {
-    get("/post/", {}, {})
+    get("/posts/", {}, {})
       .then(postList => {
         const postComponent = postList.data.message;// contain rendered table body with data
         setPostData(postComponent);

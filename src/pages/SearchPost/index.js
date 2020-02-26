@@ -6,7 +6,7 @@ import { get } from '../../utils/ApiCaller';
 export default function Posts() {
 
   async function getData(){
-    const result =  await get("/post", {} , {});
+    const result =  await get("/posts", {} , {});
     console.log(result.data.message);
   };
   return (
