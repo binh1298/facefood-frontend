@@ -19,9 +19,10 @@ const useStyles = makeStyles(theme => ({
     fontWeight: "bold",
   },
   tableRow: {
-    "& span": {
+    "& td": {
       fontWeight: "bold",
       fontStyle: 'italic',
+      width:'156px',
     },
   },
 }));
