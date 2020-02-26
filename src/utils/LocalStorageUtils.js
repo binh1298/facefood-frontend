@@ -36,6 +36,10 @@ class LocalStorageUtils {
     }
     return undefined
   }
+
+  getToken() {
+    return this.getItem(LOCALSTORAGE_TOKEN_NAME);
+  }
 }
 
 export default new LocalStorageUtils();
