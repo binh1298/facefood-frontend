@@ -1,13 +1,14 @@
-import { makeStyles, TextField, Typography } from '@material-ui/core';
+import { Container, makeStyles, TextField, Typography } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import Paper from '@material-ui/core/Paper';
-import HighlightOffIcon from '@material-ui/icons/HighlightOff';
-import React, { Fragment, useState } from 'react';
-import { get } from '../../utils/ApiCaller';
+import React, { useEffect, useState } from 'react';
+import { get,put} from '../../utils/ApiCaller';
+import { Link } from 'react-router-dom';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 const useStyles = makeStyles(theme => ({
   root: {
-    flexGrow: 1,
+    marginTop: '10px',
   },
   paper: {
     padding: theme.spacing(2),
@@ -25,57 +26,79 @@ const useStyles = makeStyles(theme => ({
   },
   containerName: {
     "& p": {
-      fontSize: '20px',
       fontWeight: 'bold',
     },
   },
-  iconButtonPlus: {
-      transform:'rotate(45deg)',
-      "& > *":{
-        color:'green',
-      },
-  },
-  iconButtonBan: {
-    "& > *":{
-      color:'red',
+  typoName: {
+    "& p": {
+      fontSize: '25px',
+      fontWeight: 'bold',
     },
-},
-
+  },
+  banButton: {
+    color: theme.palette.secondary.main,
+  },
+  activatedButton: {
+    color: theme.palette.secondary.side,
+  },
 }));
 
 export default function UserDetail() {
+  const user = { username: "", email: "", fullname: "", gender: "male", phone: 0, follower: 0, following: 0, posts: 0, like: 0, comments: 0, roleId: 1, isDelete: false };
   const classes = useStyles();
-  const [status, setStatus] = useState(classes.iconButtonPlus);
+  const [userData, setUserData] = useState(user);
 
-  function handleClickIcon()
-  {
-    if(status === classes.iconButtonPlus){
-      setStatus(classes.iconButtonBan);
-    }else{
-      setStatus(classes.iconButtonPlus);
-    }
+  useEffect(() => {
+    let url = window.location.href;
+    let username = url.split("/");
+    let endpoint = '/user/' + username[4];
+    get(endpoint, {}, {})
+      .then(user => {
+        const userComponent = user.data.message;
+        setUserData(userComponent);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  }, []);
+
+
+  function handleClickIcon() {
+
+  }
+  const status = "Active";
+  const action = <Typography className={classes.banButton}>Ban</Typography>;
+  if (userData.isDelete === true) {
+    action = <Typography className={classes.activatedButton}>Activated</Typography>;
+    status = "Banned";
   }
 
+
   return (
-    <Fragment>
-      <Grid container spacing={2} className={classes.containerName}>
-        <Grid item xs={4}>
-          <Typography>PHÍ ĐỖ HỒNG ĐỨC</Typography>
+    <Container className={classes.root}>
+      <Grid container spacing={1} className={classes.containerName}>
+        <Grid item xs={2} className={classes.typoName} >
+          <Typography>{userData.fullname}</Typography>
         </Grid>
-
-        <Grid item xs={2}>
-          <IconButton className={status} onClick={handleClickIcon}>
-            <HighlightOffIcon   fontSize="large"  />  
-            </IconButton>
-          </Grid>
-
+        <Grid item xs={9}>
+          <IconButton onClick={handleClickIcon}>
+            {action}
+          </IconButton>
+        </Grid>
+        <Grid item xs={1} style={{float:"right"}}>
+          <Link to="/users">
+          <IconButton onClick={handleClickIcon}>
+         <ArrowBackIcon/>
+          </IconButton>
+          </Link>
+        </Grid>
       </Grid>
       <div>
         <Grid container spacing={2}>
           <Grid item xs={3}>
             <h3>Email</h3>
             <TextField
-              defaultValue="DucPDH@gmail.com"
+              value={userData.email}
               InputProps={{
                 readOnly: true,
               }}
@@ -85,7 +108,7 @@ export default function UserDetail() {
           <Grid item xs={3}>
             <h3>Gender</h3>
             <TextField
-              defaultValue="Male"
+              value={userData.gender}
               InputProps={{
                 readOnly: true,
               }}
@@ -93,7 +116,7 @@ export default function UserDetail() {
             /></Grid>
           <Grid item xs={3}><h3>Phone</h3>
             <TextField
-              defaultValue="076891458"
+              value={userData.phone}
               InputProps={{
                 readOnly: true,
               }}
@@ -101,7 +124,7 @@ export default function UserDetail() {
             /></Grid>
           <Grid item xs={3}><h3>Status</h3>
             <TextField
-              defaultValue="Active"
+              value={status}
               InputProps={{
                 readOnly: true,
               }}
@@ -110,7 +133,7 @@ export default function UserDetail() {
           </Grid>
           <Grid item xs={3}><h3>Follower</h3>
             <TextField
-              defaultValue="100"
+              value={userData.follower}
               InputProps={{
                 readOnly: true,
               }}
@@ -119,7 +142,7 @@ export default function UserDetail() {
           </Grid>
           <Grid item xs={3}><h3>Following</h3>
             <TextField
-              defaultValue="320"
+              value={userData.following}
               InputProps={{
                 readOnly: true,
               }}
@@ -128,7 +151,7 @@ export default function UserDetail() {
           </Grid>
           <Grid item xs={3}><h3>Total Like</h3>
             <TextField
-              defaultValue="463"
+              value={userData.like}
               InputProps={{
                 readOnly: true,
               }}
@@ -137,7 +160,7 @@ export default function UserDetail() {
           </Grid>
           <Grid item xs={3}><h3>Total Comments</h3>
             <TextField
-              defaultValue="390"
+              value={userData.comments}
               InputProps={{
                 readOnly: true,
               }}
@@ -156,13 +179,13 @@ export default function UserDetail() {
       </Grid>
 
 
-    </Fragment>
+    </Container>
   );
 }
 
 
 
-function userPost(value,classes) {
+function userPost(value, classes) {
   return (
     <Grid item xs={3} key={value}>
       <Paper className={classes.pic}></Paper>
@@ -171,16 +194,9 @@ function userPost(value,classes) {
   );
 }
 function getData(classes) {
-  let a = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((value) => userPost(value,classes));
+  let a = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((value) => userPost(value, classes));
   return a;
 }
 
 
-async function getUserData() {
-  e.preventDefault();
-  let url = window.location.href;
-  let username = url.split("/");
-  let endpoint = '/user/' + username[2];
-  const user = await get(endpoint, {}, {});
-  return user;
-}
+

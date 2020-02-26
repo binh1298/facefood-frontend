@@ -12,7 +12,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import EnhancedTableHead from '../../components/EnhanceTableHead';
 import searchBar from '../../components/UserSearchBar/index.js';
-import { get } from '../../utils/ApiCaller';
+import { get,put} from '../../utils/ApiCaller';
 
 
 const useStyles = makeStyles(theme => ({
@@ -31,12 +31,30 @@ const useStyles = makeStyles(theme => ({
   },
   tableBody: {
     "& td": {
-      fontWeight: 'bold',
       fontStyle: 'italic',
       width:'156px',
     }
   },
 }));
+
+async function handleBanClick(e,username) {
+  e.preventDefault();
+  const endpoint = "/user/" + username;
+  try {
+    const res = await put(
+      endpoint,
+      {},
+      {},
+    )
+    if (res.data.success === false) {
+     console.log(res.data.error);
+    }else{
+      alert("hehe");
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 function userTable() {
   const classes = useStyles();
@@ -55,15 +73,16 @@ function userTable() {
     setPage(0);
   };
 
-  const handleRequestSort = (event, property) => {
+  const handleRequestSort = (event, id) => {
     /*
      chen code  vao day nay :v
     */
-    const isAsc = orderBy === property && order === 'asc';
+  
+    const isAsc = orderBy === id && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
-    setOrderBy(property);
+    setOrderBy(id);
   };
-
+ 
 
   useEffect(() => {
     get("/user/", {}, {})
@@ -77,15 +96,15 @@ function userTable() {
   }, []);
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, userData.length - page * rowsPerPage);
   const headCells = [
-    { id: 'fullname', numeric: false, disablePadding: true, label: 'Fullname' },
-    { id: 'username', numeric: true, disablePadding: false, label: 'Username' },
-    { id: 'follower', numeric: true, disablePadding: false, label: 'Follower' },
-    { id: 'following', numeric: true, disablePadding: false, label: 'Following' },
-    { id: 'totalPost', numeric: true, disablePadding: false, label: 'Total Post' },
-    { id: 'totalLikes', numeric: true, disablePadding: false, label: 'Total Likes' },
-    { id: 'totalComments', numeric: true, disablePadding: false, label: 'Total Comments' },
-    { id: 'role', numeric: true, disablePadding: false, label: 'Role' },
-    { id: 'action', numeric: true, disablePadding: false, label: 'Action' },
+    { id: 'fullname',label: 'Fullname' },
+    { id: 'username',label: 'Username' },
+    { id: 'follower',label: 'Follower' },
+    { id: 'following',label: 'Following' },
+    { id: 'totalPost',label: 'Posts' },
+    { id: 'totalLikes',label: 'Likes' },
+    { id: 'totalComments',label: 'Comments' },
+    { id: 'role',label: 'Role' },
+    { id: 'action',label: 'Action' },
   ];
 
   return (
@@ -102,7 +121,7 @@ function userTable() {
           <TableBody className={classes.tableBody}>
             {userData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((user) => userRow(user))}
             {emptyRows > 0 && (
-              <TableRow style={{ height: 68.89 * emptyRows }}>
+              <TableRow style={{ height: 70 * emptyRows }}>
                 <TableCell colSpan={7} />
               </TableRow>
             )}
@@ -127,15 +146,19 @@ function userTable() {
 
 function userRow(user) {
   let actionButton;
+  const createBanHandler = id => event => {
+    handleBanClick(event, id);
+  }; 
+
   if (user.isDeleted == true) {
     actionButton = (
-      <Button variant="contained" color="primary">
+      <Button variant="contained" color="primary" onClick={createBanHandler(user.username)}>
         UNBAN
       </Button>
     );
   } else {
     actionButton = (
-      <Button variant="contained" color="secondary">
+      <Button variant="contained" color="secondary" onClick={createBanHandler(user.username)}>
         BAN
       </Button>
     );
