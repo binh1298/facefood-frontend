@@ -6,9 +6,10 @@ import { Toolbar, Tabs, Tab, AppBar } from "@material-ui/core";
 const useStyles = makeStyles(theme => ({
   root: {
     backgroundColor: "#000000",
+    color: theme.navBar.primary.main,
   },
   item: {
-    color: theme.palette.primary.main,
+    color: theme.navBar.primary.main,
     textDecoration: 'none',
   }
 }));
