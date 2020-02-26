@@ -1,17 +1,21 @@
-import React from "react";
-import { Link as RouterLink, withRouter } from "react-router-dom";
+import { AppBar, Grid, Tab, Tabs, Toolbar, Button, Container } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { Toolbar, Tabs, Tab, AppBar } from "@material-ui/core";
-import usePersistedState from '../../utils/usePersistedState';
+import React from "react";
+import { withRouter } from "react-router-dom";
 import { LOCALSTORAGE_TOKEN_NAME } from '../../configurations';
+import usePersistedState from '../../utils/usePersistedState';
 const useStyles = makeStyles(theme => ({
   root: {
-    backgroundColor: "#000000",
+    backgroundColor: "#fafafa",
     color: theme.navBar.primary.main,
   },
   item: {
     color: theme.navBar.primary.main,
     textDecoration: 'none',
+  },
+  logout: {
+    float: "right",
+    color: theme.navBar.logout.main,
   }
 }));
 
@@ -19,33 +23,36 @@ function Navigation(props) {
   const classes = useStyles();
   const [user, setUser] = usePersistedState(LOCALSTORAGE_TOKEN_NAME);
   const handleCallToRouter = (event, newValue) => {
+    console.log(newValue);
     props.history.push(newValue);
   }
   if (user) {
     return (
       <AppBar className={classes.root}>
+
         <Toolbar className={classes.root}>
-          <Tabs
-            value={props.history.location.pathname}
-            onChange={handleCallToRouter}
+          <Grid item>
+            <Tabs
+              value={props.history.location.pathname}
+              onChange={handleCallToRouter}
             >
-            {/* <Tab
+              {/* <Tab
               label="Home"
               className={classes.item}
               component={RouterLink}
               to="/"
             /> */}
-            <Tab
-              label="Users"
-              className={classes.item}
-              value="/users"
-            />
-            <Tab
-              label="Posts"
-              className={classes.item}
-              value="/posts"
-            />
-            {/* <Tab
+              <Tab
+                label="Users"
+                className={classes.item}
+                value="/users"
+              />
+              <Tab
+                label="Posts"
+                className={classes.item}
+                value="/posts"
+              />
+              {/* <Tab
               label="User Detail"
               className={classes.item}
               component={RouterLink}
@@ -57,12 +64,24 @@ function Navigation(props) {
               component={RouterLink}
               to="/post/:id"
             /> */}
-            <Tab
-              label="Logout"
-              className={classes.item}
-              value="/logout"
-            />
-          </Tabs>
+
+              {/* <Tab
+                label="Logout"
+                className={classes.item}
+                value="/logout"
+              /> */}
+            </Tabs>
+          </Grid>
+
+          <Grid container justify="space-between" />
+
+          <Grid item>
+            <Button variant="outlined" value="/logout"
+             onClick={() => props.history.push("/logout")}>
+              Logout
+            </Button>
+          </Grid>
+
         </Toolbar>
       </AppBar>
     );

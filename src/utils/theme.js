@@ -22,7 +22,7 @@ const theme = createMuiTheme({
   },
   table:{
     background:{
-      main:'#AFA8BA',
+      main:'#fff',
     },
     row:{
       head:'#2D2B31',
@@ -44,6 +44,9 @@ const theme = createMuiTheme({
   navBar:{
     primary:{
       main:'#FF6D00',
+    },
+    logout:{
+      main: red.A400,
     }
   },
 
