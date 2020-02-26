@@ -10,6 +10,7 @@ const theme = createMuiTheme({
     },
     secondary: {
       main: '#F05066',
+      side:'#1CB24E',
     },
     error: {
       main: red.A400,
@@ -21,23 +22,29 @@ const theme = createMuiTheme({
   },
   table:{
     background:{
-      main:'#2A272A',
+      main:'#AFA8BA',
     },
     row:{
-      head:'#C6C6C6',
+      head:'#2D2B31',
     }
   },
   button:{
     primary:{
-      main: '#FF525A',
+      main: '#00DC9E',
+      hover:'#00808C',
     },
     secondary: {
       main: '#FF525A',
     },
     background:{
       main:'#2A272A',
-      text:'#C6C6C6',
+      text:'#FFF5F5',
     },
+  },
+  navBar:{
+    primary:{
+      main:'#FF6D00',
+    }
   },
 
 });

@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import LocalStorageUtils from './LocalStorage';
+import LocalStorageUtils from './LocalStorageUtils';
 
 export default function usePersistedState(key, defaultValue) {
   const [state, setState] = useState(
-    () => JSON.parse(localStorage.getItem(key)) || defaultValue
+    () => LocalStorageUtils.getItem(key) || defaultValue
   );
   useEffect(() => {
-    localStorage.setItem(key, JSON.stringify(state));
+    LocalStorageUtils.setItem(key, state);
   }, [key, state]);
   return [state, setState];
 }

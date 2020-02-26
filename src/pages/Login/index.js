@@ -1,6 +1,6 @@
 import { Box, Button, Container, Divider, makeStyles, TextField, Typography } from '@material-ui/core';
 import LockOpenOutlinedIcon from '@material-ui/icons/LockOpenOutlined';
-import React, { useState } from 'react';
+import { default as React, default as React, useState } from 'react';
 import { LOCALSTORAGE_TOKEN_NAME } from '../../configurations';
 import { post } from '../../utils/ApiCaller';
 import usePersistedState from '../../utils/usePersistedState';
@@ -23,6 +23,7 @@ const useStyle = makeStyles(theme => ({
   }
 }));
 
+
 export default function Login(props) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -31,6 +32,7 @@ export default function Login(props) {
   const [isFail, setIsFail] = useState(false);
   const classes = useStyle();
 
+  const [user, setUser] = usePersistedState(LOCALSTORAGE_TOKEN_NAME);
   function handleUsernameChange(e) {
     setUsername(e.target.value);
   }
@@ -60,8 +62,8 @@ export default function Login(props) {
         {},
       )
       if (res.data.status) {
-        setToken(res.data.token);
-        props.history.push("/");
+        setUser(res.data.token);
+        window.location.reload(false);
       }
     } catch (error) {
       setIsFail(true);
