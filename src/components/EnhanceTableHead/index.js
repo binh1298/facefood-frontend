@@ -11,8 +11,8 @@ import React from 'react';
 
 export default function EnhancedTableHead(props) {
   const { classes, order, orderBy, onRequestSort ,headCells } = props;
-  const createSortHandler = property => event => {
-    onRequestSort(event, property);
+  const createSortHandler = id => event => {
+    onRequestSort(event, id);
   };
 
   return (
@@ -21,8 +21,7 @@ export default function EnhancedTableHead(props) {
         {headCells.map(headCell => (
           <TableCell
             key={headCell.id}
-            align={headCell.numeric ? 'justify' : 'justify'}
-            padding={headCell.disablePadding ? 'none' : 'default'}
+            align='justify'
           >
             <TableSortLabel
               active={orderBy === headCell.id}

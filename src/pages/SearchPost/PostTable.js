@@ -1,18 +1,18 @@
-import { Button, Link, makeStyles, Paper, Table, TableBody, TableCell, TableContainer, TableRow, Typography, TableFooter, TablePagination } from '@material-ui/core';
+import { Button, Link, makeStyles, Paper, Table, TableBody, TableCell, TableContainer, TableFooter, TablePagination, TableRow } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
-import { get } from '../../utils/ApiCaller';
 import EnhancedTableHead from '../../components/EnhanceTableHead';
+import { get } from '../../utils/ApiCaller';
 
 const useStyles = makeStyles(theme => ({
   root: {
     marginLeft: '5px'
   },
   tableHeadRow: {
-    backgroundColor:theme.table.background.main,
+    backgroundColor: theme.table.background.main,
 
     "&  > *": {
       fontWeight: 'bold',
-      color:  theme.table.row.head,
+      color: theme.table.row.head,
     }
   },
   Link: {
@@ -20,21 +20,20 @@ const useStyles = makeStyles(theme => ({
   },
   tableRow: {
     "& td": {
-      fontWeight: "bold",
       fontStyle: 'italic',
-      width:'156px',
+      width: '156px',
     },
   },
 }));
 
 const headCells = [
-  { id: 'title', numeric: false, disablePadding: true, label: 'Title' },
-  { id: 'category', numeric: true, disablePadding: false, label: 'Category' },
-  { id: 'step', numeric: true, disablePadding: false, label: 'Step' },
-  { id: 'like', numeric: true, disablePadding: false, label: 'Like' },
-  { id: 'comment', numeric: true, disablePadding: false, label: 'Commentt' },
-  { id: 'creator', numeric: true, disablePadding: false, label: 'Creator' },
-  { id: 'action', numeric: true, disablePadding: false, label: 'Action' },
+  { id: 'title', label: 'Title' },
+  { id: 'category', label: 'Category' },
+  { id: 'step', label: 'Step' },
+  { id: 'like', label: 'Like' },
+  { id: 'comment', label: 'Commentt' },
+  { id: 'creator', label: 'Creator' },
+  { id: 'action', label: 'Action' },
 ];
 
 export default function PostTable(props) {
@@ -56,13 +55,13 @@ export default function PostTable(props) {
     setPage(0);
   };
 
-  const handleRequestSort = (event, property) => {
-    const isAsc = orderBy === property && order === 'asc';
+  const handleRequestSort = (event, id) => {
+    const isAsc = orderBy === id && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
-    setOrderBy(property);
+    setOrderBy(id);
   };
 
-////
+  ////
   useEffect(() => {
     get("/post/", {}, {})
       .then(postList => {
@@ -93,33 +92,33 @@ export default function PostTable(props) {
   return (
     <TableContainer component={Paper}>
       <Table >
-        <EnhancedTableHead 
-        classes={classes}
-        headCells={headCells}
-        onRequestSort={handleRequestSort}
-        order={order}
-        orderBy={orderBy}
+        <EnhancedTableHead
+          classes={classes}
+          headCells={headCells}
+          onRequestSort={handleRequestSort}
+          order={order}
+          orderBy={orderBy}
         />
         <TableBody>
-        {postData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((post) => BodyContent(post))}
-        {emptyRows > 0 && (
-              <TableRow style={{ height: 68.89 * emptyRows }}>
-                <TableCell colSpan={7} />
-              </TableRow>
-            )}
+          {postData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((post) => BodyContent(post))}
+          {emptyRows > 0 && (
+            <TableRow style={{ height: 70 * emptyRows }}>
+              <TableCell colSpan={7} />
+            </TableRow>
+          )}
         </TableBody>
         <TableFooter>
-            <TableRow>
-              <TablePagination
-                rowsPerPageOptions={[5, 10, ,20]}
-                count={postData.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                onChangePage={handleChangePage}
-                onChangeRowsPerPage={handleChangeRowsPerPage}
-              />
-            </TableRow>
-          </TableFooter>
+          <TableRow>
+            <TablePagination
+              rowsPerPageOptions={[5, 10, , 20]}
+              count={postData.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              onChangePage={handleChangePage}
+              onChangeRowsPerPage={handleChangeRowsPerPage}
+            />
+          </TableRow>
+        </TableFooter>
       </Table>
     </TableContainer>
   );
