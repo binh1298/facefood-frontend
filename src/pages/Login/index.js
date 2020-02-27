@@ -87,7 +87,7 @@ export default function Login(props) {
         </Container>
         <TextField
           error={isFail}
-          label="username"
+          label="Username"
           required
           helperText=" "
           variant="outlined"
@@ -96,7 +96,7 @@ export default function Login(props) {
         />
         <TextField
           error={isFail}
-          label="password"
+          label="Password"
           required
           type="password"
           id="password"
