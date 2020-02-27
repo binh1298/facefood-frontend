@@ -1,15 +1,37 @@
-import { Button, FormHelperText, Input, InputLabel } from '@material-ui/core';
-import FormControl from '@material-ui/core/FormControl';
-import React, { useState, useContext } from 'react';
-import { post } from '../../utils/ApiCaller';
-import jwt_decode from 'jwt-decode';
-import usePersistedState from '../../utils/usePersistedState';
+import { Box, Button, Container, Divider, makeStyles, TextField, Typography } from '@material-ui/core';
+import LockOpenOutlinedIcon from '@material-ui/icons/LockOpenOutlined';
+import { default as React, useState } from 'react';
 import { LOCALSTORAGE_TOKEN_NAME } from '../../configurations';
-import LocalStorageUtils from '../../utils/LocalStorageUtils';
+import { post } from '../../utils/ApiCaller';
+import usePersistedState from '../../utils/usePersistedState';
+
+const useStyle = makeStyles(theme => ({
+  wrapper: {
+    marginTop: '10%',
+    display: 'flex',
+    flexDirection: 'column',
+    maxWidth: '38%',
+  },
+  containerLabel: {
+    align: 'center',
+  },
+  textbox: {
+    fontSize: '4em',
+  },
+  button: {
+    marginTop: '30px',
+  }
+}));
+
 
 export default function Login(props) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [token, setToken] = usePersistedState(LOCALSTORAGE_TOKEN_NAME, '');
+  const [failMessage, setFailMessage] = useState(' ');
+  const [isFail, setIsFail] = useState(false);
+  const classes = useStyle();
+
   const [user, setUser] = usePersistedState(LOCALSTORAGE_TOKEN_NAME);
   function handleUsernameChange(e) {
     setUsername(e.target.value);
@@ -19,6 +41,16 @@ export default function Login(props) {
     setPassword(e.target.value);
   }
 
+
+  function login(e){
+    if (username != '' && password != '') {
+      submitForm(e);
+    }
+    else {
+      setIsFail(true);
+      setFailMessage("Username and Password is required");
+    }
+  }
 
   async function submitForm(e) {
     e.preventDefault();
@@ -34,31 +66,53 @@ export default function Login(props) {
         window.location.reload(false);
       }
     } catch (error) {
-      console.log(error);
+      setIsFail(true);
+      setFailMessage(error.response.data.message);
     }
   }
 
   return (
-    <React.Fragment>
-      <FormControl required>
-        <InputLabel htmlFor="username">Username</InputLabel>
-        <Input id="username" aria-describedby="my-helper-text" value={username} onChange={handleUsernameChange} />
-        <FormHelperText id="my-helper-text">Enter a username you like.</FormHelperText>
-      </FormControl>
-      <FormControl required>
-        <InputLabel htmlFor="password">Password</InputLabel>
-        <Input
-          id="password"
-          aria-describedby="my-helper-text"
+
+    <Box>
+      <Container className={classes.wrapper}>
+        <Container className={classes.containerLabel}>
+          <Typography variant="h4" align="center">
+            Login
+          </Typography>
+          <Divider/>
+          <Typography variant="h4" align="center" color="primary">
+            <LockOpenOutlinedIcon/>
+          </Typography>
+
+        </Container>
+        <TextField
+          error={isFail}
+          label="username"
+          required
+          helperText=" "
+          variant="outlined"
+          value={username}
+          onChange={handleUsernameChange}
+        />
+        <TextField
+          error={isFail}
+          label="password"
+          required
           type="password"
+          id="password"
+          variant="outlined"
           value={password}
           onChange={handlePasswordChange}
+          helperText={failMessage}
         />
-        <FormHelperText id="my-helper-text">Enter your password.</FormHelperText>
-      </FormControl>
-      <Button onClick={submitForm} variant="contained">
-        Login
-      </Button>
-    </React.Fragment>
+        <Button onClick={login} variant="contained" color="primary" size="large" className={classes.button}>
+            Login
+        </Button>
+
+      </Container>
+    </Box>
+
+
+
   );
 }

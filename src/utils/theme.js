@@ -5,7 +5,8 @@ import { createMuiTheme } from '@material-ui/core/styles';
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: '#00DC9E',
+      main: '#FF6D00',
+      contrastText: '#fff',
     },
     secondary: {
       main: '#F05066',
@@ -17,10 +18,11 @@ const theme = createMuiTheme({
     background: {
       default: '#fff',
     },
+
   },
   table:{
     background:{
-      main:'#AFA8BA',
+      main:'#fff',
     },
     row:{
       head:'#2D2B31',
@@ -42,6 +44,9 @@ const theme = createMuiTheme({
   navBar:{
     primary:{
       main:'#FF6D00',
+    },
+    logout:{
+      main: red.A400,
     }
   },
 
