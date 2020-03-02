@@ -6,7 +6,7 @@ import { LOCALSTORAGE_TOKEN_NAME } from '../../configurations';
 import usePersistedState from '../../utils/usePersistedState';
 const useStyles = makeStyles(theme => ({
   root: {
-    backgroundColor: "#fafafa",
+    backgroundColor: theme.navBar.background.main,
     color: theme.navBar.primary.main,
   },
   item: {

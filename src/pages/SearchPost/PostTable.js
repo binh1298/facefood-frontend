@@ -76,12 +76,12 @@ export default function PostTable(props) {
   function BodyContent(post) {
     return (
       <TableRow key={post.post_id} hover className={classes.tableRow}>
-        <TableCell><Link to={'post/' + post.post_name}>{post.post_name}</Link></TableCell>
-        <TableCell>{post.post_name}</TableCell>
-        <TableCell>{post.post_name}</TableCell>
-        <TableCell>{post.post_name}</TableCell>
-        <TableCell>{post.post_name}</TableCell>
-        <TableCell>{post.post_name}</TableCell>
+        <TableCell key={post.postId}><Link to={'post/' + post.postId}>{post.postId}</Link></TableCell>
+        <TableCell>{post.description}</TableCell>
+        <TableCell>{post.createdAt}</TableCell>
+        <TableCell>{post.updatedAt}</TableCell>
+        <TableCell>{post.updatedAt}</TableCell>
+        <TableCell>{post.updatedAt}</TableCell>
         <TableCell>
           <Button variant="contained" color="secondary">Remove</Button>
         </TableCell>

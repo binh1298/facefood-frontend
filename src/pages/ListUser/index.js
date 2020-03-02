@@ -55,6 +55,7 @@ async function handleBanClick(e, username) {
   }
 }
 
+
 function userTable() {
   const classes = useStyles();
   const [page, setPage] = useState(0);
@@ -90,12 +91,29 @@ const [filterRole,setFilterRole] =  useState();
     /*
      chen code  vao day nay :v
     */
-
     const isAsc = orderBy === id && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(id);
   };
 
+
+  async function handleSortClick(e,order,orderBy) {
+    e.preventDefault();
+    try {
+      const res = await get(
+        endpoint,
+        {order,orderBy},
+        {},
+      )
+      if (res.data.success === false) {
+        console.log(res.data.error);
+      } else {
+        
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   useEffect(() => {
     get("/users/", {}, {})
@@ -104,7 +122,7 @@ const [filterRole,setFilterRole] =  useState();
         setUserData(userComponent);
       })
       .catch(e => {
-        console.log(e);
+        console.log("Error at ListUser: "+ e);
       });
   }, []);
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, userData.length - page * rowsPerPage);
