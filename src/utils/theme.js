@@ -47,7 +47,10 @@ const theme = createMuiTheme({
     },
     logout:{
       main: red.A400,
-    }
+    },
+    background:{
+      main:'#fafafa'
+    },
   },
 
 });

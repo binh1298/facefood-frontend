@@ -1,7 +1,8 @@
-import { Button, Link, makeStyles, Paper, Table, TableBody, TableCell, TableContainer, TableFooter, TablePagination, TableRow } from '@material-ui/core';
+import { Button, makeStyles, Paper, Table, TableBody, TableCell, TableContainer, TableFooter, TablePagination, TableRow } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import EnhancedTableHead from '../../components/EnhanceTableHead';
 import { get } from '../../utils/ApiCaller';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -72,16 +73,17 @@ export default function PostTable(props) {
         console.log(e);
       })
   }, []);
-
+  
   function BodyContent(post) {
+    let url = "/posts/" +  post.postId;
     return (
       <TableRow key={post.post_id} hover className={classes.tableRow}>
-        <TableCell><Link to={'post/' + post.post_name}>{post.post_name}</Link></TableCell>
-        <TableCell>{post.post_name}</TableCell>
-        <TableCell>{post.post_name}</TableCell>
-        <TableCell>{post.post_name}</TableCell>
-        <TableCell>{post.post_name}</TableCell>
-        <TableCell>{post.post_name}</TableCell>
+        <TableCell key={post.postId}><Link to={url}>{post.postName}</Link></TableCell>
+        <TableCell>{post.postName}</TableCell>
+        <TableCell>{post.totalSteps}</TableCell>
+        <TableCell>{post.totalLikes}</TableCell>
+        <TableCell>{post.totalComments}</TableCell>
+        <TableCell>{post.username}</TableCell>
         <TableCell>
           <Button variant="contained" color="secondary">Remove</Button>
         </TableCell>
