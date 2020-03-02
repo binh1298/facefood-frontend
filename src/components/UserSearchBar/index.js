@@ -32,6 +32,7 @@ export default function searchBar() {
     setRole(e.target.value);
   }
 
+
   return (
     <Fragment>
       <Grid container spacing={2} alignItems="flex-end" className={classes.root} >
@@ -39,7 +40,7 @@ export default function searchBar() {
           label="Search..."
           fullWidth
           value={txtSearch}
-          onChange={handleChangeTxtSearch} /></Grid>
+          onChange={handleChangeTxtSearch}/></Grid>
         <Grid item xs={1}>
           <FormControl >
             <InputLabel>Status</InputLabel>
