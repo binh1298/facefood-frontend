@@ -2,24 +2,25 @@ import { Button, Card, CardContent, CardMedia, Container, makeStyles, MobileStep
 import React, { useState } from 'react';
 
 const useStyle = makeStyles(theme => ({
-  root: {
-    maxHeight: "70%",
-  },
   card: {
-    maxWidth: "100%",
+    width: "100%",
     innerHeight: "100%",
     display: "inline-block",
   },
   media: {
-    height: 0,
+    width: "100%",
+    minHeight: "40%",
+    height: "40%",
     paddingTop: '50%',
     display: "flex",
   },
   content: {
-    marginBottom: "10%",
+    padding: 20,
     display: "inline-block",
-    maxWidth: "100%",
-    height: "40%",
+    minHeight: 100,
+    width: "95%",
+    height: 100,
+    overflow: "auto",
   },
   stepper:{
     
@@ -27,12 +28,12 @@ const useStyle = makeStyles(theme => ({
 }));
 
 export function StepCard(props) {
-
+  // TODO : get step data
   const classes = useStyle();
 
   const  step = props.step;
   const [activeStep, setActiveStep] = useState(0);
-  const maxStep = step.length;
+  const maxStep = 3;
 
   const handleNext = () => {
     setActiveStep(prevActiveStep => prevActiveStep + 1);
@@ -43,21 +44,34 @@ export function StepCard(props) {
   };
   
   return (
-    <Container className={classes.root}>
-      <Card className={classes.card}>
+    <Container className={props.className}>
+      <Card className={classes.card} variant="outlined">
         <CardMedia className={classes.media}
-          image={step[activeStep].img}
-          title={step[activeStep].title}
+          image="https://i.picsum.photos/id/863/536/354.jpg"
+          title="test"
         />
         <CardContent className={classes.content}>
           <Typography>
-            {step[activeStep].content}
+            test content, step detailed guide will display here,
+            test content, step detailed guide will display here,
+            test content, step detailed guide will display here,
+            test content, step detailed guide will display here,
+            test content, step detailed guide will display here,
+            test content, step detailed guide will display here,
+            test content, step detailed guide will display here,
+            test content, step detailed guide will display here,
+            test content, step detailed guide will display here,
+            test content, step detailed guide will display here,
+            test content, step detailed guide will display here,
+            test content, step detailed guide will display here,
+            test content, step detailed guide will display here,
+            test content, step detailed guide will display here,
           </Typography>
         </CardContent>
       </Card>
       <MobileStepper className={classes.stepper}
         
-        steps={maxStep}
+        steps= {4}
         position="static"
         variant="text"
         activeStep={activeStep}
