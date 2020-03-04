@@ -1,11 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { Card, CardContent, Typography, Button, CardActions, makeStyles, CardMedia, IconButton, Grid, Icon, Link, Box, Container } from '@material-ui/core';
+import { Box, Button, Card, CardContent, Container, Grid, Link, makeStyles, Typography } from '@material-ui/core';
+import React, { useEffect, useState } from 'react';
 import { get } from '../../utils/ApiCaller';
 import { StepCard } from './StepCard';
-import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
-import SkipNextIcon from '@material-ui/icons/SkipNext';
-import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 
 const useStyles = makeStyles(theme => ({
   root: {
