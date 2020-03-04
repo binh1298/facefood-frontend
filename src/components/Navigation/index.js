@@ -22,8 +22,10 @@ const useStyles = makeStyles(theme => ({
 function Navigation(props) {
   const classes = useStyles();
   const [user, setUser] = usePersistedState(LOCALSTORAGE_TOKEN_NAME);
+  const getTabValue = () => {
+    return `/${props.history.location.pathname.split('/')[1]}`;
+  }
   const handleCallToRouter = (event, newValue) => {
-    console.log(newValue);
     props.history.push(newValue);
   }
   if (user) {
@@ -33,7 +35,7 @@ function Navigation(props) {
         <Toolbar className={classes.root}>
           <Grid item>
             <Tabs
-              value={props.history.location.pathname}
+              value={getTabValue()}
               onChange={handleCallToRouter}
             >
               {/* <Tab
