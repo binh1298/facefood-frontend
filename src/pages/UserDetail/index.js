@@ -1,4 +1,4 @@
-import { Container, makeStyles, TextField, Typography } from '@material-ui/core';
+import { Container, makeStyles, TextField, Typography, Button } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import Paper from '@material-ui/core/Paper';
@@ -8,16 +8,13 @@ import { Link } from 'react-router-dom';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 const useStyles = makeStyles(theme => ({
   root: {
-    marginTop: '10px',
+    marginTop: 50,
   },
   paper: {
     padding: theme.spacing(2),
     textAlign: 'center',
     color: theme.palette.text.primary,
 
-  },
-  button: {
-    color: '#FF6F91',
   },
   pic: {
     width: 300,
@@ -68,106 +65,68 @@ export default function UserDetail() {
 
   }
   const status = "Active";
-  const action = <Typography className={classes.banButton}>Ban</Typography>;
+  const action = <Typography>Ban</Typography>;
   if (userData.isDelete === true) {
-    action = <Typography className={classes.activatedButton}>Activated</Typography>;
+    action = <Typography >Activated</Typography>;
     status = "Banned";
   }
 
 
   return (
-    <Container className={classes.root}>
+    <Container className={classes.root} >
       <Grid container spacing={1} className={classes.containerName}>
-        <Grid item xs={2} className={classes.typoName} >
-          <Typography>{userData.fullname}</Typography>
+        <Grid item xs={7} className={classes.typoName} >
+          <Typography variant="h3">{userData.fullname}</Typography>
         </Grid>
-        <Grid item xs={9}>
-          <IconButton onClick={handleClickIcon}>
+        <Grid item xs={5}>
+          <Button onClick={handleClickIcon} size="large" variant="outlined" color="primary">
             {action}
-          </IconButton>
-        </Grid>
-        <Grid item xs={1} style={{float:"right"}}>
-          <Link to="/users">
-          <IconButton onClick={handleClickIcon}>
-         <ArrowBackIcon/>
-          </IconButton>
-          </Link>
+          </Button>
         </Grid>
       </Grid>
       <div>
         <Grid container spacing={2}>
           <Grid item xs={3}>
             <h3>Email</h3>
-            <TextField
-              value={userData.email}
-              InputProps={{
-                readOnly: true,
-              }}
-              variant="outlined"
-            />
+            <Typography>
+              {userData.email}
+            </Typography>
           </Grid>
           <Grid item xs={3}>
             <h3>Gender</h3>
-            <TextField
-              value={userData.gender}
-              InputProps={{
-                readOnly: true,
-              }}
-              variant="outlined"
-            /></Grid>
+            <Typography>
+              {userData.gender}
+            </Typography>
+            </Grid>
           <Grid item xs={3}><h3>Phone</h3>
-            <TextField
-              value={userData.phone}
-              InputProps={{
-                readOnly: true,
-              }}
-              variant="outlined"
-            /></Grid>
+            <Typography>
+              {userData.phone}
+            </Typography>
+            </Grid>
           <Grid item xs={3}><h3>Status</h3>
-            <TextField
-              value={status}
-              InputProps={{
-                readOnly: true,
-              }}
-              variant="outlined"
-            />
+            <Typography>
+              {status}
+            </Typography>
           </Grid>
           <Grid item xs={3}><h3>Follower</h3>
-            <TextField
-              value={userData.follower}
-              InputProps={{
-                readOnly: true,
-              }}
-              variant="outlined"
-            />
+            <Typography>
+              {userData.follower}
+            </Typography>
           </Grid>
           <Grid item xs={3}><h3>Following</h3>
-            <TextField
-              value={userData.following}
-              InputProps={{
-                readOnly: true,
-              }}
-              variant="outlined"
-            />
+            <Typography>
+              {userData.following}
+            </Typography>
           </Grid>
           <Grid item xs={3}><h3>Total Like</h3>
-            <TextField
-              value={userData.like}
-              InputProps={{
-                readOnly: true,
-              }}
-              variant="outlined"
-            />
+            <Typography>
+              {userData.like}
+            </Typography>
           </Grid>
           <Grid item xs={3}><h3>Total Comments</h3>
-            <TextField
-              value={userData.comments}
-              InputProps={{
-                readOnly: true,
-              }}
-              variant="outlined"
-            />
-
+            <Typography>
+              {userData.comments}
+            </Typography>
           </Grid>
         </Grid>
       </div>
@@ -198,6 +157,3 @@ function getData(classes) {
   let a = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((value) => userPost(value, classes));
   return a;
 }
-
-
-

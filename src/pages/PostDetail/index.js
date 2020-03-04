@@ -1,38 +1,49 @@
 import React, { useState, useEffect } from 'react';
-import { Card, CardContent, Typography, Button, CardActions, makeStyles, CardMedia } from '@material-ui/core';
+import { Card, CardContent, Typography, Button, CardActions, makeStyles, CardMedia, IconButton, Grid, Icon, Link, Box, Container } from '@material-ui/core';
 import { get } from '../../utils/ApiCaller';
 import { StepCard } from './StepCard';
+import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+import SkipNextIcon from '@material-ui/icons/SkipNext';
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 
 const useStyles = makeStyles(theme => ({
-  containerName: {
-    "& p": {
-      fontWeight: 'bold',
-    },
+  root: {
+    marginTop: 70,
+    marginLeft: 70,
+    marginRight: 70,
+    display: 'flex',
+    height: 600,
   },
+  details: {
+    width: "50%",
+    display: 'flex',
+    flexDirection: 'column',
+    height: 500,
+  },
+  content: {
+    flex: '1 0 auto',
+  },
+  cover: {
+    width: '50%',
+    height: '100%',
+  },
+  comments: {
+    overflow: 'auto',
+    display: 'flex',
+    height: 200,
+    paddingLeft: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
+  },
+
 }));
 
 
 export default function PostDetail() {
-  
+
   const classes = useStyles();
 
-  const defaultPostData = {
-    postId: "",
-        postName: "asdf",
-        description: "asdf",
-        timeNeeded: 60,
-        isDeleted: false,
-        username: "asdf",
-        categoryId: 1,
-        createdAt: "00",
-        updatedAt: "00",
-        likeCount: 4,
-        commentCount: 4,
-        stepCount: 5,
-        imageUrl: "",
-  }
-
-  const [postData, setPostData] = useState(defaultPostData)
+  const [postData, setPostData] = useState('');
 
   useEffect(() => {
     let url = window.location.href;
@@ -51,33 +62,163 @@ export default function PostDetail() {
 
 
   return (
-    <Card >
-      <CardContent>
-        <Typography>
-          text: {postData.postId}
-        </Typography>
-        <CardMedia className={classes.media}
-          image={postData.img}
-          title={postData.name}
-        />
-        <Typography color="textSecondary" gutterBottom>
-          Word of the Day
-                </Typography>
-        <Typography variant="h5" component="h2">
-          benevolent
-                </Typography>
-        <Typography color="textSecondary">
-          adjective
-                </Typography>
-        <Typography variant="body2" component="p">
-          well meaning and kindly.
-                  <br />
-          {'"a benevolent smile"'}
-        </Typography>
-      </CardContent>
-      <CardActions>
-        <Button size="small">Learn More</Button>
-      </CardActions>
+    <Card className={classes.root}>
+      <div className={classes.details}>
+        <CardContent className={classes.content}>
+
+          <Grid container>
+            <Grid item xs={10}>
+              <Typography component="h5" variant="h4">
+                {postData.postName}
+              </Typography>
+
+            </Grid>
+            <Grid item xs={2}>
+              <Button variant="outlined" color="primary">
+                Delete
+              </Button>
+            </Grid>
+          </Grid>
+
+          <Typography variant="subtitle1" color="textSecondary">
+            {postData.username}
+          </Typography>
+          <Typography variant="subtitle1" color="textSecondary">
+            Time: {postData.timeNeeded}' | Category: {postData.categoryId}
+          </Typography>
+
+          <Box m={2} />
+          <Typography variant="h5">
+            Ingredient
+          </Typography>
+          <Grid container>
+
+            <Grid item xs={6}>
+              <Typography>Chicken</Typography>
+              <Typography>Parsley</Typography>
+              <Typography>Sage</Typography>
+              <Typography>Onion</Typography>
+              <Typography>Garlic</Typography>
+              <Typography>Flour</Typography>
+
+            </Grid>
+            <Grid item xs={6}>
+              <Typography>1kg</Typography>
+              <Typography>1kg</Typography>
+              <Typography>2kg</Typography>
+              <Typography>2kg</Typography>
+              <Typography>3kg</Typography>
+              <Typography>3kg</Typography>
+            </Grid>
+          </Grid>
+
+
+          <Box m={2} />
+
+
+        </CardContent>
+        <Container className={classes.comments}>
+
+          <Grid container>
+            <Grid item xs={8}>
+            </Grid>
+            <Grid item xs={4}>
+              <Typography  >
+                {postData.likeCount} Likes | {postData.commentCount} Comments
+              </Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <Typography>
+                <Link href="http://localhost:3000/users/SpacePotato">
+                  Taylor Swag
+                </Link> Test content,l comment will go here
+              </Typography>
+              <Typography>
+                <Link href="http://localhost:3000/users/SpacePotato">
+                  Keanu Reeve
+                </Link> Test content,this is a comment
+              </Typography>
+              <Typography>
+                <Link href="http://localhost:3000/users/SpacePotato">
+                  Harry Bottom
+                </Link> Test content,this is another comment
+              </Typography>
+              <Typography>
+                <Link href="http://localhost:3000/users/SpacePotato">
+                  Harry Bottom
+                </Link> Test content,this is another comment
+              </Typography>
+              <Typography>
+                <Link href="http://localhost:3000/users/SpacePotato">
+                  Harry Bottom
+                </Link> Test content,this is another comment
+              </Typography>
+              <Typography>
+                <Link href="http://localhost:3000/users/SpacePotato">
+                  Harry Bottom
+                </Link> Test content,this is another comment
+              </Typography>
+              <Typography>
+                <Link href="http://localhost:3000/users/SpacePotato">
+                  Harry Bottom
+                </Link> Test content,this is another comment
+              </Typography>
+              <Typography>
+                <Link href="http://localhost:3000/users/SpacePotato">
+                  Harry Bottom
+                </Link> Test content,this is another comment
+              </Typography>
+              <Typography>
+                <Link href="http://localhost:3000/users/SpacePotato">
+                  Harry Bottom
+                </Link> Test content,this is another comment
+              </Typography>
+              <Typography>
+                <Link href="http://localhost:3000/users/SpacePotato">
+                  Harry Bottom
+                </Link> Test content,this is another comment
+              </Typography>
+              <Typography>
+                <Link href="http://localhost:3000/users/SpacePotato">
+                  Harry Bottom
+                </Link> Test content,this is another comment
+              </Typography>
+              <Typography>
+                <Link href="http://localhost:3000/users/SpacePotato">
+                  Harry Bottom
+                </Link> Test content,this is another comment
+              </Typography>
+              <Typography>
+                <Link href="http://localhost:3000/users/SpacePotato">
+                  Harry Bottom
+                </Link> Test content,this is another comment
+              </Typography>
+              <Typography>
+                <Link href="http://localhost:3000/users/SpacePotato">
+                  Harry Bottom
+                </Link> Test content,this is another comment
+              </Typography>
+              <Typography>
+                <Link href="http://localhost:3000/users/SpacePotato">
+                  Harry Bottom
+                </Link> Test content,this is another comment
+              </Typography>
+              <Typography>
+                <Link href="http://localhost:3000/users/SpacePotato">
+                  Harry Bottom
+                </Link> Test content,this is another comment
+              </Typography>
+
+            </Grid>
+          </Grid>
+
+
+
+        </Container>
+      </div>
+      <StepCard
+        className={classes.cover}
+      />
     </Card>
   );
 }
