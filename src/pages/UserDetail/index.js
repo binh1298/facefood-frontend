@@ -51,11 +51,12 @@ export default function UserDetail() {
   useEffect(() => {
     let url = window.location.href;
     let username = url.split("/");
-    let endpoint = '/user/' + username[4];
+    let endpoint = '/users/' + username[4];
     get(endpoint, {}, {})
       .then(user => {
         const userComponent = user.data.message;
         setUserData(userComponent);
+        console.log(userData);
       })
       .catch(e => {
         console.log(e);

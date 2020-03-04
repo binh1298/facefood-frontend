@@ -27,12 +27,12 @@ const useStyle = makeStyles(theme => ({
 }));
 
 export function StepCard(props) {
-
+  // TODO : get step data
   const classes = useStyle();
 
   const  step = props.step;
   const [activeStep, setActiveStep] = useState(0);
-  const maxStep = step.length;
+  const maxStep = 3;
 
   const handleNext = () => {
     setActiveStep(prevActiveStep => prevActiveStep + 1);

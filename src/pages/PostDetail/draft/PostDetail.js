@@ -75,6 +75,28 @@ const cmt = [
 
 
 export default function PostDetail(props) {
+
+  const defaultPost = {
+    id : '',
+    name :'default',
+    description : 'default description',
+    username : 'defaultUser',
+    category : 'defaultCate',
+    date : '2000-01-01',
+    likes : 2,
+    comments : 3,
+    steps : 4,
+    
+  }
+
+  useEffect(() => {
+    effect
+    return () => {
+      cleanup
+    };
+  }, [input])
+
+
   const classes = useStyle();
 
   const listCmt = cmt.map((x) => {
