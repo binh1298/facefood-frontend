@@ -1,5 +1,5 @@
+import { Grid, Typography } from "@material-ui/core";
 import React from "react";
-import { Typography, Container, Grid } from "@material-ui/core";
 
 export default function PostDetailIngredient(props) {
   // let renderComment = props.comments.map((cmt) =>{
