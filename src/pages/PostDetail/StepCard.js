@@ -48,7 +48,7 @@ export function StepCard(props) {
     <Container className={props.className}>
       <Card className={classes.card} variant="outlined">
         <CardMedia className={classes.media}
-          image={`data:image/jpeg;base64,${data}`}
+          image={`https://i.picsum.photos/id/579/536/354.jpg`}
           title="test"
         />
         <CardContent className={classes.content}>
