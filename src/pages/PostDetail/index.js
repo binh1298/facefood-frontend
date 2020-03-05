@@ -2,6 +2,7 @@ import { Box, Button, Card, CardContent, Container, Grid, Link, makeStyles, Typo
 import React, { useEffect, useState } from 'react';
 import { get } from '../../utils/ApiCaller';
 import { StepCard } from './StepCard';
+import PostDetailComments from './PostDetailComments';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -40,20 +41,31 @@ export default function PostDetail() {
   const classes = useStyles();
 
   const [postData, setPostData] = useState('');
+  const [commentData, setCommentData] = useState(null);
 
   useEffect(() => {
     let url = window.location.href;
     let postId = url.split("/");
-    let endpoint = '/posts/' + postId[postId.length - 1];
-    get(endpoint, {}, {})
+    let endpointPost = '/posts/' + postId[postId.length - 1];
+    let endpointCmt = '/comments/' + postId[postId.length - 1]
+    get(endpointPost, {}, {})
       .then(post => {
         const postComp = post.data.message;
         setPostData(postComp);
-        console.log(post.data.message);
       })
       .catch(e => {
         console.log(e);
       });
+
+    get(endpointCmt, {}, {})
+      .then(cmt => {
+        const cmtComp = cmt.data.message;
+        setCommentData(cmtComp.map(x => x));
+      })
+      .catch(e => {
+        console.log(e);
+      });
+
   }, []);
 
 
@@ -114,7 +126,6 @@ export default function PostDetail() {
 
         </CardContent>
         <Container className={classes.comments}>
-
           <Grid container>
             <Grid item xs={8}>
             </Grid>
@@ -124,97 +135,29 @@ export default function PostDetail() {
               </Typography>
             </Grid>
             <Grid item xs={12}>
-              <Typography>
-                <Link href="http://localhost:3000/users/SpacePotato">
-                  Taylor Swag
-                </Link> Test content,l comment will go here
-              </Typography>
-              <Typography>
-                <Link href="http://localhost:3000/users/SpacePotato">
-                  Keanu Reeve
-                </Link> Test content,this is a comment
-              </Typography>
-              <Typography>
-                <Link href="http://localhost:3000/users/SpacePotato">
-                  Harry Bottom
-                </Link> Test content,this is another comment
-              </Typography>
-              <Typography>
-                <Link href="http://localhost:3000/users/SpacePotato">
-                  Harry Bottom
-                </Link> Test content,this is another comment
-              </Typography>
-              <Typography>
-                <Link href="http://localhost:3000/users/SpacePotato">
-                  Harry Bottom
-                </Link> Test content,this is another comment
-              </Typography>
-              <Typography>
-                <Link href="http://localhost:3000/users/SpacePotato">
-                  Harry Bottom
-                </Link> Test content,this is another comment
-              </Typography>
-              <Typography>
-                <Link href="http://localhost:3000/users/SpacePotato">
-                  Harry Bottom
-                </Link> Test content,this is another comment
-              </Typography>
-              <Typography>
-                <Link href="http://localhost:3000/users/SpacePotato">
-                  Harry Bottom
-                </Link> Test content,this is another comment
-              </Typography>
-              <Typography>
-                <Link href="http://localhost:3000/users/SpacePotato">
-                  Harry Bottom
-                </Link> Test content,this is another comment
-              </Typography>
-              <Typography>
-                <Link href="http://localhost:3000/users/SpacePotato">
-                  Harry Bottom
-                </Link> Test content,this is another comment
-              </Typography>
-              <Typography>
-                <Link href="http://localhost:3000/users/SpacePotato">
-                  Harry Bottom
-                </Link> Test content,this is another comment
-              </Typography>
-              <Typography>
-                <Link href="http://localhost:3000/users/SpacePotato">
-                  Harry Bottom
-                </Link> Test content,this is another comment
-              </Typography>
-              <Typography>
-                <Link href="http://localhost:3000/users/SpacePotato">
-                  Harry Bottom
-                </Link> Test content,this is another comment
-              </Typography>
-              <Typography>
-                <Link href="http://localhost:3000/users/SpacePotato">
-                  Harry Bottom
-                </Link> Test content,this is another comment
-              </Typography>
-              <Typography>
-                <Link href="http://localhost:3000/users/SpacePotato">
-                  Harry Bottom
-                </Link> Test content,this is another comment
-              </Typography>
-              <Typography>
-                <Link href="http://localhost:3000/users/SpacePotato">
-                  Harry Bottom
-                </Link> Test content,this is another comment
-              </Typography>
-
+                <>
+                {
+                  commentData?
+                  <PostDetailComments comments={commentData}/>
+                  :
+                  <Typography>lulul loading</Typography>
+                }
+                
+                </>
             </Grid>
           </Grid>
 
-
-
         </Container>
       </div>
-      <StepCard
-        className={classes.cover}
-      />
+      {postData.steps ?
+        <StepCard
+          className={classes.cover}
+          steps={postData.steps}
+        />
+        :
+        <Typography>Loading...</Typography>
+      }
+
     </Card>
   );
 }
