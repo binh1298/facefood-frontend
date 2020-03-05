@@ -217,13 +217,13 @@ function userRow(user) {
         {user.following}
       </TableCell>
       <TableCell>
-        {user.Post}
+        {user.postCount}
       </TableCell>
       <TableCell>
-        {user.TotalLikes}
+        {user.likeCount}
       </TableCell>
       <TableCell>
-        {user.TotalComments}
+        {user.commentCount}
       </TableCell>
       <TableCell>
         {roleIdSpan}

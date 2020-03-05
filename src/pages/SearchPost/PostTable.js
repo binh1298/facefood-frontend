@@ -32,7 +32,7 @@ const headCells = [
   { id: 'category', label: 'Category' },
   { id: 'step', label: 'Step' },
   { id: 'like', label: 'Like' },
-  { id: 'comment', label: 'Commentt' },
+  { id: 'comment', label: 'Comment' },
   { id: 'creator', label: 'Creator' },
   { id: 'action', label: 'Action' },
 ];
@@ -80,9 +80,9 @@ export default function PostTable(props) {
       <TableRow key={post.post_id} hover className={classes.tableRow}>
         <TableCell key={post.postId}><Link to={url}>{post.postName}</Link></TableCell>
         <TableCell>{post.postName}</TableCell>
-        <TableCell>{post.totalSteps}</TableCell>
-        <TableCell>{post.totalLikes}</TableCell>
-        <TableCell>{post.totalComments}</TableCell>
+        <TableCell>{post.stepCount}</TableCell>
+        <TableCell>{post.likeCount}</TableCell>
+        <TableCell>{post.commentCount}</TableCell>
         <TableCell>{post.username}</TableCell>
         <TableCell>
           <Button variant="contained" color="secondary">Remove</Button>
