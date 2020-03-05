@@ -18,10 +18,10 @@ export default function PostDetailIngredient(props) {
 
   return (
     <>
-      <Grid item xs={4}>
+      <Grid item xs={7}>
         {renderIngredientsName}
       </Grid>
-      <Grid item xs={6}>
+      <Grid item xs={5}>
         {renderIngredientsValue}
       </Grid>
     </>
