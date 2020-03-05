@@ -1,0 +1,29 @@
+import React from "react";
+import { Typography, Container, Grid } from "@material-ui/core";
+
+export default function PostDetailIngredient(props) {
+  // let renderComment = props.comments.map((cmt) =>{
+  //   <Typography><Link>{cmt.username} </Link>{cmt.content} asdfasdf </Typography>
+  // })
+  // return {renderComment}
+  const ingredients = props.ingredients;
+
+  const renderIngredientsName = ingredients.map((ing) => {
+    return <Typography key={ing.ingredientId}>{ing.ingredientName}</Typography>
+  });
+
+  const renderIngredientsValue = ingredients.map((ing) => {
+    return <Typography key={ing.ingredientId}>{ing.value} {" " + ing.unitName}</Typography>
+  });
+
+  return (
+    <>
+      <Grid item xs={4}>
+        {renderIngredientsName}
+      </Grid>
+      <Grid item xs={6}>
+        {renderIngredientsValue}
+      </Grid>
+    </>
+  );
+}
