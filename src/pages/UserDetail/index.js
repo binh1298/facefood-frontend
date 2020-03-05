@@ -3,7 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import Paper from '@material-ui/core/Paper';
 import React, { useEffect, useState } from 'react';
-import { get,put} from '../../utils/ApiCaller';
+import { get, put } from '../../utils/ApiCaller';
 import { Link } from 'react-router-dom';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 const useStyles = makeStyles(theme => ({
@@ -44,10 +44,10 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function UserDetail() {
-  const user = { username: "", email: "", fullname: "", gender: "male", phone: 0, follower: 0, following: 0, posts: 0, like: 0, comments: 0, roleId: 1, isDelete: false };
+  const user = { username: "", email: "", fullname: "", gender: "male", phone: 0, follower: 0, following: 0, posts: 0, like: 0, comments: 0, roleId: 1, isDelete: false,posts:[1,2,3,4] };
   const classes = useStyles();
   const [userData, setUserData] = useState(user);
-
+  const [postsData, setPostData] = useState();
   useEffect(() => {
     let url = window.location.href;
     let username = url.split("/");
@@ -62,6 +62,10 @@ export default function UserDetail() {
       });
   }, []);
 
+  function getData(classes) {
+    let a = userData.post.map((value) => userPost(value, classes));
+    return a;
+  }
 
   function handleClickIcon() {
 
@@ -175,15 +179,13 @@ export default function UserDetail() {
       </div>
 
       <Grid container spacing={1}>
-        {getData(classes)}
+        {getData}
       </Grid>
 
 
     </Container>
   );
 }
-
-
 
 function userPost(value, classes) {
   return (
