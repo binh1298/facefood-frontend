@@ -43,9 +43,11 @@ export function StepCard(props) {
   const handleBack = () => {
     setActiveStep(prevActiveStep => prevActiveStep - 1);
   };
+
+  if (maxStep == 0 ) return <Typography>No step</Typography>
   
   return (
-    <Container className={props.className}>
+      <Container className={props.className}>
       <Card className={classes.card} variant="outlined">
         <CardMedia className={classes.media}
           image={`https://i.picsum.photos/id/579/536/354.jpg`}
