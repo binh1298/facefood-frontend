@@ -46,9 +46,9 @@ async function handleBanClick(e, username) {
       {},
     )
     if (res.data.success === false) {
-      console.log('Error at ',res.data.error);
+      console.log('Error at ', res.data.error);
     } else {
-        // t chưa làm cái reload nhé
+      // t chưa làm cái reload nhé
     }
   } catch (error) {
     console.log(error);
@@ -81,8 +81,8 @@ function userTable() {
   };
   ///-----------------------------------------
   function descendingComparator(a, b, orderBy) {
-    const firstRow = (typeof firstRow == 'string') ? a[orderBy].toLowerCase() : a[orderBy];
-    const secondRow = (typeof secondRow == 'string') ? b[orderBy].toLowerCase() : b[orderBy];
+    const firstRow = (typeof a[orderBy] == 'string') ? a[orderBy].toLowerCase() : a[orderBy];
+    const secondRow = (typeof b[orderBy] == 'string') ? b[orderBy].toLowerCase() : b[orderBy];
     if (secondRow < firstRow) {
       return -1;
     }
@@ -91,7 +91,7 @@ function userTable() {
     }
     return 0;
   }
-  
+
   function getComparator(order, orderBy) {
     return order === 'desc'
       ? (a, b) => descendingComparator(a, b, orderBy)
@@ -101,7 +101,7 @@ function userTable() {
 
   function stableSort(array, comparator) {
     const stabilizedThis = array.map((el, index) => [el, index]);
-    console.log('stab: ',stabilizedThis)
+    console.log('stab: ', stabilizedThis)
     stabilizedThis.sort((a, b) => {
       const order = comparator(a[0], b[0]);
       if (order !== 0) return order;
@@ -118,7 +118,7 @@ function userTable() {
         setUserData(userComponent);
       })
       .catch(e => {
-        console.log("Error at ListUser: "+ e);
+        console.log("Error at ListUser: " + e);
       });
   }, []);
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, userData.length - page * rowsPerPage);
@@ -146,7 +146,7 @@ function userTable() {
             orderBy={orderBy}
           />
           <TableBody className={classes.tableBody}>
-            {stableSort(userData,getComparator(order,orderBy)).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((user) => userRow(user))}
+            {stableSort(userData, getComparator(order, orderBy)).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((user) => userRow(user))}
             {emptyRows > 0 && (
               <TableRow style={{ height: 70 * emptyRows }}>
                 <TableCell colSpan={7} />
@@ -216,7 +216,7 @@ function userRow(user) {
         {user.commentCount}
       </TableCell>
       <TableCell>
-        {user.roleId===0?'admin':'Member'}
+        {user.roleId === 0 ? 'admin' : 'Member'}
       </TableCell>
       <TableCell>{actionButton}</TableCell>
     </TableRow>
