@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Typography, Link, Container } from "@material-ui/core";
+import { Container, Link, Typography } from "@material-ui/core";
+import React from "react";
 
 export default function PostDetailComments(props) {
   // let renderComment = props.comments.map((cmt) =>{

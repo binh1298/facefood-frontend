@@ -1,19 +1,9 @@
-import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  Container,
-  Grid,
-  Link,
-  makeStyles,
-  Typography
-} from "@material-ui/core";
+import { Box, Button, Card, CardContent, Container, Grid, makeStyles, Typography } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { get } from "../../utils/ApiCaller";
-import { StepCard } from "./StepCard";
 import PostDetailComments from "./PostDetailComments";
 import PostDetailIngredient from "./PostDetailIngredient";
+import { StepCard } from "./StepCard";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -130,8 +120,8 @@ export default function PostDetail() {
                 {commentData ? (
                   <PostDetailComments comments={commentData} />
                 ) : (
-                  <Typography>lulul loading</Typography>
-                )}
+                    <Typography>lulul loading</Typography>
+                  )}
               </>
             </Grid>
           </Grid>
@@ -140,8 +130,8 @@ export default function PostDetail() {
       {postData.steps ? (
         <StepCard className={classes.cover} steps={postData.steps} />
       ) : (
-        <Typography>Loading...</Typography>
-      )}
+          <Typography>Loading...</Typography>
+        )}
     </Card>
   );
 }
