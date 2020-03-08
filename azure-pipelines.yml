@@ -16,6 +16,7 @@ steps:
   displayName: 'Install Node.js'
 
 - script: |
+    npm config set unsafe-perm=true
     sudo yarn 
     sudo yarn build-dev
   displayName: 'yarn install and build'
