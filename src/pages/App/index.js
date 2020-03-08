@@ -3,7 +3,7 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import React from 'react';
 import { hot } from 'react-hot-loader/root';
 import { BrowserRouter } from 'react-router-dom';
-import Navigation from '../../components/navigation';
+import Navigation from '../../components/Navigation';
 import { Routes } from '../../routes';
 import theme from '../../utils/theme';
 
