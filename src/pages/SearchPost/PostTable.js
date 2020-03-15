@@ -38,9 +38,8 @@ const headCells = [
 ];
 
 export default function PostTable(props) {
-
   const classes = useStyles();
-  const [postData, setPostData] = useState([]);
+  const {postData, setPostData} = props;
 
   /// duc change
   const [page, setPage] = useState(0);
@@ -48,6 +47,9 @@ export default function PostTable(props) {
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('title');
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, postData.length - page * rowsPerPage);
+
+  const [txtName, setTxtName] = useState('');
+
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -75,11 +77,11 @@ export default function PostTable(props) {
   }, []);
   
   function BodyContent(post) {
-    let url = "/posts/" +  post.postId;
+    let url = "/posts/" +  post.id;
     return (
-      <TableRow key={post.postId} hover className={classes.tableRow}>
+      <TableRow key={post.id} hover className={classes.tableRow}>
         <TableCell><Link to={url}>{post.postName}</Link></TableCell>
-        <TableCell>{post.postName}</TableCell>
+        <TableCell>{post.categoryName}</TableCell>
         <TableCell>{post.stepCount}</TableCell>
         <TableCell>{post.likeCount}</TableCell>
         <TableCell>{post.commentCount}</TableCell>

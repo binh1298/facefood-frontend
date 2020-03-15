@@ -1,25 +1,15 @@
-import { Container } from '@material-ui/core';
-import React, { useState } from 'react';
-import PostTable from './PostTable';
-import SearchBar from './SearchBar';
-
-
+import { Container } from "@material-ui/core";
+import React, { useState } from "react";
+import PostTable from "./PostTable";
+import SearchBar from "./SearchBar";
 
 export function SearchPost(props) {
-    const [searchName, setSearchName] = useState("");
-    const [searchCategory, setSearchCategory] = useState("");
-    
-    function handleSearchNameChange(e) {
-        setSearchName(e.target.value);
-    }
+  const [postData, setPostData] = useState([]);
 
-    function handleSearchCategoryChange(e) {
-        setSearchCategory(e.target.value);
-    }
-    return (
-        <Container>
-            <SearchBar></SearchBar>
-            <PostTable></PostTable>
-        </Container>
-    );
+  return (
+    <Container>
+      <SearchBar postData={postData} setPostData={setPostData}></SearchBar>
+      <PostTable postData={postData} setPostData={setPostData}></PostTable>
+    </Container>
+  );
 }
