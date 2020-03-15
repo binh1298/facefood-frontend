@@ -19,25 +19,26 @@ const useStyles = makeStyles(theme => ({
 
 export default function SearchBar(props) {
   const classes = useStyles();
-  const [txtName, setTxtName] = useState("");
-  const [txtCategory, setTxtCategory] = useState("");
+  const [postName, setPostName] = useState("");
+  const [categoryName, setTxtCategoryName] = useState("");
   const { postData, setPostData } = props;
 
   function handleNameChange(e) {
-    setTxtName(e.target.value);
+    setPostName(e.target.value);
   }
 
   function handleCategoryChange(e) {
-    setTxtCategory(e.target.value);
+    setTxtCategoryName(e.target.value);
   }
 
-  function handlerSearchPost() {
+  function handlerSearchPost(e) {
+    e.preventDefault();
+    let search = {}
+    if(postName != null && postName.length > 0) search = {...search, postName}
+    if(categoryName != null && categoryName.length > 0) search = {...search, categoryName}
     get(
       "/posts/",
-      {
-        postName: txtName,
-        categoryName: txtCategory
-      },
+      search,
       {}
     )
       .then(postList => {
@@ -64,7 +65,7 @@ export default function SearchBar(props) {
           <TextField
             label="Search..."
             fullWidth
-            value={txtName}
+            value={postName}
             onChange={handleNameChange}
           />
         </Grid>
@@ -72,7 +73,7 @@ export default function SearchBar(props) {
           <TextField
             label="Category"
             fullWidth
-            value={txtCategory}
+            value={categoryName}
             onChange={handleCategoryChange}
           />
         </Grid>

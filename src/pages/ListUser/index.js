@@ -56,11 +56,10 @@ async function handleBanClick(e, username) {
 }
 
 
-function userTable() {
+function userTable(userData, setUserData) {
   const classes = useStyles();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const [userData, setUserData] = useState([]);
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('fullname');
 
@@ -216,7 +215,7 @@ function userRow(user) {
         {user.commentCount}
       </TableCell>
       <TableCell>
-        {user.roleId === 0 ? 'admin' : 'Member'}
+        {user.roleId === 1 ? 'Admin' : 'Member'}
       </TableCell>
       <TableCell>{actionButton}</TableCell>
     </TableRow>
@@ -224,10 +223,12 @@ function userRow(user) {
 }
 
 export default function ListUser() {
+  const [userData, setUserData] = useState([]);
+
   return (
     <Container>
-      {searchBar()}
-      {userTable()}
+      {searchBar(setUserData)}
+      {userTable(userData, setUserData)}
     </Container >
 
   );

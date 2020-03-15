@@ -8,7 +8,7 @@ import { PublicRoute } from './PublicRoute';
 import { PrivateRoute } from './PrivateRoute';
 import ListUser from '../pages/ListUser';
 import UserDetail from '../pages/UserDetail';
-import { SearchPost as Posts } from '../pages/SearchPost/SearchPost';
+import ListPost from '../pages/SearchPost/';
 import PostDetail from '../pages/PostDetail';
 
 export const publicRoutes = [
@@ -49,7 +49,7 @@ export const privateRoutes = [
   {
     path: '/posts',
     name: 'posts',
-    component: Posts,
+    component: ListPost,
   },
   {
     path: '/',
