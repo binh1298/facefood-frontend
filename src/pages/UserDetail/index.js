@@ -53,7 +53,6 @@ export default function UserDetail() {
       .then(user => {
         const userComponent = user.data.message;
         setUserData(userComponent);
-        console.log(userData);
       })
       .catch(e => {
         console.log(e);
@@ -70,7 +69,6 @@ export default function UserDetail() {
     action = <Typography >Activated</Typography>;
     status = "Banned";
   }
-
 
   return (
     <Container className={classes.root} >
@@ -110,12 +108,12 @@ export default function UserDetail() {
           </Grid>
           <Grid item xs={3}><h3>Follower</h3>
             <Typography>
-              {userData.follower}
+              {userData.followerCount}
             </Typography>
           </Grid>
           <Grid item xs={3}><h3>Following</h3>
             <Typography>
-              {userData.following}
+              {userData.followingCount}
             </Typography>
           </Grid>
           <Grid item xs={3}><h3>Total Like</h3>

@@ -23,6 +23,7 @@ function Navigation(props) {
   const classes = useStyles();
   const [user, setUser] = usePersistedState(LOCALSTORAGE_TOKEN_NAME);
   const getTabValue = () => {
+    console.log(props.history.location.pathname);
     return `/${props.history.location.pathname.split('/')[1]}`;
   }
   const handleCallToRouter = (event, newValue) => {

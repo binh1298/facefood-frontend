@@ -211,10 +211,10 @@ function userRow(user) {
         {user.username}
       </TableCell>
       <TableCell>
-        {user.follower}
+        {user.followerCount}
       </TableCell>
       <TableCell>
-        {user.following}
+        {user.followingCount}
       </TableCell>
       <TableCell>
         {user.postCount}
