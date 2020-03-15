@@ -28,50 +28,40 @@ const useStyle = makeStyles(theme => ({
 }));
 
 export function StepCard(props) {
-  // TODO : get step data
+
   const classes = useStyle();
 
-  const  step = props.step;
+  const  steps = props.steps;
   const [activeStep, setActiveStep] = useState(0);
-  const maxStep = 3;
+  const maxStep = steps.length;
 
   const handleNext = () => {
     setActiveStep(prevActiveStep => prevActiveStep + 1);
+    console.log(steps);
   };
 
   const handleBack = () => {
     setActiveStep(prevActiveStep => prevActiveStep - 1);
   };
+
+  if (maxStep == 0 ) return <Typography>No step</Typography>
   
   return (
-    <Container className={props.className}>
+      <Container className={props.className}>
       <Card className={classes.card} variant="outlined">
         <CardMedia className={classes.media}
-          image="https://i.picsum.photos/id/863/536/354.jpg"
+          image={`https://i.picsum.photos/id/579/536/354.jpg`}
           title="test"
         />
         <CardContent className={classes.content}>
           <Typography>
-            test content, step detailed guide will display here,
-            test content, step detailed guide will display here,
-            test content, step detailed guide will display here,
-            test content, step detailed guide will display here,
-            test content, step detailed guide will display here,
-            test content, step detailed guide will display here,
-            test content, step detailed guide will display here,
-            test content, step detailed guide will display here,
-            test content, step detailed guide will display here,
-            test content, step detailed guide will display here,
-            test content, step detailed guide will display here,
-            test content, step detailed guide will display here,
-            test content, step detailed guide will display here,
-            test content, step detailed guide will display here,
+            {steps[activeStep].description}
           </Typography>
         </CardContent>
       </Card>
       <MobileStepper className={classes.stepper}
         
-        steps= {4}
+        steps={maxStep}
         position="static"
         variant="text"
         activeStep={activeStep}

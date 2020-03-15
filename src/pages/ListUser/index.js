@@ -46,9 +46,9 @@ async function handleBanClick(e, username) {
       {},
     )
     if (res.data.success === false) {
-      console.log(res.data.error);
+      console.log('Error at ', res.data.error);
     } else {
-        // t chưa làm cái reload nhé
+      // t chưa làm cái reload nhé
     }
   } catch (error) {
     console.log(error);
@@ -64,20 +64,7 @@ function userTable() {
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('fullname');
 
-// 
-const [searchKeyword,setSearchKeyword] =  useState();
-const [sortFullName,setSortFullName] =  useState();
-const [sortUsername,setSortUsername] =  useState();
-const [sortFollower,setSortFollower] =  useState();
-const [sortFollowing,setSortFollowing] =  useState();
-const [sortPosts,setSortPosts] =  useState();
-const [sortLikes,setSortLikes] =  useState();
-const [sortComments,setSortComments] =  useState();
-const [sortRole,setSortRole] =  useState();
-const [sortAction,setSortAction] =  useState();
-const [filterStatus,setFilterStatus] =  useState();
-const [filterRole,setFilterRole] =  useState();
-//
+
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -88,32 +75,41 @@ const [filterRole,setFilterRole] =  useState();
   };
 
   const handleRequestSort = (event, id) => {
-    /*
-     chen code  vao day nay :v
-    */
     const isAsc = orderBy === id && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(id);
   };
-
-
-  async function handleSortClick(e,order,orderBy) {
-    e.preventDefault();
-    try {
-      const res = await get(
-        endpoint,
-        {order,orderBy},
-        {},
-      )
-      if (res.data.success === false) {
-        console.log(res.data.error);
-      } else {
-        
-      }
-    } catch (error) {
-      console.log(error);
+  ///-----------------------------------------
+  function descendingComparator(a, b, orderBy) {
+    const firstRow = (typeof a[orderBy] == 'string') ? a[orderBy].toLowerCase() : a[orderBy];
+    const secondRow = (typeof b[orderBy] == 'string') ? b[orderBy].toLowerCase() : b[orderBy];
+    if (secondRow < firstRow) {
+      return -1;
     }
+    if (secondRow > firstRow) {
+      return 1;
+    }
+    return 0;
   }
+
+  function getComparator(order, orderBy) {
+    return order === 'desc'
+      ? (a, b) => descendingComparator(a, b, orderBy)
+      : (a, b) => -descendingComparator(a, b, orderBy);
+  }
+  ///-----------------------------------------
+
+  function stableSort(array, comparator) {
+    const stabilizedThis = array.map((el, index) => [el, index]);
+    console.log('stab: ', stabilizedThis)
+    stabilizedThis.sort((a, b) => {
+      const order = comparator(a[0], b[0]);
+      if (order !== 0) return order;
+      return a[1] - b[1];
+    });
+    return stabilizedThis.map(el => el[0]);
+  }
+
 
   useEffect(() => {
     get("/users/", {}, {})
@@ -122,19 +118,19 @@ const [filterRole,setFilterRole] =  useState();
         setUserData(userComponent);
       })
       .catch(e => {
-        console.log("Error at ListUser: "+ e);
+        console.log("Error at ListUser: " + e);
       });
   }, []);
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, userData.length - page * rowsPerPage);
   const headCells = [
     { id: 'fullname', label: 'Fullname' },
     { id: 'username', label: 'Username' },
-    { id: 'follower', label: 'Follower' },
-    { id: 'following', label: 'Following' },
-    { id: 'totalPost', label: 'Posts' },
-    { id: 'totalLikes', label: 'Likes' },
-    { id: 'totalComments', label: 'Comments' },
-    { id: 'role', label: 'Role' },
+    { id: 'followerCount', label: 'Follower' },
+    { id: 'followingCount', label: 'Following' },
+    { id: 'postCount', label: 'Posts' },
+    { id: 'likeCount', label: 'Likes' },
+    { id: 'commentCount', label: 'Comments' },
+    { id: 'roleId', label: 'Role' },
     { id: 'action', label: 'Action' },
   ];
 
@@ -150,7 +146,7 @@ const [filterRole,setFilterRole] =  useState();
             orderBy={orderBy}
           />
           <TableBody className={classes.tableBody}>
-            {userData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((user) => userRow(user))}
+            {stableSort(userData, getComparator(order, orderBy)).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((user) => userRow(user))}
             {emptyRows > 0 && (
               <TableRow style={{ height: 70 * emptyRows }}>
                 <TableCell colSpan={7} />
@@ -194,12 +190,6 @@ function userRow(user) {
       </Button>
     );
   }
-  let roleIdSpan = <span>Admin</span>;
-  if (user.role_id == 1) {
-    roleIdSpan = (
-      <span>Member</span>
-    );
-  }
 
   let url = "/users/" + user.username;
   return (
@@ -226,7 +216,7 @@ function userRow(user) {
         {user.commentCount}
       </TableCell>
       <TableCell>
-        {roleIdSpan}
+        {user.roleId === 0 ? 'admin' : 'Member'}
       </TableCell>
       <TableCell>{actionButton}</TableCell>
     </TableRow>

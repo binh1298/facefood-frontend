@@ -1,7 +1,6 @@
 import React from 'react';
-import { SearchPost } from './SearchPost';
-import { Button } from '@material-ui/core';
 import { get } from '../../utils/ApiCaller';
+import { SearchPost } from './SearchPost';
 
 export default function Posts() {
 

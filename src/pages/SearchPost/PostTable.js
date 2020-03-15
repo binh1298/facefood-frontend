@@ -77,8 +77,8 @@ export default function PostTable(props) {
   function BodyContent(post) {
     let url = "/posts/" +  post.postId;
     return (
-      <TableRow key={post.post_id} hover className={classes.tableRow}>
-        <TableCell key={post.postId}><Link to={url}>{post.postName}</Link></TableCell>
+      <TableRow key={post.postId} hover className={classes.tableRow}>
+        <TableCell><Link to={url}>{post.postName}</Link></TableCell>
         <TableCell>{post.postName}</TableCell>
         <TableCell>{post.stepCount}</TableCell>
         <TableCell>{post.likeCount}</TableCell>

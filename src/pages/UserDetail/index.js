@@ -1,20 +1,23 @@
-import { Container, makeStyles, TextField, Typography, Button } from '@material-ui/core';
+import { Container, makeStyles, TextField, Typography } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import Paper from '@material-ui/core/Paper';
-import React, { useEffect, useState } from 'react';
-import { get,put} from '../../utils/ApiCaller';
-import { Link } from 'react-router-dom';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { get } from '../../utils/ApiCaller';
 const useStyles = makeStyles(theme => ({
   root: {
-    marginTop: 50,
+    marginTop: '10px',
   },
   paper: {
     padding: theme.spacing(2),
     textAlign: 'center',
     color: theme.palette.text.primary,
 
+  },
+  button: {
+    color: '#FF6F91',
   },
   pic: {
     width: 300,
@@ -41,14 +44,14 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function UserDetail() {
-  const user = { username: "", email: "", fullname: "", gender: "male", phone: 0, follower: 0, following: 0, posts: 0, like: 0, comments: 0, roleId: 1, isDelete: false };
+  const user = { username: "", email: "", fullname: "", gender: "male", phone: 0, follower: 0, following: 0, posts: 0, like: 0, comments: 0, roleId: 1, isDelete: false,posts:[1,2,3,4] };
   const classes = useStyles();
   const [userData, setUserData] = useState(user);
-
+  const [postsData, setPostData] = useState();
   useEffect(() => {
     let url = window.location.href;
     let username = url.split("/");
-    let endpoint = '/users/' + username[4];
+    let endpoint = '/users/' + username[username.length - 1];
     get(endpoint, {}, {})
       .then(user => {
         const userComponent = user.data.message;
@@ -59,72 +62,114 @@ export default function UserDetail() {
       });
   }, []);
 
+  function getData(classes) {
+    let a = userData.post.map((value) => userPost(value, classes));
+    return a;
+  }
 
   function handleClickIcon() {
 
   }
   const status = "Active";
-  const action = <Typography>Ban</Typography>;
+  const action = <Typography className={classes.banButton}>Ban</Typography>;
   if (userData.isDelete === true) {
-    action = <Typography >Activated</Typography>;
+    action = <Typography className={classes.activatedButton}>Activated</Typography>;
     status = "Banned";
   }
 
   return (
-    <Container className={classes.root} >
+    <Container className={classes.root}>
       <Grid container spacing={1} className={classes.containerName}>
-        <Grid item xs={7} className={classes.typoName} >
-          <Typography variant="h3">{userData.fullname}</Typography>
+        <Grid item xs={2} className={classes.typoName} >
+          <Typography>{userData.fullname}</Typography>
         </Grid>
-        <Grid item xs={5}>
-          <Button onClick={handleClickIcon} size="large" variant="outlined" color="primary">
+        <Grid item xs={9}>
+          <IconButton onClick={handleClickIcon}>
             {action}
-          </Button>
+          </IconButton>
+        </Grid>
+        <Grid item xs={1} style={{float:"right"}}>
+          <Link to="/users">
+          <IconButton onClick={handleClickIcon}>
+         <ArrowBackIcon/>
+          </IconButton>
+          </Link>
         </Grid>
       </Grid>
       <div>
         <Grid container spacing={2}>
           <Grid item xs={3}>
             <h3>Email</h3>
-            <Typography>
-              {userData.email}
-            </Typography>
+            <TextField
+              value={userData.email}
+              InputProps={{
+                readOnly: true,
+              }}
+              variant="outlined"
+            />
           </Grid>
           <Grid item xs={3}>
             <h3>Gender</h3>
-            <Typography>
-              {userData.gender}
-            </Typography>
-            </Grid>
+            <TextField
+              value={userData.gender}
+              InputProps={{
+                readOnly: true,
+              }}
+              variant="outlined"
+            /></Grid>
           <Grid item xs={3}><h3>Phone</h3>
-            <Typography>
-              {userData.phone}
-            </Typography>
-            </Grid>
+            <TextField
+              value={userData.phone}
+              InputProps={{
+                readOnly: true,
+              }}
+              variant="outlined"
+            /></Grid>
           <Grid item xs={3}><h3>Status</h3>
-            <Typography>
-              {status}
-            </Typography>
+            <TextField
+              value={status}
+              InputProps={{
+                readOnly: true,
+              }}
+              variant="outlined"
+            />
           </Grid>
           <Grid item xs={3}><h3>Follower</h3>
-            <Typography>
-              {userData.followerCount}
-            </Typography>
+            <TextField
+              value={userData.followerCount}
+              InputProps={{
+                readOnly: true,
+              }}
+              variant="outlined"
+            />
           </Grid>
           <Grid item xs={3}><h3>Following</h3>
-            <Typography>
-              {userData.followingCount}
-            </Typography>
+            <TextField
+              value={userData.followingCount}
+              InputProps={{
+                readOnly: true,
+              }}
+              variant="outlined"
+            />
           </Grid>
           <Grid item xs={3}><h3>Total Like</h3>
-            <Typography>
-              {userData.like}
-            </Typography>
+            <TextField
+              value={userData.like}
+              InputProps={{
+                readOnly: true,
+              }}
+              variant="outlined"
+            />
           </Grid>
           <Grid item xs={3}><h3>Total Comments</h3>
-            <Typography>
-              {userData.comments}
-            </Typography>
+            <TextField
+              value={userData.comments}
+              InputProps={{
+                readOnly: true,
+              }}
+              variant="outlined"
+            />
+
           </Grid>
         </Grid>
       </div>
@@ -133,15 +178,13 @@ export default function UserDetail() {
       </div>
 
       <Grid container spacing={1}>
-        {getData(classes)}
+        {getData}
       </Grid>
 
 
     </Container>
   );
 }
-
-
 
 function userPost(value, classes) {
   return (
@@ -155,3 +198,6 @@ function getData(classes) {
   let a = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((value) => userPost(value, classes));
   return a;
 }
+
+
+
