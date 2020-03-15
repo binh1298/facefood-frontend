@@ -73,7 +73,7 @@ export default function UserDetail() {
   const status = "Active";
   const action = <Typography className={classes.banButton}>Ban</Typography>;
   if (userData.isDelete === true) {
-    action = <Typography className={classes.activatedButton}>Activated</Typography>;
+    action = <Typography className={classes.activatedButton}>Active</Typography>;
     status = "Banned";
   }
 
