@@ -1,68 +1,45 @@
-import { Container, TablePagination } from '@material-ui/core';
-import Button from '@material-ui/core/Button';
-import Paper from '@material-ui/core/Paper';
-import { makeStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableFooter from '@material-ui/core/TableFooter';
-import TableRow from '@material-ui/core/TableRow';
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import EnhancedTableHead from '../../components/EnhanceTableHead';
-import searchBar from '../../components/UserSearchBar/index.js';
-import { get, put } from '../../utils/ApiCaller';
+import { Container, TablePagination } from "@material-ui/core";
+import Button from "@material-ui/core/Button";
+import Paper from "@material-ui/core/Paper";
+import { makeStyles } from "@material-ui/core/styles";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableContainer from "@material-ui/core/TableContainer";
+import TableFooter from "@material-ui/core/TableFooter";
+import TableRow from "@material-ui/core/TableRow";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import EnhancedTableHead from "../../components/EnhanceTableHead";
+import searchBar from "../../components/UserSearchBar/index.js";
+import { get, put } from "../../utils/ApiCaller";
 
 const useStyles = makeStyles(theme => ({
-  root: {
-
-  },
+  root: {},
   tableHeadRow: {
     backgroundColor: theme.table.background.main,
     "& > *": {
-      fontWeight: 'bold',
-      color: theme.table.row.head,
+      fontWeight: "bold",
+      color: theme.table.row.head
     }
   },
   Link: {
-    fontWeight: 'bold',
+    fontWeight: "bold"
   },
   tableBody: {
     "& td": {
-      fontStyle: 'italic',
-      width: '156px',
+      fontStyle: "italic",
+      width: "156px"
     }
-  },
-}));
-
-async function handleBanClick(e, username) {
-  e.preventDefault();
-  const endpoint = "/user/" + username;
-  try {
-    const res = await put(
-      endpoint,
-      {},
-      {},
-    )
-    if (res.data.success === false) {
-      console.log('Error at ', res.data.error);
-    } else {
-      // t chưa làm cái reload nhé
-    }
-  } catch (error) {
-    console.log(error);
   }
-}
-
+}));
 
 function userTable(userData, setUserData) {
   const classes = useStyles();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const [order, setOrder] = useState('asc');
-  const [orderBy, setOrderBy] = useState('fullname');
-
+  const [order, setOrder] = useState("asc");
+  const [orderBy, setOrderBy] = useState("fullname");
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -74,14 +51,16 @@ function userTable(userData, setUserData) {
   };
 
   const handleRequestSort = (event, id) => {
-    const isAsc = orderBy === id && order === 'asc';
-    setOrder(isAsc ? 'desc' : 'asc');
+    const isAsc = orderBy === id && order === "asc";
+    setOrder(isAsc ? "desc" : "asc");
     setOrderBy(id);
   };
   ///-----------------------------------------
   function descendingComparator(a, b, orderBy) {
-    const firstRow = (typeof a[orderBy] == 'string') ? a[orderBy].toLowerCase() : a[orderBy];
-    const secondRow = (typeof b[orderBy] == 'string') ? b[orderBy].toLowerCase() : b[orderBy];
+    const firstRow =
+      typeof a[orderBy] == "string" ? a[orderBy].toLowerCase() : a[orderBy];
+    const secondRow =
+      typeof b[orderBy] == "string" ? b[orderBy].toLowerCase() : b[orderBy];
     if (secondRow < firstRow) {
       return -1;
     }
@@ -92,7 +71,7 @@ function userTable(userData, setUserData) {
   }
 
   function getComparator(order, orderBy) {
-    return order === 'desc'
+    return order === "desc"
       ? (a, b) => descendingComparator(a, b, orderBy)
       : (a, b) => -descendingComparator(a, b, orderBy);
   }
@@ -100,7 +79,7 @@ function userTable(userData, setUserData) {
 
   function stableSort(array, comparator) {
     const stabilizedThis = array.map((el, index) => [el, index]);
-    console.log('stab: ', stabilizedThis)
+    console.log("stab: ", stabilizedThis);
     stabilizedThis.sort((a, b) => {
       const order = comparator(a[0], b[0]);
       if (order !== 0) return order;
@@ -109,8 +88,7 @@ function userTable(userData, setUserData) {
     return stabilizedThis.map(el => el[0]);
   }
 
-
-  useEffect(() => {
+  function refreshList() {
     get("/users/", {}, {})
       .then(userlist => {
         const userComponent = userlist.data.message;
@@ -119,24 +97,87 @@ function userTable(userData, setUserData) {
       .catch(e => {
         console.log("Error at ListUser: " + e);
       });
+  }
+  useEffect(() => {
+    refreshList();
   }, []);
-  const emptyRows = rowsPerPage - Math.min(rowsPerPage, userData.length - page * rowsPerPage);
+  const emptyRows =
+    rowsPerPage - Math.min(rowsPerPage, userData.length - page * rowsPerPage);
   const headCells = [
-    { id: 'fullname', label: 'Fullname' },
-    { id: 'username', label: 'Username' },
-    { id: 'followerCount', label: 'Follower' },
-    { id: 'followingCount', label: 'Following' },
-    { id: 'postCount', label: 'Posts' },
-    { id: 'likeCount', label: 'Likes' },
-    { id: 'commentCount', label: 'Comments' },
-    { id: 'roleId', label: 'Role' },
-    { id: 'action', label: 'Action' },
+    { id: "fullname", label: "Fullname" },
+    { id: "username", label: "Username" },
+    { id: "followerCount", label: "Follower" },
+    { id: "followingCount", label: "Following" },
+    { id: "postCount", label: "Posts" },
+    { id: "likeCount", label: "Likes" },
+    { id: "commentCount", label: "Comments" },
+    { id: "roleId", label: "Role" },
+    { id: "action", label: "Action" }
   ];
 
+  async function handleBanClick(e, username) {
+    e.preventDefault();
+    const endpoint = "/users/" + username;
+    try {
+      const res = await put(endpoint, {}, {});
+      if (res.data.success === false) {
+        console.log("Error at ", res.data.error);
+      } else {
+        refreshList();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  function userRow(user) {
+    let actionButton;
+    const createBanHandler = id => event => {
+      handleBanClick(event, id);
+    };
+
+    if (user.isDeleted) {
+      actionButton = (
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={createBanHandler(user.username)}
+        >
+          UNBAN
+        </Button>
+      );
+    } else {
+      actionButton = (
+        <Button
+          variant="contained"
+          color="secondary"
+          onClick={createBanHandler(user.username)}
+        >
+          BAN
+        </Button>
+      );
+    }
+
+    let url = "/users/" + user.username;
+    return (
+      <TableRow hover key={user.username}>
+        <TableCell>
+          <Link to={url}>{user.fullname}</Link>
+        </TableCell>
+        <TableCell>{user.username}</TableCell>
+        <TableCell>{user.followerCount}</TableCell>
+        <TableCell>{user.followingCount}</TableCell>
+        <TableCell>{user.postCount}</TableCell>
+        <TableCell>{user.likeCount}</TableCell>
+        <TableCell>{user.commentCount}</TableCell>
+        <TableCell>{user.roleId === 1 ? "Admin" : "Member"}</TableCell>
+        <TableCell>{actionButton}</TableCell>
+      </TableRow>
+    );
+  }
   return (
     <div className={classes.root}>
       <TableContainer component={Paper}>
-        <Table >
+        <Table>
           <EnhancedTableHead
             classes={classes}
             headCells={headCells}
@@ -145,7 +186,9 @@ function userTable(userData, setUserData) {
             orderBy={orderBy}
           />
           <TableBody className={classes.tableBody}>
-            {stableSort(userData, getComparator(order, orderBy)).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((user) => userRow(user))}
+            {stableSort(userData, getComparator(order, orderBy))
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map(user => userRow(user))}
             {emptyRows > 0 && (
               <TableRow style={{ height: 70 * emptyRows }}>
                 <TableCell colSpan={7} />
@@ -170,58 +213,6 @@ function userTable(userData, setUserData) {
   );
 }
 
-function userRow(user) {
-  let actionButton;
-  const createBanHandler = id => event => {
-    handleBanClick(event, id);
-  };
-
-  if (user.is_deleted == true) {
-    actionButton = (
-      <Button variant="contained" color="primary" onClick={createBanHandler(user.username)}>
-        UNBAN
-      </Button>
-    );
-  } else {
-    actionButton = (
-      <Button variant="contained" color="secondary" onClick={createBanHandler(user.username)}>
-        BAN
-      </Button>
-    );
-  }
-
-  let url = "/users/" + user.username;
-  return (
-    <TableRow hover key={user.username}>
-      <TableCell>
-        <Link to={url}>{user.fullname}</Link>
-      </TableCell>
-      <TableCell>
-        {user.username}
-      </TableCell>
-      <TableCell>
-        {user.followerCount}
-      </TableCell>
-      <TableCell>
-        {user.followingCount}
-      </TableCell>
-      <TableCell>
-        {user.postCount}
-      </TableCell>
-      <TableCell>
-        {user.likeCount}
-      </TableCell>
-      <TableCell>
-        {user.commentCount}
-      </TableCell>
-      <TableCell>
-        {user.roleId === 1 ? 'Admin' : 'Member'}
-      </TableCell>
-      <TableCell>{actionButton}</TableCell>
-    </TableRow>
-  );
-}
-
 export default function ListUser() {
   const [userData, setUserData] = useState([]);
 
@@ -229,7 +220,6 @@ export default function ListUser() {
     <Container>
       {searchBar(setUserData)}
       {userTable(userData, setUserData)}
-    </Container >
-
+    </Container>
   );
 }
