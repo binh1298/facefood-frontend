@@ -6,6 +6,13 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { get } from '../../utils/ApiCaller';
+import GridList from '@material-ui/core/GridList';
+import GridListTile from '@material-ui/core/GridListTile';
+import GridListTileBar from '@material-ui/core/GridListTileBar';
+import ListSubheader from '@material-ui/core/ListSubheader';
+import InfoIcon from '@material-ui/icons/Info';
+import InfoGrid from '../../components/InfoGridComponent/InfoGrid';
+import TimerIcon from '@material-ui/icons/Timer';
 const useStyles = makeStyles(theme => ({
   root: {
     marginTop: '10px',
@@ -41,13 +48,18 @@ const useStyles = makeStyles(theme => ({
   activatedButton: {
     color: theme.palette.secondary.side,
   },
+  icon: {
+    color: 'rgba(255, 255, 255, 0.54)',
+  },
+  gridList: {
+    width: 1200,
+    height: 800,
+  },
 }));
 
 export default function UserDetail() {
-  const user = { username: "", email: "", fullname: "", gender: "male", phone: 0, follower: 0, following: 0, posts: 0, like: 0, comments: 0, roleId: 1, isDelete: false,posts:[1,2,3,4] };
   const classes = useStyles();
-  const [userData, setUserData] = useState(user);
-  const [postsData, setPostData] = useState();
+  const [userData, setUserData] = useState({});
   useEffect(() => {
     let url = window.location.href;
     let username = url.split("/");
@@ -56,24 +68,22 @@ export default function UserDetail() {
       .then(user => {
         const userComponent = user.data.message;
         setUserData(userComponent);
+        console.log(userComponent);
       })
       .catch(e => {
         console.log(e);
       });
   }, []);
 
-  function getData(classes) {
-    let a = userData.post.map((value) => userPost(value, classes));
-    return a;
-  }
+ 
 
   function handleClickIcon() {
 
   }
   const status = "Active";
-  const action = <Typography className={classes.banButton}>Ban</Typography>;
-  if (userData.isDelete === true) {
-    action = <Typography className={classes.activatedButton}>Active</Typography>;
+  let action = <Typography className={classes.banButton}>Ban</Typography>;
+  if (userData.isDeleted === true) {
+    action = <Typography className={classes.activatedButton}>Activated</Typography>;
     status = "Banned";
   }
 
@@ -88,116 +98,54 @@ export default function UserDetail() {
             {action}
           </IconButton>
         </Grid>
-        <Grid item xs={1} style={{float:"right"}}>
+        <Grid item xs={1} style={{ float: "right" }}>
           <Link to="/users">
-          <IconButton onClick={handleClickIcon}>
-         <ArrowBackIcon/>
-          </IconButton>
+            <IconButton onClick={handleClickIcon}>
+              <ArrowBackIcon />
+            </IconButton>
           </Link>
         </Grid>
       </Grid>
       <div>
         <Grid container spacing={2}>
-          <Grid item xs={4}>
-            <h3>Email</h3>
-            <TextField
-              value={userData.email}
-              InputProps={{
-                readOnly: true,
-              }}
-              variant="outlined"
-            />
-          </Grid>
-          {/* <Grid item xs={3}>
-            <h3>Gender</h3>
-            <TextField
-              value={userData.gender}
-              InputProps={{
-                readOnly: true,
-              }}
-              variant="outlined"
-            /></Grid> */}
-          {/* <Grid item xs={3}><h3>Phone</h3>
-            <TextField
-              value={userData.phone}
-              InputProps={{
-                readOnly: true,
-              }}
-              variant="outlined"
-            /></Grid> */}
-          <Grid item xs={4}><h3>Status</h3>
-            <TextField
-              value={status}
-              InputProps={{
-                readOnly: true,
-              }}
-              variant="outlined"
-            />
-          </Grid>
-          <Grid item xs={4}><h3>Follower</h3>
-            <TextField
-              value={userData.followerCount}
-              InputProps={{
-                readOnly: true,
-              }}
-              variant="outlined"
-            />
-          </Grid>
-          <Grid item xs={4}><h3>Following</h3>
-            <TextField
-              value={userData.followingCount}
-              InputProps={{
-                readOnly: true,
-              }}
-              variant="outlined"
-            />
-          </Grid>
-          <Grid item xs={4}><h3>Total Like</h3>
-            <TextField
-              value={userData.like}
-              InputProps={{
-                readOnly: true,
-              }}
-              variant="outlined"
-            />
-          </Grid>
-          <Grid item xs={4}><h3>Total Comments</h3>
-            <TextField
-              value={userData.comments}
-              InputProps={{
-                readOnly: true,
-              }}
-              variant="outlined"
-            />
-
-          </Grid>
+          <InfoGrid label="Email" value={userData.email == null ? '' : userData.email} />
+          <InfoGrid label="Status" value={status} />
+          <InfoGrid label="Followers" value={userData.followerCount == null ? 0 : userData.followerCount} />
+          <InfoGrid label="Followings" value={userData.followingCount == null ? 0 : userData.followingCount} />
+          <InfoGrid label="Total Likes" value={userData.likeCount == null ? 0 : userData.likeCount} />
+          <InfoGrid label="Total Comments" value={userData.commentCount == null ? 0 : userData.commentCount} />
         </Grid>
       </div>
       <div>
-        <Grid item xs={2}><h3>Total Post:11</h3></Grid>
+        <Grid item xs={2}><h3>Total Post:{userData.totalPosts == null ? 0 : userData.totalPosts.count}</h3></Grid>
       </div>
-
-      <Grid container spacing={1}>
-        {getData}
-      </Grid>
-
-
+      <GridList cellHeight={400} className={classes.gridList} cols={4}>
+        {userData.totalPosts==null?'':userData.totalPosts.rows.map((post) => userPost(post, classes))}
+      </GridList>
     </Container>
   );
 }
 
-function userPost(value, classes) {
+function userPost(post, classes) {
+  const urlToPost = "/posts/"+post.id;
   return (
-    <Grid item xs={3} key={value}>
-      <Paper className={classes.pic}></Paper>
-    </Grid>
-
+    <GridListTile key={post.id}>
+      <img src={post.imageUrl} alt={post.id} />
+      <GridListTileBar 
+        title={post.postName}
+        subtitle={<span>Time needed:{post.timeNeeded}'</span>}
+        actionIcon={
+          <Link to={urlToPost}>
+          <IconButton aria-label={`info about ${post.postName}`} className={classes.icon}>
+            <InfoIcon />
+          </IconButton>
+          </Link>
+        }
+      />
+    </GridListTile>
   );
 }
-function getData(classes) {
-  let a = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((value) => userPost(value, classes));
-  return a;
-}
+
 
 
 
