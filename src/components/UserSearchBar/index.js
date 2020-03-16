@@ -25,14 +25,14 @@ const useStyles = makeStyles(theme => ({
 export default function searchBar(setUserData) {
   const classes = useStyles();
   const [query, setQuery] = useState();
-  const [isDelete, setIsDelete] = useState();
+  const [isDeleted, setIsDeleted] = useState();
   const [roleId, setRoleId] = useState();
   function handleChangeTxtSearch(e) {
     setQuery(e.target.value);
   }
   function handleStatusChange(e) {
     e.preventDefault();
-    setIsDelete(e.target.value);
+    setIsDeleted(e.target.value);
   }
   function handleRoleChange(e) {
     e.preventDefault();
@@ -43,7 +43,7 @@ export default function searchBar(setUserData) {
     e.preventDefault();
     let search = {}
     if(query != null) search = {...search, query}
-    if(isDelete != null) search = {...search, isDelete}
+    if(isDeleted != null) search = {...search, isDeleted}
     if(roleId != null) search = {...search, roleId}
     get(
       "/users/",
@@ -80,10 +80,10 @@ export default function searchBar(setUserData) {
         <Grid item xs={1}>
           <FormControl>
             <InputLabel>Status</InputLabel>
-            <NativeSelect value={isDelete} onChange={handleStatusChange}>
+            <NativeSelect value={isDeleted} onChange={handleStatusChange}>
               <option value={null}></option>
-              <option value={1}>Active</option>
-              <option value={0}>Banned</option>
+              <option value={false}>Active</option>
+              <option value={true}>Banned</option>
             </NativeSelect>
           </FormControl>
         </Grid>

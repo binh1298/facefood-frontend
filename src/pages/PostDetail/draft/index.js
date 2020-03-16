@@ -1,4 +1,4 @@
-import { Box, Button, Card, CardContent, Container, Grid, makeStyles, Typography, Paper } from "@material-ui/core";
+import { Box, Button, Card, CardContent, Container, Grid, makeStyles, Typography, Divider } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { get } from "../../utils/ApiCaller";
 import PostDetailComments from "./PostDetailComments";
@@ -11,7 +11,8 @@ const useStyles = makeStyles(theme => ({
     marginLeft: 70,
     marginRight: 70,
     display: "flex",
-    height: 600
+    height: 600,
+
   },
   details: {
     width: "50%",
@@ -29,7 +30,7 @@ const useStyles = makeStyles(theme => ({
   comments: {
     overflow: "auto",
     display: "flex",
-    height: 200,
+    height: '50%',
     paddingLeft: theme.spacing(1),
     paddingBottom: theme.spacing(1)
   }
@@ -105,27 +106,30 @@ export default function PostDetail() {
           <Grid container>
             <PostDetailIngredient ingredients={ingredientData} />
           </Grid>
+
           <Box m={2} />
         </CardContent>
-        <Card className={classes.comments} variant='outlined'>
-          <Grid container alignItems='stretch'>
+        <Container className={classes.comments} variant='outlined'>
+          <Grid container>
             <Grid item xs={8}></Grid>
             <Grid item xs={4}>
               <Typography>
                 {postData.likeCount} Likes | {postData.commentCount} Comments
               </Typography>
+
             </Grid>
             <Grid item xs={12}>
-              <Container fixed>
+              <>
                 {commentData ? (
                   <PostDetailComments comments={commentData} />
                 ) : (
                     <Typography>Loading...</Typography>
                   )}
-              </Container>
+              </>
+
             </Grid>
           </Grid>
-        </Card>
+        </Container>
       </div>
       {postData.steps ? (
         <StepCard className={classes.cover} steps={postData.steps} />
