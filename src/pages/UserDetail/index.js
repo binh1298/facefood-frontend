@@ -133,7 +133,7 @@ function userPost(post, classes) {
       <img src={post.imageUrl} alt={post.id} />
       <GridListTileBar 
         title={post.postName}
-        subtitle={<span><TimerIcon/> {post.timeNeeded}'</span>}
+        subtitle={<span>Time needed:{post.timeNeeded}'</span>}
         actionIcon={
           <Link to={urlToPost}>
           <IconButton aria-label={`info about ${post.postName}`} className={classes.icon}>
