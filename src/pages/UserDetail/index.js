@@ -45,11 +45,7 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.secondary.side,
   },
   icon: {
-    color: 'rgba(255, 255, 255, 0.54)',
-  },
-  gridList: {
-    width: 1200,
-    height: 800,
+    color: theme.icon.primary.main,
   },
 }));
 
