@@ -73,7 +73,7 @@ export default function UserDetail() {
   const status = "Active";
   const action = <Typography className={classes.banButton}>Ban</Typography>;
   if (userData.isDelete === true) {
-    action = <Typography className={classes.activatedButton}>Activated</Typography>;
+    action = <Typography className={classes.activatedButton}>Active</Typography>;
     status = "Banned";
   }
 
@@ -98,7 +98,7 @@ export default function UserDetail() {
       </Grid>
       <div>
         <Grid container spacing={2}>
-          <Grid item xs={3}>
+          <Grid item xs={4}>
             <h3>Email</h3>
             <TextField
               value={userData.email}
@@ -108,7 +108,7 @@ export default function UserDetail() {
               variant="outlined"
             />
           </Grid>
-          <Grid item xs={3}>
+          {/* <Grid item xs={3}>
             <h3>Gender</h3>
             <TextField
               value={userData.gender}
@@ -116,16 +116,16 @@ export default function UserDetail() {
                 readOnly: true,
               }}
               variant="outlined"
-            /></Grid>
-          <Grid item xs={3}><h3>Phone</h3>
+            /></Grid> */}
+          {/* <Grid item xs={3}><h3>Phone</h3>
             <TextField
               value={userData.phone}
               InputProps={{
                 readOnly: true,
               }}
               variant="outlined"
-            /></Grid>
-          <Grid item xs={3}><h3>Status</h3>
+            /></Grid> */}
+          <Grid item xs={4}><h3>Status</h3>
             <TextField
               value={status}
               InputProps={{
@@ -134,7 +134,7 @@ export default function UserDetail() {
               variant="outlined"
             />
           </Grid>
-          <Grid item xs={3}><h3>Follower</h3>
+          <Grid item xs={4}><h3>Follower</h3>
             <TextField
               value={userData.followerCount}
               InputProps={{
@@ -143,7 +143,7 @@ export default function UserDetail() {
               variant="outlined"
             />
           </Grid>
-          <Grid item xs={3}><h3>Following</h3>
+          <Grid item xs={4}><h3>Following</h3>
             <TextField
               value={userData.followingCount}
               InputProps={{
@@ -152,7 +152,7 @@ export default function UserDetail() {
               variant="outlined"
             />
           </Grid>
-          <Grid item xs={3}><h3>Total Like</h3>
+          <Grid item xs={4}><h3>Total Like</h3>
             <TextField
               value={userData.like}
               InputProps={{
@@ -161,7 +161,7 @@ export default function UserDetail() {
               variant="outlined"
             />
           </Grid>
-          <Grid item xs={3}><h3>Total Comments</h3>
+          <Grid item xs={4}><h3>Total Comments</h3>
             <TextField
               value={userData.comments}
               InputProps={{
