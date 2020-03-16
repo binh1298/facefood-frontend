@@ -9,11 +9,11 @@ export default function PostDetailIngredient(props) {
   const ingredients = props.ingredients;
 
   const renderIngredientsName = ingredients.map((ing) => {
-    return <Typography key={ing.ingredientId}>{ing.ingredientName}</Typography>
+    return <Typography key={'name' + ing.id}>{ing.ingredientName}</Typography>
   });
 
   const renderIngredientsValue = ingredients.map((ing) => {
-    return <Typography key={ing.ingredientId}>{ing.value} {" " + ing.unitName}</Typography>
+    return <Typography key={'value' + ing.id}>{ing.value} {" " + ing.unitName}</Typography>
   });
 
   return (
