@@ -73,13 +73,13 @@ export default function UserDetail() {
 
 
 
-  function handleClickIcon() {
+  function handleClickButton() {
 
   }
   const status = "Active";
-  let action = 'Ban';
+  let action = 'BAN';
   if (userData.isDeleted === true) {
-    action = 'Activated'
+    action = 'UNBAN'
     status = "Banned";
   }
 
@@ -92,8 +92,8 @@ export default function UserDetail() {
         <Grid item xs={8}>
         <Button
             variant="contained"
-            color="secondary"
-            onClick={handleClickIcon}
+            color={action=='BAN'?"secondary":"primary"}
+            onClick={handleClickButton}
           >
             {action}
           </Button>
