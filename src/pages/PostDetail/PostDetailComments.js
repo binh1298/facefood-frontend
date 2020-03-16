@@ -2,10 +2,7 @@ import { Container, Link, Typography } from "@material-ui/core";
 import React from "react";
 
 export default function PostDetailComments(props) {
-  // let renderComment = props.comments.map((cmt) =>{
-  //   <Typography><Link>{cmt.username} </Link>{cmt.content} asdfasdf </Typography>
-  // })
-  // return {renderComment}
+  
   const comments = props.comments;
   
   const url = window.location.href;
@@ -13,7 +10,7 @@ export default function PostDetailComments(props) {
   userlink = userlink[0] + "/users/";
   const a = comments.map(cmt => {
     return (
-      <Typography key={cmt.commentId}>
+      <Typography key={cmt.id}>
         <Link href={"http://localhost:3000/users/" + cmt.username} color="primary" > {cmt.username}</Link>
         {" " + cmt.content}
       </Typography>
