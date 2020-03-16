@@ -119,7 +119,7 @@ export default function UserDetail() {
       <div>
         <Grid item xs={2}><h3>Total Post:{userData.totalPosts == null ? 0 : userData.totalPosts.count}</h3></Grid>
       </div>
-      <GridList cellHeight={400} className={classes.gridList} cols={4}>
+      <GridList cellHeight={400} cols={4}>
         {userData.totalPosts==null?'':userData.totalPosts.rows.map((post) => userPost(post, classes))}
       </GridList>
     </Container>
