@@ -11,7 +11,7 @@ export default function InfoGrid(props) {
         InputProps={{
           readOnly: true,
         }}
-        variant="outlined"
+        variant="standard"
       />
     </Grid>
   );

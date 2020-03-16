@@ -51,7 +51,11 @@ const theme = createMuiTheme({
     background:{
       main:'#fafafa'
     },
-  },
+  },icon:{
+    primary:{
+      main:'rgba(255, 255, 255, 0.60)',
+    }
+  }
 
 });
 
