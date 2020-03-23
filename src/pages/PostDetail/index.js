@@ -1,4 +1,4 @@
-import { Box, Button, Card, CardContent, Container, Grid, makeStyles, Typography, Paper } from "@material-ui/core";
+import { Box, Button, Card, CardContent, Container, Grid, makeStyles, Typography, Paper, Divider } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { get } from "../../utils/ApiCaller";
 import PostDetailComments from "./PostDetailComments";
@@ -11,13 +11,13 @@ const useStyles = makeStyles(theme => ({
     marginLeft: 70,
     marginRight: 70,
     display: "flex",
-    height: 600
+    height: 600,
   },
   details: {
     width: "50%",
     display: "flex",
     flexDirection: "column",
-    height: 500
+    height: 500,
   },
   content: {
     flex: "1 0 auto"
@@ -30,7 +30,6 @@ const useStyles = makeStyles(theme => ({
     overflow: "auto",
     display: "flex",
     height: 200,
-    paddingLeft: theme.spacing(1),
     paddingBottom: theme.spacing(1)
   }
 }));
@@ -99,7 +98,7 @@ export default function PostDetail() {
           <Typography variant="subtitle1" color="textSecondary">
             Time: {postData.timeNeeded}' | Category: {postData.categoryName}
           </Typography>
-
+          <Divider />
           <Box m={2} />
           <Typography variant="h5">Ingredient</Typography>
           <Grid container>
@@ -107,25 +106,24 @@ export default function PostDetail() {
           </Grid>
           <Box m={2} />
         </CardContent>
-        <Card className={classes.comments} variant='outlined'>
+        <Divider />
+        <Box m={2} className={classes.comments}>
           <Grid container alignItems='stretch'>
-            <Grid item xs={8}></Grid>
-            <Grid item xs={4}>
+            <Grid item>
               <Typography>
                 {postData.likeCount} Likes | {postData.commentCount} Comments
               </Typography>
             </Grid>
+
             <Grid item xs={12}>
-              <Container fixed>
-                {commentData ? (
-                  <PostDetailComments comments={commentData} />
-                ) : (
-                    <Typography>Loading...</Typography>
-                  )}
-              </Container>
+              {commentData ? (
+                <PostDetailComments comments={commentData} />
+              ) : (
+                  <Typography>Loading...</Typography>
+                )}
             </Grid>
           </Grid>
-        </Card>
+        </Box>
       </div>
       {postData.steps ? (
         <StepCard className={classes.cover} steps={postData.steps} />
