@@ -1,6 +1,6 @@
 import { Box, Button, Card, CardContent, Container, Grid, makeStyles, Typography, Paper, Divider } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
-import { get } from "../../utils/ApiCaller";
+import { get, put } from "../../utils/ApiCaller";
 import PostDetailComments from "./PostDetailComments";
 import PostDetailIngredient from "./PostDetailIngredient";
 import { StepCard } from "./StepCard";
@@ -40,8 +40,8 @@ export default function PostDetail() {
   const [postData, setPostData] = useState("");
   const [commentData, setCommentData] = useState(null);
   const [ingredientData, setIngredientData] = useState([]);
-
-  useEffect(() => {
+  const [action, setAction] = useState('Delete');
+  function refreshList() {
     let url = window.location.href;
     let postId = url.split("/");
     let endpointPost = "/posts/" + postId[postId.length - 1];
@@ -51,6 +51,7 @@ export default function PostDetail() {
       .then(post => {
         const postComp = post.data.message;
         setPostData(postComp);
+        setAction(postComp.isDeleted?'Restore':'Delete');
       })
       .catch(e => {
         console.log(e);
@@ -73,7 +74,28 @@ export default function PostDetail() {
       .catch(e => {
         console.log(e);
       });
+  }
+  useEffect(() => {
+    refreshList()
   }, []);
+  async function handleDeleteClick(e, id) {
+    e.preventDefault();
+    const endpoint = "/posts/" + id;
+    try {
+      const res = await put(endpoint, {}, {});
+      if (res.data.success === false) {
+        console.log("Error at ", res.data.error);
+      } else {
+        refreshList();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const createDeleteHandler = id => event => {
+    handleDeleteClick(event, id);
+  };
 
   return (
     <Card className={classes.root}>
@@ -86,8 +108,12 @@ export default function PostDetail() {
               </Typography>
             </Grid>
             <Grid item xs={2}>
-              <Button variant="outlined" color="primary">
-                Delete
+              <Button
+                variant="contained"
+                color={action == 'Delete' ? "secondary" : "primary"}
+                onClick={createDeleteHandler(postData.id)}
+              >
+                {action}
               </Button>
             </Grid>
           </Grid>
