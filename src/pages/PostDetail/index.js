@@ -98,15 +98,15 @@ export default function PostDetail() {
           <Typography variant="subtitle1" color="textSecondary">
             Time: {postData.timeNeeded}' | Category: {postData.categoryName}
           </Typography>
-          <Divider/>
-          <Box m={2}/>
+          <Divider />
+          <Box m={2} />
           <Typography variant="h5">Ingredient</Typography>
           <Grid container>
             <PostDetailIngredient ingredients={ingredientData} />
           </Grid>
           <Box m={2} />
         </CardContent>
-        <Divider/>
+        <Divider />
         <Box m={2} className={classes.comments}>
           <Grid container alignItems='stretch'>
             <Grid item>
@@ -116,13 +116,11 @@ export default function PostDetail() {
             </Grid>
 
             <Grid item xs={12}>
-              <Container fixed>
-                {commentData ? (
-                  <PostDetailComments comments={commentData} />
-                ) : (
-                    <Typography>Loading...</Typography>
-                  )}
-              </Container>
+              {commentData ? (
+                <PostDetailComments comments={commentData} />
+              ) : (
+                  <Typography>Loading...</Typography>
+                )}
             </Grid>
           </Grid>
         </Box>
