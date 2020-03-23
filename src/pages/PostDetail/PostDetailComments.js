@@ -16,5 +16,5 @@ export default function PostDetailComments(props) {
       </Typography>
     )
   });
-  return <Container >{a}</Container>;
+  return <>{a}</>;
 }
