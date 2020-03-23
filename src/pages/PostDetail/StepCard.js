@@ -1,4 +1,4 @@
-import { Button, Card, CardContent, CardMedia, Container, makeStyles, MobileStepper, Typography } from "@material-ui/core";
+import { Button, Card, CardContent, CardMedia, Container, makeStyles, MobileStepper, Typography, Box } from "@material-ui/core";
 import React, { useState } from 'react';
 
 const useStyle = makeStyles(theme => ({
@@ -76,6 +76,7 @@ export function StepCard(props) {
           </Button>
         }
       />
+      <Box height='20' />
     </Container>
   )
 }
