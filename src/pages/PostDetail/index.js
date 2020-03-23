@@ -11,7 +11,7 @@ const useStyles = makeStyles(theme => ({
     marginLeft: 70,
     marginRight: 70,
     display: "flex",
-    height: 600,
+    height: '100%',
   },
   details: {
     width: "50%",
@@ -27,10 +27,8 @@ const useStyles = makeStyles(theme => ({
     height: "100%"
   },
   comments: {
-    overflow: "auto",
     display: "flex",
     height: 200,
-    paddingBottom: theme.spacing(1)
   }
 }));
 
