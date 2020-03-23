@@ -106,10 +106,10 @@ export default function UserDetail() {
         </Grid>
       </div>
       <div>
-        <Grid item xs={2}><h3>Total Post:{userData.totalPosts == null ? 0 : userData.totalPosts.count}</h3></Grid>
+        <Grid item xs={2}><h3>Total Post:{userData.posts == null ? 0 : userData.posts.count}</h3></Grid>
       </div>
       <GridList cellHeight={400} cols={4}>
-        {userData.totalPosts == null ? '' : userData.totalPosts.rows.map((post) => userPost(post, classes))}
+        {userData.posts == null ? '' : userData.posts.map((post) => userPost(post, classes))}
       </GridList>
     </Container>
   );
