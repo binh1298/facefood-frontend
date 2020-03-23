@@ -1,19 +1,8 @@
-import {
-  Button,
-  makeStyles,
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableFooter,
-  TablePagination,
-  TableRow
-} from "@material-ui/core";
+import { Button, makeStyles, Paper, Table, TableBody, TableCell, TableContainer, TableFooter, TablePagination, TableRow } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import EnhancedTableHead from "../../components/EnhanceTableHead";
 import { get, put } from "../../utils/ApiCaller";
-import { Link } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -39,13 +28,13 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const headCells = [
-  { id: "title", label: "Title" },
-  { id: "category", label: "Category" },
-  { id: "step", label: "Step" },
-  { id: "like", label: "Like" },
-  { id: "comment", label: "Comment" },
-  { id: "creator", label: "Creator" },
-  { id: "action", label: "Action" }
+  { id: "postName", label: "Title" },
+  { id: "categoryName", label: "Category" },
+  { id: "stepCount", label: "Step" },
+  { id: "likeCount", label: "Like" },
+  { id: "commentCount", label: "Comment" },
+  { id: "username", label: "Creator" },
+  { id: "isDeleted", label: "Action" }
 ];
 
 export default function PostTable(props) {
@@ -75,7 +64,37 @@ export default function PostTable(props) {
     setOrder(isAsc ? "desc" : "asc");
     setOrderBy(id);
   };
+  function descendingComparator(a, b, orderBy) {
+    const firstRow =
+      typeof a[orderBy] == "string" ? a[orderBy].toLowerCase() : a[orderBy];
+    const secondRow =
+      typeof b[orderBy] == "string" ? b[orderBy].toLowerCase() : b[orderBy];
+    if (secondRow < firstRow) {
+      return -1;
+    }
+    if (secondRow > firstRow) {
+      return 1;
+    }
+    return 0;
+  }
 
+  function getComparator(order, orderBy) {
+    return order === "desc"
+      ? (a, b) => descendingComparator(a, b, orderBy)
+      : (a, b) => -descendingComparator(a, b, orderBy);
+  }
+  ///-----------------------------------------
+
+  function stableSort(array, comparator) {
+    const stabilizedThis = array.map((el, index) => [el, index]);
+    console.log("stab: ", stabilizedThis);
+    stabilizedThis.sort((a, b) => {
+      const order = comparator(a[0], b[0]);
+      if (order !== 0) return order;
+      return a[1] - b[1];
+    });
+    return stabilizedThis.map(el => el[0]);
+  }
   ////
 
   function refreshList() {
@@ -159,7 +178,7 @@ export default function PostTable(props) {
           orderBy={orderBy}
         />
         <TableBody>
-          {postData
+          {stableSort(postData, getComparator(order, orderBy))
             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             .map(post => BodyContent(post))}
           {emptyRows > 0 && (

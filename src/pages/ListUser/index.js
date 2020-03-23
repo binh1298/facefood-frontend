@@ -112,7 +112,7 @@ function userTable(userData, setUserData) {
     { id: "likeCount", label: "Likes" },
     { id: "commentCount", label: "Comments" },
     { id: "roleId", label: "Role" },
-    { id: "action", label: "Action" }
+    { id: "isDeleted", label: "Action" }
   ];
 
   async function handleBanClick(e, username) {
