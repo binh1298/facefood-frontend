@@ -8,7 +8,7 @@ import InfoIcon from '@material-ui/icons/Info';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import InfoGrid from '../../components/InfoGridComponent/InfoGrid';
-import { get } from '../../utils/ApiCaller';
+import { get, put } from '../../utils/ApiCaller';
 const useStyles = makeStyles(theme => ({
   root: {
     marginTop: '10px',
@@ -52,32 +52,46 @@ const useStyles = makeStyles(theme => ({
 export default function UserDetail() {
   const classes = useStyles();
   const [userData, setUserData] = useState({});
+  const [action, setAction] = useState('BAN');
+  const [status, setStatus] = useState('Active');
   useEffect(() => {
-    let url = window.location.href;
-    let username = url.split("/");
-    let endpoint = '/users/' + username[username.length - 1];
-    get(endpoint, {}, {})
-      .then(user => {
-        const userComponent = user.data.message;
-        setUserData(userComponent);
-        console.log(userComponent);
-      })
-      .catch(e => {
-        console.log(e);
-      });
+   refreshList()
   }, []);
-
-
-
-  function handleClickButton() {
-
+function refreshList() {
+  let url = window.location.href;
+  let username = url.split("/");
+  let endpoint = '/users/' + username[username.length - 1];
+  get(endpoint, {}, {})
+    .then(user => {
+      const userComponent = user.data.message;
+      setUserData(userComponent);
+      setAction(userComponent.isDeleted?'UNBAN':'BAN');
+      setStatus(userComponent.isDeleted?'Banned':'Active');
+      console.log(userComponent);
+    })
+    .catch(e => {
+      console.log(e);
+    });
   }
-  const status = "Active";
-  let action = 'BAN';
-  if (userData.isDeleted === true) {
-    action = 'UNBAN'
-    status = "Banned";
+  async function handleBanClick(e, username) {
+    e.preventDefault();
+    const endpoint = "/users/" + username;
+    try {
+      const res = await put(endpoint, {}, {});
+      if (res.data.success === false) {
+        console.log("Error at ", res.data.error);
+      } else {
+        refreshList();
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
+
+  const createBanHandler = id => event => {
+    handleBanClick(event, id);
+  };
+ 
 
   return (
     <Container className={classes.root}>
@@ -89,7 +103,7 @@ export default function UserDetail() {
         <Button
             variant="contained"
             color={action=='BAN'?"secondary":"primary"}
-            onClick={handleClickButton}
+            onClick={createBanHandler(userData.username)}
           >
             {action}
           </Button>
