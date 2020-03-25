@@ -55,6 +55,11 @@ function Navigation(props) {
                 className={classes.item}
                 value="/posts"
               />
+              <Tab
+                label="Comments"
+                className={classes.item}
+                value="/comments"
+              />
               {/* <Tab
               label="User Detail"
               className={classes.item}

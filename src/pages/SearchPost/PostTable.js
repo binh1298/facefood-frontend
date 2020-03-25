@@ -137,7 +137,7 @@ export default function PostTable(props) {
           color="primary"
           onClick={createBanHandler(post.id)}
         >
-          UNBAN
+          RESTORE
         </Button>
       );
     } else {
@@ -147,7 +147,7 @@ export default function PostTable(props) {
           color="secondary"
           onClick={createBanHandler(post.id)}
         >
-          BAN
+          DELETE
         </Button>
       );
     }
