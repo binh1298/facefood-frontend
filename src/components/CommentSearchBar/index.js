@@ -22,40 +22,33 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.button.background.main
   }
 }));
-export default function searchBar(setUserData) {
+export default function searchBar(setCommentData) {
   const classes = useStyles();
   const [query, setQuery] = useState();
-  const [isDeleted, setIsDeleted] = useState();
+  const [isReported, setIsReported] = useState();
   const [roleId, setRoleId] = useState();
   function handleChangeTxtSearch(e) {
     setQuery(e.target.value);
   }
   function handleStatusChange(e) {
     e.preventDefault();
-    setIsDeleted(e.target.value);
+    setIsReported(e.target.value);
   }
-  function handleRoleChange(e) {
-    e.preventDefault();
-    setRoleId(e.target.value);
-  }
-
-  function handleSearchUser(e) {
+  function handleSearchComment(e) {
     e.preventDefault();
     let search = {}
     if(query != null) search = {...search, query}
-    if(isDeleted != null) search = {...search, isDeleted}
+    if(isReported != null) search = {...search,  isReported}
     if(roleId != null) search = {...search, roleId}
     get(
-      "/users/",
-      search,
-      {}
+      "/comments/?content="+query,
     )
-      .then(userlist => {
-        const userComponent = userlist.data.message;
-        setUserData(userComponent);
+      .then(commentList => {
+        const commentComponent = commentList.data.message;
+        setCommentData(commentComponent);
       })
       .catch(e => {
-        console.log("Error at ListUser: " + e);
+        console.log("Error at ListComment: " + e);
       });
   }
   return (
@@ -80,7 +73,7 @@ export default function searchBar(setUserData) {
         <Grid item xs={1}>
           <FormControl>
             <InputLabel>Status</InputLabel>
-            <NativeSelect value={isDeleted} onChange={handleStatusChange}>
+            <NativeSelect value={isReported} onChange={handleStatusChange}>
               <option value={null}></option>
               <option value={false}>Normal</option>
               <option value={true}>Reported</option>
@@ -92,7 +85,7 @@ export default function searchBar(setUserData) {
             variant="contained"
             disableElevation
             className={classes.buttonSearch}
-            onClick={handleSearchUser}
+            onClick={handleSearchComment}
           >
             Search
           </Button>
