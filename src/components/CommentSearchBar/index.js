@@ -70,16 +70,6 @@ export default function searchBar(setCommentData) {
             onChange={handleChangeTxtSearch}
           />
         </Grid>
-        <Grid item xs={1}>
-          <FormControl>
-            <InputLabel>Status</InputLabel>
-            <NativeSelect value={isReported} onChange={handleStatusChange}>
-              <option value={null}></option>
-              <option value={false}>Normal</option>
-              <option value={true}>Reported</option>
-            </NativeSelect>
-          </FormControl>
-        </Grid>
         <Grid item xs={2}>
           <Button
             variant="contained"
