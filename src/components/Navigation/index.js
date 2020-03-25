@@ -56,7 +56,7 @@ function Navigation(props) {
                 value="/posts"
               />
               <Tab
-                label="Reported Comments"
+                label="Comments"
                 className={classes.item}
                 value="/comments"
               />
