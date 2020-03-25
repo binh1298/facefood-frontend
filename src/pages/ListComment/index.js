@@ -104,10 +104,10 @@ function commentTable(commentData, setCommentData) {
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, commentData.length - page * rowsPerPage);
   const headCells = [
-    { id: "createdAt", label: "Date Created" },
     { id: "username", label: "Username" },
-    { id: "content", label: "comment content" },
-    { id: "isReported", label: "status" },
+    { id: "createdAt", label: "Date created" },
+    { id: "content", label: "Comment content" },
+    { id: "isReported", label: "Status" },
     { id: "isDeleted", label: "Action" }
   ];
 
@@ -157,9 +157,9 @@ function commentTable(commentData, setCommentData) {
     return (
       <TableRow hover key={comment.id}>
         <TableCell>
-          <Link to={url}>{comment.createdAt}</Link>
+          <Link to={url}>{comment.username}</Link>
         </TableCell>
-        <TableCell>{comment.username}</TableCell>
+        <TableCell>{comment.createdAt}</TableCell>
         <TableCell>{comment.content}</TableCell>
         <TableCell>{comment.isReported?'Reported':'Normal'}</TableCell>
         <TableCell>{actionButton}</TableCell>
