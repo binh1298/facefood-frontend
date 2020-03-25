@@ -52,6 +52,11 @@ export const privateRoutes = [
     component: ListPost,
   },
   {
+    path: '/comments',
+    name: 'listComment',
+    component: ListPost,
+  },
+  {
     path: '/',
     name: 'home',
     component: Home
