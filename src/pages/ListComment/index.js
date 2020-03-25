@@ -11,7 +11,7 @@ import TableRow from "@material-ui/core/TableRow";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import EnhancedTableHead from "../../components/EnhanceTableHead";
-import searchBar from "../../components/UserSearchBar/index.js";
+import searchBar from "../../components/CommentSearchBar/index.js";
 import { get, put } from "../../utils/ApiCaller";
 
 const useStyles = makeStyles(theme => ({
@@ -89,13 +89,13 @@ function commentTable(commentData, setCommentData) {
   }
 
   function refreshList() {
-    get("/users/", {}, {})
-      .then(userlist => {
-        const userComponent = userlist.data.message;
-        setCommentData(userComponent);
+    get("/comments/", {}, {})
+      .then(commentList => {
+        const CommentComponent = commentList.data.message;
+        setCommentData(CommentComponent);
       })
       .catch(e => {
-        console.log("Error at ListUser: " + e);
+        console.log("Error at ListComment: " + e);
       });
   }
   useEffect(() => {
@@ -104,16 +104,16 @@ function commentTable(commentData, setCommentData) {
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, commentData.length - page * rowsPerPage);
   const headCells = [
-    { id: "fullname", label: "Date Created" },
+    { id: "createdAt", label: "Date Created" },
     { id: "username", label: "Username" },
-    { id: "followerCount", label: "PostName" },
-    { id: "followingCount", label: "CommentDescription" },
+    { id: "content", label: "comment content" },
+    { id: "isReported", label: "status" },
     { id: "isDeleted", label: "Action" }
   ];
 
-  async function handleBanClick(e, username) {
+  async function handleDeleteClick(e, commentId) {
     e.preventDefault();
-    const endpoint = "/users/" + username;
+    const endpoint = "/comments/" + commentId+'/delete';
     try {
       const res = await put(endpoint, {}, {});
       if (res.data.success === false) {
@@ -127,8 +127,8 @@ function commentTable(commentData, setCommentData) {
   }
   function commentRow(comment) {
     let actionButton;
-    const createBanHandler = id => event => {
-      handleBanClick(event, id);
+    const createDeleteHandler = id => event => {
+      handleDeleteClick(event, id);
     };
 
     if (comment.isDeleted) {
@@ -136,9 +136,9 @@ function commentTable(commentData, setCommentData) {
         <Button
           variant="contained"
           color="primary"
-          onClick={createBanHandler(comment.username)}
+          onClick={createDeleteHandler(comment.id)}
         >
-          UNBAN
+          Restore
         </Button>
       );
     } else {
@@ -146,23 +146,22 @@ function commentTable(commentData, setCommentData) {
         <Button
           variant="contained"
           color="secondary"
-          onClick={createBanHandler(comment.username)}
+          onClick={createDeleteHandler(comment.id)}
         >
-          BAN
+          Delete
         </Button>
       );
     }
 
     let url = "/users/" + comment.username;
     return (
-      <TableRow hover key={comment.username}>
+      <TableRow hover key={comment.id}>
         <TableCell>
-          <Link to={url}>{comment.fullname}</Link>
+          <Link to={url}>{comment.createdAt}</Link>
         </TableCell>
         <TableCell>{comment.username}</TableCell>
-        <TableCell>{comment.followerCount}</TableCell>
-        <TableCell>{comment.followingCount}</TableCell>
-        <TableCell>{comment.postCount}</TableCell>
+        <TableCell>{comment.content}</TableCell>
+        <TableCell>{comment.isReported?'Reported':'Normal'}</TableCell>
         <TableCell>{actionButton}</TableCell>
       </TableRow>
     );

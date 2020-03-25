@@ -10,6 +10,7 @@ import ListUser from '../pages/ListUser';
 import UserDetail from '../pages/UserDetail';
 import ListPost from '../pages/SearchPost/';
 import PostDetail from '../pages/PostDetail';
+import ListComment from '../pages/ListComment';
 
 export const publicRoutes = [
   {
@@ -54,7 +55,7 @@ export const privateRoutes = [
   {
     path: '/comments',
     name: 'listComment',
-    component: ListPost,
+    component: ListComment,
   },
   {
     path: '/',
