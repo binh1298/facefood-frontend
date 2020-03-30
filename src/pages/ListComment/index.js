@@ -108,6 +108,7 @@ function commentTable(commentData, setCommentData) {
     { id: "createdAt", label: "Date created" },
     { id: "content", label: "Comment content" },
     { id: "isReported", label: "Status" },
+    { id: "reason", label: "Report reason" },
     { id: "isDeleted", label: "Action" }
   ];
 
@@ -162,6 +163,7 @@ function commentTable(commentData, setCommentData) {
         <TableCell>{comment.createdAt}</TableCell>
         <TableCell>{comment.content}</TableCell>
         <TableCell>{comment.isReported?'Reported':'Normal'}</TableCell>
+        <TableCell>{comment.reportCause}</TableCell>
         <TableCell>{actionButton}</TableCell>
       </TableRow>
     );
