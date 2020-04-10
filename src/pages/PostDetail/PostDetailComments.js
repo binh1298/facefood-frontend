@@ -1,6 +1,5 @@
-import { Container, Typography } from "@material-ui/core";
+import { Container,Link ,Typography } from "@material-ui/core";
 import React from "react";
-import { Link } from "react-router-dom";
 export default function PostDetailComments(props) {
   
   const comments = props.comments;
@@ -11,7 +10,7 @@ export default function PostDetailComments(props) {
   const a = comments.map(cmt => {
     return (
       <Typography key={cmt.id}>
-        <Link to={"/users/" + cmt.username} color="primary" > {cmt.username}</Link>
+        <Link href={"/users/" + cmt.username} color="primary" > {cmt.username}</Link>
         {" " + cmt.content}
       </Typography>
     )
