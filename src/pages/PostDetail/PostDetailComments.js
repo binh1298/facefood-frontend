@@ -11,7 +11,7 @@ export default function PostDetailComments(props) {
   const a = comments.map(cmt => {
     return (
       <Typography key={cmt.id}>
-        <Link href={"http://localhost:3000/users/" + cmt.username} color="primary" > {cmt.username}</Link>
+        <Link href={"/users/" + cmt.username} color="primary" > {cmt.username}</Link>
         {" " + cmt.content}
       </Typography>
     )
