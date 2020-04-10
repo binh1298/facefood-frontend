@@ -115,8 +115,8 @@ function refreshList() {
           <InfoGrid label="Status" value={status} />
           <InfoGrid label="Followers" value={userData.followerCount == null ? 0 : userData.followerCount} />
           <InfoGrid label="Followings" value={userData.followingCount == null ? 0 : userData.followingCount} />
-          <InfoGrid label="Total Likes" value={userData.likeCount == null ? 0 : userData.likeCount} />
-          <InfoGrid label="Total Comments" value={userData.commentCount == null ? 0 : userData.commentCount} />
+          <InfoGrid label="Total Likes" value={userData.totalLikes == null ? 0 : userData.totalLikes} />
+          <InfoGrid label="Total Comments" value={userData.totalComments == null ? 0 : userData.totalComments} />
         </Grid>
       </div>
       <div>
