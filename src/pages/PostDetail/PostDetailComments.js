@@ -1,6 +1,5 @@
-import { Container, Link, Typography } from "@material-ui/core";
+import { Container,Link ,Typography } from "@material-ui/core";
 import React from "react";
-
 export default function PostDetailComments(props) {
   
   const comments = props.comments;
